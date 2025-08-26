@@ -3,13 +3,33 @@
     x:Class="SchoolManagementMAUI.AppShell"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:local="clr-namespace:SchoolManagementMAUI"
-    Shell.FlyoutBehavior="Disabled"
+    xmlns:views="clr-namespace:SchoolManagementMAUI.Views"
+     xmlns:vm="clr-namespace:SchoolManagementMAUI.Views"
     Title="SchoolManagementMAUI">
 
-    <ShellContent
-        Title="Home"
-        ContentTemplate="{DataTemplate local:MainPage}"
-        Route="MainPage" />
+    <!-- Definição de rotas -->
+    <ShellContent Title="Login"
+                  ContentTemplate="{DataTemplate views:LoginPage}"
+                  Route="login" />
+
+    <ShellContent Title="Dashboard"
+                  ContentTemplate="{DataTemplate views:DashboardPage}"
+                  Route="dashboard" />
+
+    <ShellContent Title="Notas"
+                  ContentTemplate="{DataTemplate views:GradesPage}"
+                  Route="grades" />
+
+    <!--<ShellContent Title="Cursos"
+                  ContentTemplate="{DataTemplate views:CoursesPage}"
+                  Route="courses" />
+
+    <ShellContent Title="Perfil"
+                  ContentTemplate="{DataTemplate views:ProfilePage}"
+                  Route="profile" />
+
+    <ShellContent Title="Sobre"
+                  ContentTemplate="{DataTemplate views:AboutPage}"
+                  Route="about" />-->
 
 </Shell>

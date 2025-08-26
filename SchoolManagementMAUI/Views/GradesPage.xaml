@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+              xmlns:vm="clr-namespace:SchoolManagementMAUI.ViewModels"
+             xmlns:models="clr-namespace:SchoolManagementMAUI.Models"
+             xmlns:converters="clr-namespace:SchoolManagementMAUI.Converters"
+             x:Class="SchoolManagementMAUI.Views.GradesPage"
+             x:DataType="vm:GradesViewModel"
+             Title="Grades and Absences">
+
+    <ScrollView>
+        <VerticalStackLayout Padding="20" Spacing="15">
+
+            <Label Text="{Binding StudentName}" FontSize="20" FontAttributes="Bold" HorizontalOptions="Center" />
+
+            <Label Text="{Binding TotalAverage, StringFormat='Média Geral: {0:F2}'}"
+                   FontSize="16"
+                   TextColor="DarkGreen"
+                   HorizontalOptions="Center" />
+
+            <Label Text="{Binding Message}"
+                   TextColor="Red"
+                   IsVisible="{Binding Message, Converter={StaticResource StringNotEmptyConverter}}" />
+
+            <CollectionView ItemsSource="{Binding Grades}">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="models:Grade">
+                        <Frame BorderColor="Gray" CornerRadius="10" Padding="10" Margin="5">
+                            <VerticalStackLayout>
+                                <Label Text="{Binding SubjectName}" FontSize="18" FontAttributes="Bold" />
+                                <Label Text="{Binding WeightedAverage, StringFormat='Média: {0:F2}'}" />
+                                <Label Text="{Binding TotalAbsences, StringFormat='Faltas: {0}'}" />
+                                <Label Text="{Binding AllowedAbsences, StringFormat='Faltas Permitidas: {0}'}" />
+                                <Label Text="{Binding FailedDueToAbsences, Converter={StaticResource BoolToStatusConverter}}" TextColor="DarkRed" />
+                            </VerticalStackLayout>
+                        </Frame>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+
+        </VerticalStackLayout>
+    </ScrollView>
+
+</ContentPage>
