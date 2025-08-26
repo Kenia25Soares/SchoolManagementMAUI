@@ -9,4 +9,14 @@ public partial class DashboardPage : ContentPage
 		InitializeComponent();
         BindingContext = viewModel;
     }
+
+    protected override void OnAppearing()
+    {
+        base.OnAppearing();
+
+        if (BindingContext is DashboardViewModel viewModel)
+        {
+            viewModel.RefreshUserInfo();
+        }
+    }
 }

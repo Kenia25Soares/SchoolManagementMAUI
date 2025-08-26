@@ -28,6 +28,11 @@ namespace SchoolManagementMAUI.ViewModels
             LoadUserInfo();
         }
 
+        public void RefreshUserInfo()
+        {
+            LoadUserInfo();
+        }
+
         private void LoadUserInfo()
         {
             if (_userSession.CurrentUser != null)
@@ -69,4 +74,3 @@ namespace SchoolManagementMAUI.ViewModels
         //}
     }
 }
-

@@ -1,4 +1,5 @@
 ﻿using SchoolManagementMAUI.Services.Interface;
+using SchoolManagementMAUI.Views;
 
 namespace SchoolManagementMAUI
 {
@@ -9,9 +10,12 @@ namespace SchoolManagementMAUI
         public AppShell(IUserSession userSession)
         {
             InitializeComponent();
-
             _userSession = userSession;
 
+            // Regista a rota do Login, não aparece no menu
+            Routing.RegisterRoute("login", typeof(LoginPage));
+
+            // Inicialmente desabilita o menu lateral
             FlyoutBehavior = FlyoutBehavior.Disabled;
         }
 
@@ -21,49 +25,82 @@ namespace SchoolManagementMAUI
             {
                 if (_userSession?.CurrentUser == null)
                 {
-                    FlyoutBehavior = FlyoutBehavior.Disabled;
+                    if (FlyoutBehavior != FlyoutBehavior.Disabled)
+                    {
+                        FlyoutBehavior = FlyoutBehavior.Disabled;
+                    }
                 }
                 else
                 {
-                    FlyoutBehavior = FlyoutBehavior.Flyout;
-                    AddLogoutMenuItem();
+                    if (FlyoutBehavior != FlyoutBehavior.Flyout)
+                    {
+                        FlyoutBehavior = FlyoutBehavior.Flyout;
+                    }
                 }
             }
-            catch (Exception)
-            {
-                FlyoutBehavior = FlyoutBehavior.Disabled;
-            }
+            catch (Exception) { /* Ignored */ }
         }
 
-        private void AddLogoutMenuItem()
+        public void UpdateMenuItems()
         {
             try
             {
-                var existingLogout = Items.FirstOrDefault(item => item.Route == "logout");
-                if (existingLogout != null) return;
+                // Remove os itens dinâmicos do menu
+                var itemsToRemove = new List<ShellItem>();
 
-                var logoutItem = new ShellContent
+                // Coleta todos os itens que precisam ser removidos
+                for (int i = Items.Count - 1; i >= 0; i--)
                 {
-                    Title = "Logout",
-                    Route = "logout",
-                    Content = new ContentPage
+                    var item = Items[i];
+                    if (item.Route == "logout" ||
+                        item.Route == "IMPL_logout" ||
+                        item.Route == "project" ||
+                        item.Route == "login" ||
+                        item.Title == "School Management" ||
+                        item.Title == "Login")
                     {
-                        Content = new Label
-                        {
-                            Text = "Logout",
-                            HorizontalOptions = LayoutOptions.Center,
-                            VerticalOptions = LayoutOptions.Center
-                        }
+                        itemsToRemove.Add(item);
                     }
-                };
+                }
 
-                Items.Add(logoutItem);
+                // Remove os itens que foi coletado
+                foreach (var item in itemsToRemove)
+                {
+                    Items.Remove(item);
+                }
+
+                // Só adiciona logout se o utilizador estiver logado
+                if (_userSession?.CurrentUser != null)
+                {
+                    // Verifica se já existe um item logout 
+                    var existingLogout = Items.FirstOrDefault(item => item.Route == "logout" || item.Route == "IMPL_logout");
+                    if (existingLogout == null)
+                    {
+                        var logoutItem = new ShellContent
+                        {
+                            Title = "Logout",
+                            Route = "logout",
+                            Content = new ContentPage
+                            {
+                                Content = new Label
+                                {
+                                    Text = "Logout",
+                                    HorizontalOptions = LayoutOptions.Center,
+                                    VerticalOptions = LayoutOptions.Center
+                                }
+                            }
+                        };
+                        Items.Add(logoutItem);
+                    }
+                }
             }
-            catch (Exception)
-            {
-                // Ignora os erros ao adicionar logout
-            }
+            catch (Exception) { /* Ignored */ }
         }
+
+        //private void AddLogoutMenuItem()
+        //{
+        //    // método não é mais usado, mantido para compatibilidade
+        //}
 
         protected override void OnNavigating(ShellNavigatingEventArgs args)
         {
@@ -71,31 +108,73 @@ namespace SchoolManagementMAUI
 
             try
             {
+                // Se está navegando para logout, executa o logout
                 if (args.Target.Location.ToString().Contains("logout"))
                 {
                     args.Cancel();
                     PerformLogout();
+                    return;
+                }
+
+                // Se está navegando para login e o utilizador está logado
+                if (args.Target.Location.ToString().Contains("login") && _userSession?.CurrentUser != null)
+                {
+                    args.Cancel();
+                    return;
                 }
             }
-            catch (Exception)
-            {
-                // Ignora erros de navegação
-            }
+            catch (Exception) { /* Ignored */ }
         }
 
         private async void PerformLogout()
         {
             try
             {
+                // Limpa a sessão do utilizador
                 _userSession.CurrentUser = null;
+
+                // Desabilita o menu lateral
                 FlyoutBehavior = FlyoutBehavior.Disabled;
-                await Shell.Current.GoToAsync("//login");
+
+                // Limpa os itens dinâmicos do menu
+                var itemsToRemove = new List<ShellItem>();
+
+                // Ve todos os itens que precisam ser removidos
+                for (int i = Items.Count - 1; i >= 0; i--)
+                {
+                    var item = Items[i];
+                    if (item.Route == "logout" ||
+                        item.Route == "IMPL_logout" ||
+                        item.Route == "project" ||
+                        item.Route == "login" ||
+                        item.Title == "School Management" ||
+                        item.Title == "Login")
+                    {
+                        itemsToRemove.Add(item);
+                    }
+                }
+
+                // Remove os itens coletados
+                foreach (var item in itemsToRemove)
+                {
+                    Items.Remove(item);
+                }
+
+                // Força a navegação para o login usando uma  rota  
+                await Shell.Current.GoToAsync("login", false);
+
+                // Desabilita o menu lateral
+                FlyoutBehavior = FlyoutBehavior.Disabled;
             }
             catch (Exception)
             {
-                // Ignora erros de logout
+                
+                try
+                {
+                    await Shell.Current.GoToAsync("login", false);
+                }
+                catch { /* Ignored */ }
             }
-
         }
     }
 }
