@@ -14,7 +14,7 @@ namespace SchoolManagementMAUI.ViewModels
         private readonly IUserSession _userSession;
 
         [ObservableProperty]
-        private string userName = "Utilizador";
+        private string userName = "User";
 
         [ObservableProperty]
         private string userEmail = "";
@@ -37,17 +37,18 @@ namespace SchoolManagementMAUI.ViewModels
         {
             if (_userSession.CurrentUser != null)
             {
-                UserName = _userSession.CurrentUser.FullName ?? "Utilizador";
+                UserName = _userSession.CurrentUser.FullName ?? "User";
                 UserEmail = _userSession.CurrentUser.Email ?? "";
                 IsLoggedIn = true;
             }
             else
             {
-                UserName = "Utilizador";
+                UserName = "User";
                 UserEmail = "";
                 IsLoggedIn = false;
             }
         }
+
 
         [RelayCommand]
         private async Task OpenGradesAsync()

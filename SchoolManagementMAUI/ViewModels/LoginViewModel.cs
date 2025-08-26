@@ -24,12 +24,6 @@ namespace SchoolManagementMAUI.ViewModels
         private string message;
 
         [ObservableProperty]
-        private bool isRecoveringPassword;
-
-        [ObservableProperty]
-        private bool canRecoverPassword = true;
-
-        [ObservableProperty]
         private bool hasMessage = false;
 
         public LoginViewModel(IAuthService authService, IUserSession userSession)
@@ -68,21 +62,21 @@ namespace SchoolManagementMAUI.ViewModels
             {
                 if (string.IsNullOrWhiteSpace(Email) || string.IsNullOrWhiteSpace(Password))
                 {
-                    Message = "Por favor, preencha email e password.";
-                    return;
-                }
-
-                var isConnected = await _authService.TestConnectionAsync();
-                if (!isConnected)
-                {
-                    Message = "Erro de conectividade com o servidor.";
+                    Message = "Please enter email and password.";
                     return;
                 }
 
                 var user = await _authService.LoginAsync(Email, Password);
                 if (user == null)
                 {
-                    Message = "Credenciais inválidas.";
+                    Message = "Invalid password.";
+                    return;
+                }
+
+                // Verifica se o utilizador tem a role "Student"
+                if (user.Roles == null || !user.Roles.Contains("Student"))
+                {
+                    Message = "Access denied.";
                     return;
                 }
 
@@ -98,45 +92,35 @@ namespace SchoolManagementMAUI.ViewModels
             }
             catch (Exception)
             {
-                Message = "Erro ao fazer login. Tente novamente.";
+                Message = "Error logging in. Please try again.";
             }
         }
 
+
+
         [RelayCommand]
-        private async Task RecoverPasswordAsync()
+        private static async Task GoToRecoverPasswordAsync()
         {
-            try
-            {
-                if (string.IsNullOrWhiteSpace(Email))
-                {
-                    Message = "Por favor, insira seu email para recuperar a password.";
-                    return;
-                }
+            await Shell.Current.GoToAsync("///password-management");
+        }
 
-                IsRecoveringPassword = true;
-                CanRecoverPassword = false;
-                Message = "Enviando solicitação de recuperação...";
 
-                var success = await _authService.RecoverPasswordAsync(Email);
 
-                if (success)
-                {
-                    Message = "Email de recuperação enviado com sucesso! Verifique sua caixa de entrada.";
-                }
-                else
-                {
-                    Message = "Erro ao enviar email de recuperação. Verifique se o email está correto.";
-                }
-            }
-            catch (Exception)
-            {
-                Message = "Erro ao processar recuperação de password. Tente novamente.";
-            }
-            finally
-            {
-                IsRecoveringPassword = false;
-                CanRecoverPassword = true;
-            }
+        private static bool IsValidEmail(string email)
+        {
+            if (string.IsNullOrWhiteSpace(email))
+                return false;
+
+            // Validação simples: deve ter @ e pelo menos um ponto após o @
+            var atIndex = email.IndexOf('@');
+            if (atIndex <= 0 || atIndex == email.Length - 1)
+                return false;
+
+            var domainPart = email[(atIndex + 1)..];
+            if (!domainPart.Contains('.'))
+                return false;
+
+            return true;
         }
     }
 }

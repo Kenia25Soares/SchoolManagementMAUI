@@ -12,8 +12,12 @@ namespace SchoolManagementMAUI.Services.Interface
 
         Task<User?> LoginAsync(string email, string password);
 
-        Task<bool> TestConnectionAsync();
+        // Method for logged-in user to change password
+        Task<bool> ChangePasswordAsync(string newPassword, string email);
 
-        Task<bool> RecoverPasswordAsync(string email);
+        // Methods for code-based password reset
+        Task<bool> SendVerificationCodeAsync(string email);
+        Task<bool> VerifyCodeAsync(string email, string code);
+        Task<bool> ResetPasswordWithCodeAsync(string email, string code, string newPassword);
     }
 }

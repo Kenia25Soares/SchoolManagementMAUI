@@ -13,7 +13,7 @@
 
             <Label Text="{Binding StudentName}" FontSize="20" FontAttributes="Bold" HorizontalOptions="Center" />
 
-            <Label Text="{Binding TotalAverage, StringFormat='Média Geral: {0:F2}'}"
+            <Label Text="{Binding TotalAverage, StringFormat='Overall Average: {0:F2}'}"
                    FontSize="16"
                    TextColor="DarkGreen"
                    HorizontalOptions="Center" />
@@ -28,9 +28,9 @@
                         <Frame BorderColor="Gray" CornerRadius="10" Padding="10" Margin="5">
                             <VerticalStackLayout>
                                 <Label Text="{Binding SubjectName}" FontSize="18" FontAttributes="Bold" />
-                                <Label Text="{Binding WeightedAverage, StringFormat='Média: {0:F2}'}" />
-                                <Label Text="{Binding TotalAbsences, StringFormat='Faltas: {0}'}" />
-                                <Label Text="{Binding AllowedAbsences, StringFormat='Faltas Permitidas: {0}'}" />
+                                <Label Text="{Binding WeightedAverage, StringFormat='Average: {0:F2}'}" />
+                                <Label Text="{Binding TotalAbsences, StringFormat='Absences: {0}'}" />
+                                <Label Text="{Binding AllowedAbsences, StringFormat='Allowed Absences: {0}'}" />
                                 <Label Text="{Binding FailedDueToAbsences, Converter={StaticResource BoolToStatusConverter}}" TextColor="DarkRed" />
                             </VerticalStackLayout>
                         </Frame>

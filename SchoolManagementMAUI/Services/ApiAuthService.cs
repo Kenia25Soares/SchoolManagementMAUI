@@ -15,35 +15,64 @@ namespace SchoolManagementMAUI.Services
         private readonly HttpClient _client;
         private const string ApiBaseUrl = "https://10.0.2.2:7176/api";
 
+        // JsonSerializerOptions reutilizado para melhor performance
+        private static readonly JsonSerializerOptions JsonOptions = new()
+        {
+            PropertyNameCaseInsensitive = true
+        };
+
         public ApiAuthService()
         {
-            //_client = new HttpClient(new HttpClientHandler
             var handler = new HttpClientHandler
             {
-                // Para ignora o SSL de localhost com certificado inválido
                 ServerCertificateCustomValidationCallback = (message, cert, chain, errors) => true
             };
-
             _client = new HttpClient(handler);
             _client.DefaultRequestHeaders.Add("Accept", "application/json");
         }
 
 
-        public async Task<bool> TestConnectionAsync()
+
+        public async Task<User?> LoginAsync(string email, string password)
         {
             try
             {
-                var url = $"{ApiBaseUrl}/account/users";
+                var url = $"{ApiBaseUrl}/account/mobile-login";
+                var request = new { email, password };
+                var response = await _client.PostAsJsonAsync(url, request);
 
-                using var testClient = new HttpClient(new HttpClientHandler
+                if (!response.IsSuccessStatusCode)
+                    return null;
+
+                var jsonResponse = await response.Content.ReadAsStringAsync();
+                var loginResponse = JsonSerializer.Deserialize<LoginResponse>(jsonResponse, JsonOptions);
+
+                if (loginResponse?.Success == true && loginResponse.User != null)
                 {
-                    ServerCertificateCustomValidationCallback = (message, cert, chain, errors) => true
-                });
+                    loginResponse.User.Token = loginResponse.Token;
+                    return loginResponse.User;
+                }
 
-                testClient.Timeout = TimeSpan.FromSeconds(5);
-                testClient.DefaultRequestHeaders.Add("Accept", "application/json");
+                return null;
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+        }
 
-                var response = await testClient.GetAsync(url);
+        public async Task<bool> ChangePasswordAsync(string newPassword, string email)
+        {
+            try
+            {
+                var url = $"{ApiBaseUrl}/account/update-password";
+                var request = new { newPassword, email };
+
+                // Criar um novo HttpClient para esta requisição para evitar conflitos de headers
+                using var client = new HttpClient();
+
+                var response = await client.PostAsJsonAsync(url, request);
+
                 return response.IsSuccessStatusCode;
             }
             catch (Exception)
@@ -52,72 +81,47 @@ namespace SchoolManagementMAUI.Services
             }
         }
 
-
-        public async Task<User?> LoginAsync(string email, string password)
+        public async Task<bool> SendVerificationCodeAsync(string email)
         {
             try
             {
-                var loginRequest = new LoginRequest
-                {
-                    email = email,
-                    password = password,
-                    rememberMe = false
-                };
+                var url = $"{ApiBaseUrl}/account/send-verification-code";
+                var request = new { email };
+                var response = await _client.PostAsJsonAsync(url, request);
 
-                var url = $"{ApiBaseUrl}/account/mobile-login";
-                var content = new StringContent(
-                    JsonSerializer.Serialize(loginRequest),
-                    Encoding.UTF8,
-                    "application/json"
-                );
-
-                var response = await _client.PostAsync(url, content);
-                var responseString = await response.Content.ReadAsStringAsync();
-
-                if (!response.IsSuccessStatusCode)
-                {
-                    return null;
-                }
-
-                var result = JsonSerializer.Deserialize<LoginResponse>(responseString, new JsonSerializerOptions
-                {
-                    PropertyNameCaseInsensitive = true
-                });
-
-                if (result == null || !result.Success || result.User == null)
-                {
-                    return null;
-                }
-
-                result.User.Token = result.Token;
-                return result.User;
-
+                return response.IsSuccessStatusCode;
             }
             catch (Exception)
             {
-                return null;
+                return false;
             }
         }
 
-        public async Task<bool> RecoverPasswordAsync(string email)
+        public async Task<bool> VerifyCodeAsync(string email, string code)
         {
             try
             {
-                var url = $"{ApiBaseUrl}/account/recover-password";
-                var request = new { email = email };
+                var url = $"{ApiBaseUrl}/account/verify-code";
+                var request = new { email, code };
                 var response = await _client.PostAsJsonAsync(url, request);
 
-                if (!response.IsSuccessStatusCode)
-                {
-                    return false;
-                }
+                return response.IsSuccessStatusCode;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
 
-                var result = JsonSerializer.Deserialize<RecoverPasswordResponse>(
-                    await response.Content.ReadAsStringAsync(),
-                    new JsonSerializerOptions { PropertyNameCaseInsensitive = true }
-                );
+        public async Task<bool> ResetPasswordWithCodeAsync(string email, string code, string newPassword)
+        {
+            try
+            {
+                var url = $"{ApiBaseUrl}/account/reset-password-with-code";
+                var request = new { email, code, newPassword };
+                var response = await _client.PostAsJsonAsync(url, request);
 
-                return result?.Success ?? false;
+                return response.IsSuccessStatusCode;
             }
             catch (Exception)
             {

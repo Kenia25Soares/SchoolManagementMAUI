@@ -13,7 +13,7 @@ namespace SchoolManagementMAUI.Converters
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
             bool failed = (bool)value;
-            return failed ? "Reprovado por Faltas" : "Aprovado";
+            return failed ? "Failed due to Absences" : "Approved";
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

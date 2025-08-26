@@ -12,8 +12,9 @@ namespace SchoolManagementMAUI
             InitializeComponent();
             _userSession = userSession;
 
-            // Regista a rota do Login, não aparece no menu
+            // Registra as rotas programaticamente
             Routing.RegisterRoute("login", typeof(LoginPage));
+            Routing.RegisterRoute("password-management", typeof(PasswordManagementPage));
 
             // Inicialmente desabilita o menu lateral
             FlyoutBehavior = FlyoutBehavior.Disabled;
@@ -97,10 +98,10 @@ namespace SchoolManagementMAUI
             catch (Exception) { /* Ignored */ }
         }
 
-        //private void AddLogoutMenuItem()
-        //{
-        //    // método não é mais usado, mantido para compatibilidade
-        //}
+        private static void AddLogoutMenuItem()
+        {
+            // método não é mais usado, mantido para compatibilidade
+        }
 
         protected override void OnNavigating(ShellNavigatingEventArgs args)
         {

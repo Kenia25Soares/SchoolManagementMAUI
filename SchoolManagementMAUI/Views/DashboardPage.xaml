@@ -10,7 +10,7 @@
 
             <!-- Header com informações do utilizador -->
             <VerticalStackLayout Spacing="10" HorizontalOptions="Center">
-                <Label Text="Bem-vindo!" FontSize="24" FontAttributes="Bold" HorizontalOptions="Center" />
+                <Label Text="Welcome!" FontSize="24" FontAttributes="Bold" HorizontalOptions="Center" />
 
                 <!-- Informações do utilizador -->
                 <VerticalStackLayout Spacing="5" HorizontalOptions="Center">
@@ -29,33 +29,20 @@
 
             <!-- Menu de opções -->
             <VerticalStackLayout Spacing="15">
-                <Button Text="Minhas Notas"
-                        Command="{Binding OpenGradesCommand}"
-                        BackgroundColor="#007AFF"
-                        TextColor="White"
-                        CornerRadius="8"
-                        HeightRequest="50" />
+                <Button Text="My Grades" Command="{Binding OpenGradesCommand}" 
+                        BackgroundColor="#007AFF" TextColor="White" CornerRadius="8" HeightRequest="50" />
 
-                <Button Text="Meus Cursos"
-                        Command="{Binding OpenCoursesCommand}"
-                        BackgroundColor="#34C759"
-                        TextColor="White"
-                        CornerRadius="8"
-                        HeightRequest="50" />
+                <!--<Button Text="Alterar Password" Command="{Binding OpenChangePasswordCommand}" 
+                        BackgroundColor="#28A745" TextColor="White" CornerRadius="8" HeightRequest="50" />-->
 
-                <Button Text="Meu Perfil"
-                        Command="{Binding OpenProfileCommand}"
-                        BackgroundColor="#FF9500"
-                        TextColor="White"
-                        CornerRadius="8"
-                        HeightRequest="50" />
-
-                <Button Text="Sobre"
-                        Command="{Binding OpenAboutCommand}"
-                        BackgroundColor="#5856D6"
-                        TextColor="White"
-                        CornerRadius="8"
-                        HeightRequest="50" />
+                <!--<Button Text="Meus Cursos" Command="{Binding OpenCoursesCommand}" 
+                        BackgroundColor="#FFC107" TextColor="Black" CornerRadius="8" HeightRequest="50" />
+                
+                <Button Text="Meu Perfil" Command="{Binding OpenProfileCommand}" 
+                        BackgroundColor="#17A2B8" TextColor="White" CornerRadius="8" HeightRequest="50" />
+                
+                <Button Text="Sobre" Command="{Binding OpenAboutCommand}" 
+                        BackgroundColor="#6C757D" TextColor="White" CornerRadius="8" HeightRequest="50" />-->
             </VerticalStackLayout>
 
         </VerticalStackLayout>

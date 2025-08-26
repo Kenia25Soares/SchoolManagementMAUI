@@ -42,7 +42,7 @@ namespace SchoolManagementMAUI.ViewModels
         {
             if (!_userSession.IsLoggedIn)
             {
-                Message = "Você precisa estar autenticado.";
+                Message = "You need to be authenticated.";
                 return;
             }
 
@@ -51,7 +51,7 @@ namespace SchoolManagementMAUI.ViewModels
 
             if (string.IsNullOrEmpty(studentId) || string.IsNullOrEmpty(token))
             {
-                Message = "Token ou ID inválido.";
+                Message = "Invalid token or ID.";
                 return;
             }
 
@@ -61,7 +61,7 @@ namespace SchoolManagementMAUI.ViewModels
 
                 if (response == null || response.Count == 0)
                 {
-                    Message = "Nenhuma nota encontrada.";
+                    Message = "No grades found.";
                     Grades = new ObservableCollection<Grade>();
                     return;
                 }
@@ -75,8 +75,7 @@ namespace SchoolManagementMAUI.ViewModels
             }
             catch (Exception ex)
             {
-                Message = "Erro ao carregar as notas.";
-                Console.WriteLine(ex.Message);
+                Message = "\"Error loading grades.";
             }
         }
     }
