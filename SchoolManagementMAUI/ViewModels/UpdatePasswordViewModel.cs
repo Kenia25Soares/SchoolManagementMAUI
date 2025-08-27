@@ -15,6 +15,9 @@ namespace SchoolManagementMAUI.ViewModels
         private readonly IUserSession _userSession;
 
         [ObservableProperty]
+        private string currentPassword;
+
+        [ObservableProperty]
         private string newPassword;
 
         [ObservableProperty]
@@ -39,6 +42,11 @@ namespace SchoolManagementMAUI.ViewModels
         {
             _authService = authService;
             _userSession = userSession;
+        }
+
+        partial void OnCurrentPasswordChanged(string value)
+        {
+            ClearMessage();
         }
 
         partial void OnNewPasswordChanged(string value)
@@ -70,6 +78,12 @@ namespace SchoolManagementMAUI.ViewModels
         {
             try
             {
+                if (string.IsNullOrWhiteSpace(CurrentPassword))
+                {
+                    ShowMessage("Please enter your current password.", Colors.Red);
+                    return;
+                }
+
                 if (string.IsNullOrWhiteSpace(NewPassword))
                 {
                     ShowMessage("Please enter the new password.", Colors.Red);
@@ -104,21 +118,25 @@ namespace SchoolManagementMAUI.ViewModels
                     return;
                 }
 
-                var success = await _authService.ChangePasswordAsync(NewPassword, user.Email);
+                var success = await _authService.ChangePasswordAsync(CurrentPassword, NewPassword, ConfirmPassword, user.Token);
                 if (success)
                 {
-                    ShowMessage("Password updated successfully.", Colors.Green);
+                    ShowMessage(" Password updated successfully! Your password has been changed.", Colors.Green);
+                    CurrentPassword = string.Empty;
                     NewPassword = string.Empty;
                     ConfirmPassword = string.Empty;
+
+                    await Task.Delay(4000);
+                    ClearMessage();
                 }
                 else
                 {
-                    ShowMessage("Error updating password. Please try again.", Colors.Red);
+                    ShowMessage("Error updating password. Please  check your current password and try again.", Colors.Red);
                 }
             }
             catch (Exception ex)
             {
-                ShowMessage($"Error processing password update: {ex.Message}", Colors.Red);
+                ShowMessage($"Error: {ex.Message}", Colors.Red);
             }
             finally
             {
@@ -128,9 +146,9 @@ namespace SchoolManagementMAUI.ViewModels
         }
 
         [RelayCommand]
-        private static async Task GoBackAsync()
+        private  async Task GoBackAsync()
         {
-            await Shell.Current.GoToAsync("..");
+            await Shell.Current.GoToAsync("///dashboard");
         }
 
         private void ShowMessage(string text, Color color)

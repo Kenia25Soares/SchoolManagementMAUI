@@ -61,17 +61,20 @@ namespace SchoolManagementMAUI.Services
             }
         }
 
-        public async Task<bool> ChangePasswordAsync(string newPassword, string email)
+        public async Task<bool> ChangePasswordAsync(string currentPassword, string newPassword, string confirmPassword, string? token = null)
         {
             try
             {
                 var url = $"{ApiBaseUrl}/account/update-password";
-                var request = new { newPassword, email };
+                var request = new { currentPassword, newPassword, confirmPassword };
 
-                // Criar um novo HttpClient para esta requisição para evitar conflitos de headers
-                using var client = new HttpClient();
+                // Usar o cliente existente que já tem SSL validation desabilitado
+                if (!string.IsNullOrEmpty(token))
+                {
+                    _client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", token);
+                }
 
-                var response = await client.PostAsJsonAsync(url, request);
+                var response = await _client.PostAsJsonAsync(url, request);
 
                 return response.IsSuccessStatusCode;
             }

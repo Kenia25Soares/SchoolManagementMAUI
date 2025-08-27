@@ -23,7 +23,7 @@ namespace SchoolManagementMAUI.ViewModels
         [ObservableProperty]
         private bool isStep3 = false;
 
-        // Step 1: Email Input
+        // Email Input
         [ObservableProperty]
         private string email;
 
@@ -33,7 +33,7 @@ namespace SchoolManagementMAUI.ViewModels
         [ObservableProperty]
         private bool isSendingCode = false;
 
-        // Step 2: Code Verification
+        // Code Verification
         [ObservableProperty]
         private string verificationCode;
 
@@ -43,7 +43,7 @@ namespace SchoolManagementMAUI.ViewModels
         [ObservableProperty]
         private bool isVerifyingCode = false;
 
-        // Step 3: New Password
+        // New Password
         [ObservableProperty]
         private string newPassword;
 
@@ -71,7 +71,13 @@ namespace SchoolManagementMAUI.ViewModels
             _authService = authService;
         }
 
-        // Step 1: Send Code
+        // Método  resetar quando a página é carregada
+        public void OnNavigatedTo()
+        {
+            ResetToStep1();
+        }
+
+        // Send Code
         partial void OnEmailChanged(string value)
         {
             ClearMessage();
@@ -101,7 +107,7 @@ namespace SchoolManagementMAUI.ViewModels
                 if (success)
                 {
                     ShowMessage("Code sent successfully. Check your email.", Colors.Green);
-                    await Task.Delay(1000); // Pequena pausa para mostrar a mensagem
+                    await Task.Delay(1000); 
                     GoToStep2();
                 }
                 else
@@ -120,7 +126,7 @@ namespace SchoolManagementMAUI.ViewModels
             }
         }
 
-        // Step 2: Verify Code
+        // Verify Code
         partial void OnVerificationCodeChanged(string value)
         {
             ClearMessage();
@@ -196,7 +202,7 @@ namespace SchoolManagementMAUI.ViewModels
             }
         }
 
-        // Step 3: Reset Password
+        // Reset Password
         partial void OnNewPasswordChanged(string value)
         {
             ClearMessage();
@@ -242,12 +248,17 @@ namespace SchoolManagementMAUI.ViewModels
                 var success = await _authService.ResetPasswordWithCodeAsync(Email, VerificationCode, NewPassword);
                 if (success)
                 {
-                    ShowMessage("Password changed successfully. You can login with the new password.", Colors.Green);
+                    ShowMessage(" Password changed successfully! You can now login with your new password.", Colors.Green);
                     NewPassword = string.Empty;
                     ConfirmPassword = string.Empty;
 
-                    // Navega para o login após 2 segundos
-                    await Task.Delay(2000);
+                    // A pass foi recuperada
+                    LoginViewModel.SetPasswordRecovered();
+
+                    // Navega para o login dps 3 segundos 
+                    await Task.Delay(3000);
+
+                    // Navega para o login
                     await Shell.Current.GoToAsync("///login");
                 }
                 else
@@ -286,6 +297,31 @@ namespace SchoolManagementMAUI.ViewModels
             IsStep1 = false;
             IsStep2 = false;
             IsStep3 = true;
+        }
+
+        private void ResetToStep1()
+        {
+            // Reset primeiro passo
+            IsStep1 = true;
+            IsStep2 = false;
+            IsStep3 = false;
+
+            // Limpa todos os campos
+            Email = string.Empty;
+            VerificationCode = string.Empty;
+            NewPassword = string.Empty;
+            ConfirmPassword = string.Empty;
+
+            // Limpa as mensagens
+            ClearMessage();
+
+            // Resetar o estados dos btn
+            CanSendCode = true;
+            CanVerifyCode = true;
+            CanResetPassword = true;
+            IsSendingCode = false;
+            IsVerifyingCode = false;
+            IsResettingPassword = false;
         }
 
         private void ShowMessage(string text, Color color)

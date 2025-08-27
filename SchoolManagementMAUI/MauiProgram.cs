@@ -36,8 +36,8 @@ namespace SchoolManagementMAUI
             builder.Services.AddSingleton<LoginViewModel>();
             builder.Services.AddSingleton<DashboardViewModel>();
             builder.Services.AddSingleton<GradesViewModel>();
-            builder.Services.AddSingleton<PasswordManagementViewModel>();
             builder.Services.AddSingleton<UpdatePasswordViewModel>();
+            builder.Services.AddSingleton<PasswordManagementViewModel>();
 
 
 
@@ -45,8 +45,8 @@ namespace SchoolManagementMAUI
             builder.Services.AddSingleton<LoginPage>();
             builder.Services.AddSingleton<DashboardPage>();
             builder.Services.AddSingleton<GradesPage>();
-            builder.Services.AddSingleton<PasswordManagementPage>();
             builder.Services.AddSingleton<UpdatePasswordPage>();
+            builder.Services.AddSingleton<PasswordManagementPage>();
 
 
             // Shell

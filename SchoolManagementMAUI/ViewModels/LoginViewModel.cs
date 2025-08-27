@@ -14,6 +14,9 @@ namespace SchoolManagementMAUI.ViewModels
         private readonly IAuthService _authService;
         private readonly IUserSession _userSession;
 
+        // Controlar a password que foi recuperada
+        private static bool _passwordRecovered = false;
+
         [ObservableProperty]
         private string email;
 
@@ -32,16 +35,50 @@ namespace SchoolManagementMAUI.ViewModels
             _userSession = userSession;
         }
 
-        partial void OnEmailChanged(string value)
+        // Método quando a página é carregada
+        public void OnNavigatedTo()
         {
-            if (!string.IsNullOrEmpty(Message))
+            if (_passwordRecovered)
             {
-                Message = string.Empty;
-                HasMessage = false;
+                ShowPasswordRecoverySuccess();
+                _passwordRecovered = false; 
             }
         }
 
+        // Exibi a  mensagem de sucesso após recuperação da password
+        public void ShowPasswordRecoverySuccess()
+        {
+            Message = "Password recovered successfully! You can now login with your new password.";
+            HasMessage = true;
+
+            // Limpa a mensagem após 5 segundos
+            _ = Task.Run(async () =>
+            {
+                await Task.Delay(5000);
+                Message = string.Empty;
+                HasMessage = false;
+            });
+        }
+
+        // A password foi recuperada
+        public static void SetPasswordRecovered()
+        {
+            _passwordRecovered = true;
+        }
+
+        // Limpa a mensagem de erro ao alterar o email
+        partial void OnEmailChanged(string value)
+        {
+            ClearMessage();
+        }
+
+        // Limpa a mensagem de erro ao alterar a password
         partial void OnPasswordChanged(string value)
+        {
+            ClearMessage();
+        }
+
+        private void ClearMessage()
         {
             if (!string.IsNullOrEmpty(Message))
             {
@@ -101,17 +138,15 @@ namespace SchoolManagementMAUI.ViewModels
         [RelayCommand]
         private static async Task GoToRecoverPasswordAsync()
         {
-            await Shell.Current.GoToAsync("///password-management");
+            await Shell.Current.GoToAsync("password-management");
         }
-
-
 
         private static bool IsValidEmail(string email)
         {
             if (string.IsNullOrWhiteSpace(email))
                 return false;
 
-            // Validação simples: deve ter @ e pelo menos um ponto após o @
+            // Validação @ pelo menos um ponto após o @
             var atIndex = email.IndexOf('@');
             if (atIndex <= 0 || atIndex == email.Length - 1)
                 return false;

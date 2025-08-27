@@ -14,6 +14,7 @@ namespace SchoolManagementMAUI
 
             // Registra as rotas programaticamente
             Routing.RegisterRoute("login", typeof(LoginPage));
+            Routing.RegisterRoute("update-password", typeof(UpdatePasswordPage));
             Routing.RegisterRoute("password-management", typeof(PasswordManagementPage));
 
             // Inicialmente desabilita o menu lateral
