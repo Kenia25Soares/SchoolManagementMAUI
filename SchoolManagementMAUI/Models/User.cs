@@ -29,6 +29,18 @@ namespace SchoolManagementMAUI.Models
         public List<string> Roles { get; set; }
 
 
+        [JsonPropertyName("profilePictureUrl")]
+        public string? ProfilePictureUrl { get; set; }
+
+
+        [JsonPropertyName("profilePictureFullUrl")]
+        public string? ProfilePictureFullUrl { get; set; }
+
+
+        [JsonPropertyName("officialPhotoUrl")]
+        public string? OfficialPhotoUrl { get; set; }
+
+
         public string Token { get; set; }
     }
 }

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="SchoolManagementMAUI.Views.AboutPage"
+             Title="About">
+
+    <ScrollView>
+        <VerticalStackLayout Padding="24" Spacing="12">
+            <Label Text="About this app" FontSize="20" FontAttributes="Bold"/>
+
+            <Label Text="Name: Kenia Soares"/>
+            <Label Text="Version: 4.0.0"/>
+            <Label Text="Date: 07/09/2025"/>
+            <Label Text="Institution: Cinel"/>
+
+            <Label
+                LineBreakMode="WordWrap"
+                Text="This is a school management system that allows students to follow their academic status, including grades, absences, and school information."/>
+
+            <Button Text="Back to Dashboard" Clicked="OnBackToDashboardClicked"/>
+        </VerticalStackLayout>
+    </ScrollView>
+    
+</ContentPage>

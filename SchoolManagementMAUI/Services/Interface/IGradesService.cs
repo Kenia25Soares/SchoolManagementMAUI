@@ -10,5 +10,9 @@ namespace SchoolManagementMAUI.Services.Interface
     public interface IGradesService
     {
         Task<List<Grade>> GetGradesAsync(string studentId, string token);
+
+        Task<List<SubjectInfo>> GetStudentSubjectsAsync(string studentId, string token);
+
+        Task<SubjectGrade> GetSubjectGradeAsync(string studentId, string subjectCode, string token);
     }
 }

@@ -12,6 +12,17 @@
             <VerticalStackLayout Spacing="10" HorizontalOptions="Center">
                 <Label Text="Welcome!" FontSize="24" FontAttributes="Bold" HorizontalOptions="Center" />
 
+                <!-- Imagem de perfil -->
+                <Frame IsVisible="{Binding UserProfileImageUrl, Converter={StaticResource StringNotEmptyConverter}}"
+                       CornerRadius="50" 
+                       WidthRequest="100" 
+                       HeightRequest="100" 
+                       HorizontalOptions="Center"
+                       Padding="0">
+                    <Image Source="{Binding UserProfileImageUrl}" 
+                           Aspect="AspectFill" />
+                </Frame>
+
                 <!-- Informações do utilizador -->
                 <VerticalStackLayout Spacing="5" HorizontalOptions="Center">
                     <Label Text="{Binding UserName}" 
@@ -31,6 +42,9 @@
             <VerticalStackLayout Spacing="15">
                 <Button Text="My Grades" Command="{Binding OpenGradesCommand}" 
                         BackgroundColor="#007AFF" TextColor="White" CornerRadius="8" HeightRequest="50" />
+
+                <Button Text="My Subjects" Command="{Binding OpenSubjectsCommand}" 
+                        BackgroundColor="#28A745" TextColor="White" CornerRadius="8" HeightRequest="50" />
 
                 <!--<Button Text="Alterar Password" Command="{Binding OpenChangePasswordCommand}" 
                         BackgroundColor="#28A745" TextColor="White" CornerRadius="8" HeightRequest="50" />-->

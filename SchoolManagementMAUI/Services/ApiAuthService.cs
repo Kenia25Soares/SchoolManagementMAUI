@@ -14,8 +14,6 @@ namespace SchoolManagementMAUI.Services
     {
         private readonly HttpClient _client;
         private const string ApiBaseUrl = "https://10.0.2.2:7176/api";
-
-        // JsonSerializerOptions reutilizado para melhor performance
         private static readonly JsonSerializerOptions JsonOptions = new()
         {
             PropertyNameCaseInsensitive = true
@@ -31,8 +29,6 @@ namespace SchoolManagementMAUI.Services
             _client.DefaultRequestHeaders.Add("Accept", "application/json");
         }
 
-
-
         public async Task<User?> LoginAsync(string email, string password)
         {
             try
@@ -40,19 +36,15 @@ namespace SchoolManagementMAUI.Services
                 var url = $"{ApiBaseUrl}/account/mobile-login";
                 var request = new { email, password };
                 var response = await _client.PostAsJsonAsync(url, request);
-
                 if (!response.IsSuccessStatusCode)
                     return null;
-
                 var jsonResponse = await response.Content.ReadAsStringAsync();
                 var loginResponse = JsonSerializer.Deserialize<LoginResponse>(jsonResponse, JsonOptions);
-
                 if (loginResponse?.Success == true && loginResponse.User != null)
                 {
                     loginResponse.User.Token = loginResponse.Token;
                     return loginResponse.User;
                 }
-
                 return null;
             }
             catch (Exception)
@@ -67,15 +59,11 @@ namespace SchoolManagementMAUI.Services
             {
                 var url = $"{ApiBaseUrl}/account/update-password";
                 var request = new { currentPassword, newPassword, confirmPassword };
-
-                // Usar o cliente existente que já tem SSL validation desabilitado
                 if (!string.IsNullOrEmpty(token))
                 {
                     _client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", token);
                 }
-
                 var response = await _client.PostAsJsonAsync(url, request);
-
                 return response.IsSuccessStatusCode;
             }
             catch (Exception)
@@ -91,7 +79,6 @@ namespace SchoolManagementMAUI.Services
                 var url = $"{ApiBaseUrl}/account/send-verification-code";
                 var request = new { email };
                 var response = await _client.PostAsJsonAsync(url, request);
-
                 return response.IsSuccessStatusCode;
             }
             catch (Exception)
@@ -107,7 +94,6 @@ namespace SchoolManagementMAUI.Services
                 var url = $"{ApiBaseUrl}/account/verify-code";
                 var request = new { email, code };
                 var response = await _client.PostAsJsonAsync(url, request);
-
                 return response.IsSuccessStatusCode;
             }
             catch (Exception)
@@ -121,9 +107,8 @@ namespace SchoolManagementMAUI.Services
             try
             {
                 var url = $"{ApiBaseUrl}/account/reset-password-with-code";
-                var request = new { email, code, newPassword };
+                var request = new { email, code, newPassword, confirmPassword = newPassword };
                 var response = await _client.PostAsJsonAsync(url, request);
-
                 return response.IsSuccessStatusCode;
             }
             catch (Exception)

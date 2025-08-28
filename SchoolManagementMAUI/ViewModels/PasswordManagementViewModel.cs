@@ -246,6 +246,7 @@ namespace SchoolManagementMAUI.ViewModels
                 CanResetPassword = false;
 
                 var success = await _authService.ResetPasswordWithCodeAsync(Email, VerificationCode, NewPassword);
+
                 if (success)
                 {
                     ShowMessage(" Password changed successfully! You can now login with your new password.", Colors.Green);

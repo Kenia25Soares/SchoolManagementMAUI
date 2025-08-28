@@ -22,6 +22,9 @@ namespace SchoolManagementMAUI.ViewModels
         [ObservableProperty]
         private bool isLoggedIn = false;
 
+        [ObservableProperty]
+        private string? userProfileImageUrl;
+
         public DashboardViewModel(IUserSession userSession)
         {
             _userSession = userSession;
@@ -39,12 +42,16 @@ namespace SchoolManagementMAUI.ViewModels
             {
                 UserName = _userSession.CurrentUser.FullName ?? "User";
                 UserEmail = _userSession.CurrentUser.Email ?? "";
+                UserProfileImageUrl = !string.IsNullOrEmpty(_userSession.CurrentUser.ProfilePictureFullUrl)
+                    ? _userSession.CurrentUser.ProfilePictureFullUrl
+                    : _userSession.CurrentUser.ProfilePictureUrl;  // Usar a URL 
                 IsLoggedIn = true;
             }
             else
             {
                 UserName = "User";
                 UserEmail = "";
+                UserProfileImageUrl = null;
                 IsLoggedIn = false;
             }
         }
@@ -54,6 +61,12 @@ namespace SchoolManagementMAUI.ViewModels
         private async Task OpenGradesAsync()
         {
             await Shell.Current.GoToAsync("//grades");
+        }
+
+        [RelayCommand]
+        private async Task OpenSubjectsAsync()
+        {
+            await Shell.Current.GoToAsync("//subject-list");
         }
 
         //[RelayCommand]

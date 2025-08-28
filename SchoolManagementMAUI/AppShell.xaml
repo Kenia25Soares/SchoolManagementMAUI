@@ -8,9 +8,9 @@
     Title="SchoolManagementMAUI">
 
     <!-- Definição de rotas -->
-    <ShellContent Title="Login"
-                  ContentTemplate="{DataTemplate views:LoginPage}"
-                  Route="login" />
+    <ShellContent ContentTemplate="{DataTemplate views:LoginPage}"
+                  Route="login"
+                  Shell.FlyoutItemIsVisible="False" />
 
     <ShellContent Title="Dashboard"
                   ContentTemplate="{DataTemplate views:DashboardPage}"
@@ -24,16 +24,28 @@
                   ContentTemplate="{DataTemplate views:UpdatePasswordPage}"
                   Route="update-password" />
 
+    <ShellContent Title="My Subjects"
+                  ContentTemplate="{DataTemplate views:SubjectListPage}"
+                  Route="subject-list" />
+
+    <ShellContent Title="Subject Details"
+                  ContentTemplate="{DataTemplate views:SubjectGradePage}"
+                  Route="subject-grade" />
+
+    <ShellContent Title="Logout"
+                  Route="logout"
+                  ContentTemplate="{DataTemplate views:DashboardPage}" />
+
     <!--<ShellContent Title="Cursos"
                   ContentTemplate="{DataTemplate views:CoursesPage}"
                   Route="courses" />
 
     <ShellContent Title="Perfil"
                   ContentTemplate="{DataTemplate views:ProfilePage}"
-                  Route="profile" />
+                  Route="profile" />-->
 
-    <ShellContent Title="Sobre"
+    <ShellContent Title="About"
                   ContentTemplate="{DataTemplate views:AboutPage}"
-                  Route="about" />-->
+                  Route="about" />
 
 </Shell>

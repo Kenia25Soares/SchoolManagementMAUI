@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:SchoolManagementMAUI.ViewModels"
+             xmlns:models="clr-namespace:SchoolManagementMAUI.Models"
+             x:Class="SchoolManagementMAUI.Views.SubjectListPage"
+             x:DataType="vm:SubjectListViewModel"
+             Title="My Subjects">
+
+    <ScrollView>
+        <VerticalStackLayout Padding="20" Spacing="15">
+
+            <!-- Header -->
+            <VerticalStackLayout Spacing="10" HorizontalOptions="Center">
+                <Label Text="{Binding StudentName}" 
+                       FontSize="24" 
+                       FontAttributes="Bold" 
+                       HorizontalOptions="Center" />
+                <Label Text="Select a subject to view detailed grades and absences" 
+                       FontSize="14" 
+                       TextColor="Gray" 
+                       HorizontalOptions="Center"
+                       HorizontalTextAlignment="Center" />
+            </VerticalStackLayout>
+
+            <!-- Loading Indicator -->
+            <ActivityIndicator IsVisible="{Binding IsLoading}"
+                             IsRunning="{Binding IsLoading}"
+                             Color="#007AFF"
+                             HorizontalOptions="Center" />
+
+            <!-- Message -->
+            <Label Text="{Binding Message}"
+                   TextColor="Red"
+                   IsVisible="{Binding Message, Converter={StaticResource StringNotEmptyConverter}}"
+                   HorizontalOptions="Center"
+                   HorizontalTextAlignment="Center" />
+
+            <!-- Subjects List -->
+            <CollectionView ItemsSource="{Binding Subjects}">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="models:SubjectInfo">
+                        <Frame BorderColor="#007AFF" 
+                               CornerRadius="10" 
+                               Padding="15" 
+                               Margin="5"
+                               BackgroundColor="White">
+                            <Frame.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type vm:SubjectListViewModel}}, Path=SelectSubjectCommand}" 
+                                                      CommandParameter="{Binding .}" />
+                            </Frame.GestureRecognizers>
+                            <VerticalStackLayout>
+                                <Label Text="{Binding SubjectName}" 
+                                       FontSize="18" 
+                                       FontAttributes="Bold"
+                                       TextColor="#007AFF" />
+                                <Label Text="{Binding SubjectCode}" 
+                                       FontSize="14" 
+                                       TextColor="Gray" />
+                                <Label Text="{Binding TeacherName, StringFormat='Teacher: {0}'}" 
+                                       FontSize="12" 
+                                       TextColor="DarkGray" />
+                                <Label Text="Tap to view details" 
+                                       FontSize="12" 
+                                       TextColor="#007AFF"
+                                       HorizontalOptions="End" />
+                            </VerticalStackLayout>
+                        </Frame>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+
+        </VerticalStackLayout>
+    </ScrollView>
+    
+</ContentPage>

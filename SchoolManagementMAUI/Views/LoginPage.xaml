@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:vm="clr-namespace:SchoolManagementMAUI.ViewModels"
              x:Class="SchoolManagementMAUI.Views.LoginPage"
-             Title="Login">
+             Shell.NavBarIsVisible="False">
 
     <!--<ContentPage.BindingContext>
         <vm:LoginViewModel />

@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:SchoolManagementMAUI.ViewModels"
+             xmlns:models="clr-namespace:SchoolManagementMAUI.Models"
+             x:Class="SchoolManagementMAUI.Views.SubjectGradePage"
+             x:DataType="vm:SubjectGradeViewModel"
+             Title="Subject Details">
+
+    <ScrollView>
+        <VerticalStackLayout Padding="20" Spacing="15">
+
+            <!-- Header -->
+            <VerticalStackLayout Spacing="10" HorizontalOptions="Center">
+                <Label Text="{Binding SubjectName}" 
+                       FontSize="24" 
+                       FontAttributes="Bold" 
+                       HorizontalOptions="Center" />
+            </VerticalStackLayout>
+
+            <!-- Loading Indicator -->
+            <ActivityIndicator IsVisible="{Binding IsLoading}"
+                             IsRunning="{Binding IsLoading}"
+                             Color="#007AFF"
+                             HorizontalOptions="Center" />
+
+            <!-- Message -->
+            <Label Text="{Binding Message}"
+                   TextColor="Red"
+                   IsVisible="{Binding Message, Converter={StaticResource StringNotEmptyConverter}}"
+                   HorizontalOptions="Center"
+                   HorizontalTextAlignment="Center" />
+
+            <!-- Subject Summary -->
+            <Frame IsVisible="{Binding HasData}"
+                   BorderColor="#007AFF" 
+                   CornerRadius="10" 
+                   Padding="15" 
+                   Margin="5"
+                   BackgroundColor="#F8F9FA">
+                <VerticalStackLayout>
+                    <Label Text="Summary" 
+                           FontSize="18" 
+                           FontAttributes="Bold"
+                           TextColor="#007AFF" />
+                    <Label Text="{Binding SubjectGrade.WeightedAverage, StringFormat='Average: {0:F2}'}" />
+                    <Label Text="{Binding SubjectGrade.TotalAbsences, StringFormat='Total Absences: {0}'}" />
+                    <Label Text="{Binding SubjectGrade.AllowedAbsences, StringFormat='Allowed Absences: {0}'}" />
+                    <Label Text="{Binding SubjectGrade.Status, StringFormat='Status: {0}'}" 
+                           TextColor="{Binding SubjectGrade.Status, Converter={StaticResource StatusColorConverter}}" />
+                </VerticalStackLayout>
+            </Frame>
+
+            <!-- Grade Details -->
+            <VerticalStackLayout IsVisible="{Binding HasData}">
+                <Label Text="Grade Details" 
+                       FontSize="18" 
+                       FontAttributes="Bold"
+                       TextColor="#007AFF" />
+
+                <CollectionView ItemsSource="{Binding GradeDetails}">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate x:DataType="models:GradeDetail">
+                            <Frame BorderColor="Gray" 
+                                   CornerRadius="8" 
+                                   Padding="10" 
+                                   Margin="2">
+                                <VerticalStackLayout>
+                                    <Label Text="{Binding Description}" 
+                                           FontSize="16" 
+                                           FontAttributes="Bold" />
+                                    <Label Text="{Binding Grade, StringFormat='Grade: {0:F2}'}" />
+                                    <Label Text="{Binding Weight, StringFormat='Weight: {0:F1}%'}" />
+                                    <Label Text="{Binding Date, StringFormat='Date: {0:dd/MM/yyyy}'}" 
+                                           FontSize="12" 
+                                           TextColor="Gray" />
+                                </VerticalStackLayout>
+                            </Frame>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </VerticalStackLayout>
+
+            <!-- Absence Details -->
+            <VerticalStackLayout IsVisible="{Binding HasData}">
+                <Label Text="Absence Details" 
+                       FontSize="18" 
+                       FontAttributes="Bold"
+                       TextColor="#007AFF" />
+
+                <CollectionView ItemsSource="{Binding AbsenceDetails}">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate x:DataType="models:AbsenceDetail">
+                            <Frame BorderColor="{Binding IsJustified, Converter={StaticResource AbsenceColorConverter}}" 
+                                   CornerRadius="8" 
+                                   Padding="10" 
+                                   Margin="2">
+                                <VerticalStackLayout>
+                                    <Label Text="{Binding Date, StringFormat='Date: {0:dd/MM/yyyy}'}" 
+                                           FontSize="16" 
+                                           FontAttributes="Bold" />
+                                    <Label Text="{Binding IsJustified, StringFormat='Justified: {0}'}" 
+                                           TextColor="{Binding IsJustified, Converter={StaticResource JustifiedColorConverter}}" />
+                                    <Label Text="{Binding Justification}" 
+                                           IsVisible="{Binding Justification, Converter={StaticResource StringNotEmptyConverter}}"
+                                           FontSize="12" 
+                                           TextColor="Gray" />
+                                </VerticalStackLayout>
+                            </Frame>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </VerticalStackLayout>
+
+        </VerticalStackLayout>
+        
+    </ScrollView>
+</ContentPage>
