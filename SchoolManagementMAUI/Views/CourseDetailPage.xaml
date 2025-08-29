@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="SchoolManagementMAUI.Views.CourseDetailPage"
+             Title="Course">
+
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Back" Clicked="OnBackClicked" />
+    </ContentPage.ToolbarItems>
+
+    <Grid RowDefinitions="Auto,*">
+        <VerticalStackLayout Padding="16" Spacing="8">
+            <Label Text="{Binding CourseName}" FontSize="22" FontAttributes="Bold" />
+
+            <Grid ColumnDefinitions="*,*" Margin="0,12,0,0">
+                <Button Text="Subjects" Grid.Column="0" Clicked="OnSubjectsTab"/>
+                <Button Text="Classes" Grid.Column="1" Clicked="OnClassesTab"/>
+            </Grid>
+        </VerticalStackLayout>
+
+        <ContentView x:Name="SubjectsView" Grid.Row="1" Padding="16">
+            <CollectionView ItemsSource="{Binding Subjects}">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Frame CornerRadius="10" Padding="12" BackgroundColor="#FFFFFF" HasShadow="True" Margin="0,0,0,10">
+                            <Label Text="{Binding Name}" FontSize="16" />
+                        </Frame>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </ContentView>
+
+        <ContentView x:Name="ClassesView" Grid.Row="1" IsVisible="False" Padding="16">
+            <CollectionView ItemsSource="{Binding Classes}">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Frame CornerRadius="10" Padding="12" BackgroundColor="#FFFFFF" HasShadow="True" Margin="0,0,0,10">
+                            <VerticalStackLayout>
+                                <Label Text="{Binding Name}" FontSize="16" FontAttributes="Bold" />
+                                <Label Text="{Binding AcademicYear}" FontSize="12" TextColor="Gray" />
+                                <Label Text="{Binding Shift}" FontSize="12" TextColor="Gray" />
+                            </VerticalStackLayout>
+                        </Frame>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </ContentView>
+    </Grid>
+
+</ContentPage>

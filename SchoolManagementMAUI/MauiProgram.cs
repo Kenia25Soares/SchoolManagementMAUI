@@ -6,6 +6,7 @@ using SchoolManagementMAUI.ViewModels;
 using SchoolManagementMAUI.Views;
 
 
+
 namespace SchoolManagementMAUI
 {
     public static class MauiProgram
@@ -30,7 +31,8 @@ namespace SchoolManagementMAUI
 
             builder.Services.AddSingleton<IAuthService, ApiAuthService>();
             builder.Services.AddSingleton<IGradesService, ApiGradesService>();
-
+            builder.Services.AddSingleton<IProfileService, ApiProfileService>();
+            builder.Services.AddSingleton<IPublicCatalogService, ApiPublicCatalogService>();
 
             // ViewModels
             builder.Services.AddSingleton<LoginViewModel>();
@@ -40,6 +42,13 @@ namespace SchoolManagementMAUI
             builder.Services.AddSingleton<PasswordManagementViewModel>();
             builder.Services.AddSingleton<SubjectListViewModel>();
             builder.Services.AddSingleton<SubjectGradeViewModel>();
+            builder.Services.AddSingleton<ProfileViewModel>();
+            builder.Services.AddSingleton<CoursesListViewModel>();
+            builder.Services.AddSingleton<ClassesListViewModel>();
+            builder.Services.AddSingleton<SubjectsListViewModel>();
+            builder.Services.AddSingleton<CourseDetailViewModel>();
+            builder.Services.AddSingleton<ClassDetailViewModel>();
+
 
 
 
@@ -51,6 +60,13 @@ namespace SchoolManagementMAUI
             builder.Services.AddSingleton<PasswordManagementPage>();
             builder.Services.AddSingleton<SubjectListPage>();
             builder.Services.AddSingleton<SubjectGradePage>();
+            builder.Services.AddSingleton<PublicHomePage>();
+            builder.Services.AddTransient<ProfilePage>();
+            builder.Services.AddSingleton<CoursesListPage>();
+            builder.Services.AddSingleton<ClassesListPage>();
+            builder.Services.AddSingleton<SubjectsListPage>();
+            builder.Services.AddSingleton<CourseDetailPage>();
+            builder.Services.AddSingleton<ClassDetailPage>();
 
 
             // Shell

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="300" height="160" viewBox="0 0 300 160" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#60A5FA"/>
+      <stop offset="100%" stop-color="#6366F1"/>
+    </linearGradient>
+  </defs>
+  <rect x="0" y="0" width="300" height="160" rx="16" fill="#F5F7FF"/>
+  <circle cx="70" cy="80" r="36" fill="url(#g)" opacity="0.15"/>
+  <circle cx="240" cy="40" r="22" fill="url(#g)" opacity="0.15"/>
+  <path d="M30 120h240" stroke="#E0E7FF" stroke-width="2"/>
+  <path d="M80 110l40-40 40 40" fill="none" stroke="url(#g)" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+  <rect x="100" y="70" width="40" height="40" rx="6" fill="url(#g)" opacity="0.25"/>
+  <rect x="140" y="70" width="40" height="40" rx="6" fill="url(#g)" opacity="0.25"/>
+  <rect x="120" y="90" width="40" height="40" rx="6" fill="url(#g)" opacity="0.25"/>
+  <text x="150" y="35" font-size="18" text-anchor="middle" fill="#334155">School Management</text>
+</svg>
+

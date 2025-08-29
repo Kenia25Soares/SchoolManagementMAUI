@@ -8,6 +8,10 @@
     Title="SchoolManagementMAUI">
 
     <!-- Definição de rotas -->
+    <ShellContent ContentTemplate="{DataTemplate views:PublicHomePage}"
+                  Route="home"
+                  Shell.FlyoutItemIsVisible="False" />
+
     <ShellContent ContentTemplate="{DataTemplate views:LoginPage}"
                   Route="login"
                   Shell.FlyoutItemIsVisible="False" />
@@ -32,6 +36,26 @@
                   ContentTemplate="{DataTemplate views:SubjectGradePage}"
                   Route="subject-grade" />
 
+    <ShellContent Title="Courses"
+                  ContentTemplate="{DataTemplate views:CoursesListPage}"
+                  Route="public-courses" />
+
+    <ShellContent Title="Classes"
+                  ContentTemplate="{DataTemplate views:ClassesListPage}"
+                  Route="public-classes" />
+
+    <ShellContent Title="Subjects"
+                  ContentTemplate="{DataTemplate views:SubjectsListPage}"
+                  Route="public-subjects" />
+
+    <ShellContent Title="My Profile"
+                  ContentTemplate="{DataTemplate views:ProfilePage}"
+                  Route="profile" />
+
+    <ShellContent Title="About"
+                  ContentTemplate="{DataTemplate views:AboutPage}"
+                  Route="about" />
+
     <ShellContent Title="Logout"
                   Route="logout"
                   ContentTemplate="{DataTemplate views:DashboardPage}" />
@@ -43,9 +67,4 @@
     <ShellContent Title="Perfil"
                   ContentTemplate="{DataTemplate views:ProfilePage}"
                   Route="profile" />-->
-
-    <ShellContent Title="About"
-                  ContentTemplate="{DataTemplate views:AboutPage}"
-                  Route="about" />
-
 </Shell>

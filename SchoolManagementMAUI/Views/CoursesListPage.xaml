@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="SchoolManagementMAUI.Views.CoursesListPage"
+             Title="Courses">
+
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Back" Clicked="OnBackClicked" />
+    </ContentPage.ToolbarItems>
+
+    <ScrollView>
+        <VerticalStackLayout Padding="16" Spacing="12">
+            <CollectionView ItemsSource="{Binding CoursesWithSubjects}">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <VerticalStackLayout Spacing="4">
+                            <!-- Course Header -->
+                            <Frame CornerRadius="10" Padding="12" BackgroundColor="#007AFF" HasShadow="True" Margin="0,0,0,4">
+                                <Label Text="{Binding Course.Name}" FontSize="18" FontAttributes="Bold" TextColor="White"/>
+                            </Frame>
+
+                            <!-- Subjects List -->
+                            <CollectionView ItemsSource="{Binding Subjects}" Margin="16,0,0,8">
+                                <CollectionView.ItemTemplate>
+                                    <DataTemplate>
+                                        <Frame CornerRadius="8" Padding="8" BackgroundColor="#F0F0F0" HasShadow="False" Margin="0,0,0,4">
+                                            <Label Text="{Binding Name}" FontSize="14" TextColor="#333"/>
+                                        </Frame>
+                                    </DataTemplate>
+                                </CollectionView.ItemTemplate>
+                            </CollectionView>
+                        </VerticalStackLayout>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </VerticalStackLayout>
+    </ScrollView>
+
+</ContentPage>

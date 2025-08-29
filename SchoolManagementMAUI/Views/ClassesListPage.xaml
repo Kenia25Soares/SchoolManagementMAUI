@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="SchoolManagementMAUI.Views.ClassesListPage"
+             Title="Classes">
+
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Back" Clicked="OnBackClicked" />
+    </ContentPage.ToolbarItems>
+
+    <ScrollView>
+        <VerticalStackLayout Padding="16" Spacing="12">
+            <CollectionView ItemsSource="{Binding CoursesWithClasses}">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <VerticalStackLayout Spacing="4">
+                            <!-- Course Header -->
+                            <Frame CornerRadius="10" Padding="12" BackgroundColor="#28A745" HasShadow="True" Margin="0,0,0,4">
+                                <Label Text="{Binding Course.Name}" FontSize="18" FontAttributes="Bold" TextColor="White"/>
+                            </Frame>
+
+                            <!-- Classes List -->
+                            <CollectionView ItemsSource="{Binding Classes}" Margin="16,0,0,8">
+                                <CollectionView.ItemTemplate>
+                                    <DataTemplate>
+                                        <Frame CornerRadius="8" Padding="8" BackgroundColor="#FFFFFF" HasShadow="True" Margin="0,0,0,4">
+                                            <VerticalStackLayout>
+                                                <Label Text="{Binding Name}" FontSize="14" FontAttributes="Bold"/>
+                                                <Label Text="{Binding AcademicYear}" FontSize="12" TextColor="Gray"/>
+                                                <Label Text="{Binding Shift}" FontSize="12" TextColor="Gray"/>
+                                            </VerticalStackLayout>
+                                        </Frame>
+                                    </DataTemplate>
+                                </CollectionView.ItemTemplate>
+                            </CollectionView>
+                        </VerticalStackLayout>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </VerticalStackLayout>
+    </ScrollView>
+
+</ContentPage>

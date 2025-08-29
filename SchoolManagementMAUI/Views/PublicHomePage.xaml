@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="SchoolManagementMAUI.Views.PublicHomePage"
+              Shell.NavBarIsVisible="False"
+             Title="Welcome">
+
+    <ScrollView>
+        <VerticalStackLayout Padding="24" Spacing="20">
+
+            <!-- Hero -->
+            <Image Source="hero_school.svg" HeightRequest="160" HorizontalOptions="Center" />
+            <Label Text="Your School, In Your Pocket" FontSize="26" FontAttributes="Bold" HorizontalOptions="Center" />
+            <Label Text="Explore courses, classes and subjects. Track grades and absences when you sign in." FontSize="14" TextColor="Gray" HorizontalOptions="Center" HorizontalTextAlignment="Center" />
+
+            <!-- CTA Login -->
+            <Button Text="Login" BackgroundColor="#007AFF" TextColor="White" CornerRadius="10" HeightRequest="52" Clicked="OnLoginClicked" />
+
+            <!-- Public links -->
+            <VerticalStackLayout Spacing="10">
+                <Button Text="Courses" BackgroundColor="#EEF2FF" TextColor="#1E3A8A" CornerRadius="10" HeightRequest="48" Clicked="OnViewCoursesClicked" />
+                <Button Text="Classes" BackgroundColor="#EEF2FF" TextColor="#1E3A8A" CornerRadius="10" HeightRequest="48" Clicked="OnViewClassesClicked" />
+            </VerticalStackLayout>
+
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

@@ -62,4 +62,13 @@
         </VerticalStackLayout>
     </ScrollView>
 
+    <!-- Toolbar items são filhos diretos de ContentPage -->
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Priority="0" Order="Primary" Command="{Binding OpenProfileCommand}">
+            <ToolbarItem.IconImageSource>
+                <FileImageSource File="icon_user.svg" />
+            </ToolbarItem.IconImageSource>
+        </ToolbarItem>
+    </ContentPage.ToolbarItems>
+
 </ContentPage>

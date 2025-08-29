@@ -18,4 +18,9 @@ public partial class LoginPage : ContentPage
         base.OnNavigatedTo(args);
         _viewModel.OnNavigatedTo();
     }
+
+    private async void OnBackToHomeClicked(object sender, EventArgs e)
+    {
+        await Shell.Current.GoToAsync("//home");
+    }
 }

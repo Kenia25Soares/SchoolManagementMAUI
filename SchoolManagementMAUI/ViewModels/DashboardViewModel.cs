@@ -42,9 +42,11 @@ namespace SchoolManagementMAUI.ViewModels
             {
                 UserName = _userSession.CurrentUser.FullName ?? "User";
                 UserEmail = _userSession.CurrentUser.Email ?? "";
+                // Usar a URL 
                 UserProfileImageUrl = !string.IsNullOrEmpty(_userSession.CurrentUser.ProfilePictureFullUrl)
                     ? _userSession.CurrentUser.ProfilePictureFullUrl
-                    : _userSession.CurrentUser.ProfilePictureUrl;  // Usar a URL 
+                    : _userSession.CurrentUser.ProfilePictureUrl;
+
                 IsLoggedIn = true;
             }
             else
@@ -55,7 +57,6 @@ namespace SchoolManagementMAUI.ViewModels
                 IsLoggedIn = false;
             }
         }
-
 
         [RelayCommand]
         private async Task OpenGradesAsync()
@@ -68,6 +69,28 @@ namespace SchoolManagementMAUI.ViewModels
         {
             await Shell.Current.GoToAsync("//subject-list");
         }
+
+        [RelayCommand]
+        private async Task OpenProfileAsync()
+        {
+            await Shell.Current.GoToAsync("//profile");
+        }
+
+        [RelayCommand]
+        private async Task OpenPublicCoursesAsync()
+        {
+            await Shell.Current.GoToAsync("//public-courses");
+        }
+
+        [RelayCommand]
+        private async Task OpenPublicClassesAsync()
+        {
+            await Shell.Current.GoToAsync("//public-classes");
+        }
+
+
+
+
 
         //[RelayCommand]
         //private async Task OpenCoursesAsync()
@@ -88,3 +111,4 @@ namespace SchoolManagementMAUI.ViewModels
         //}
     }
 }
+
