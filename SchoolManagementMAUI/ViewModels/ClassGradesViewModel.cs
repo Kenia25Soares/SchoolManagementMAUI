@@ -12,31 +12,33 @@ using System.Threading.Tasks;
 
 namespace SchoolManagementMAUI.ViewModels
 {
-    public partial class GradesViewModel : ObservableObject
+    public partial class ClassGradesViewModel : ObservableObject
     {
         private readonly IGradesService _gradesService;
         private readonly IUserSession _userSession;
 
-        public GradesViewModel(IGradesService gradesService, IUserSession userSession)
+        [ObservableProperty]
+        private string? className;
+
+        [ObservableProperty]
+        private string? courseName;
+
+        [ObservableProperty]
+        private string message = string.Empty;
+
+        [ObservableProperty]
+        private bool isBusy;
+
+        public ObservableCollection<StudentSubjectSummary> ClassSubjects { get; } = new();
+
+        public ClassGradesViewModel(IGradesService gradesService, IUserSession userSession)
         {
             _gradesService = gradesService;
             _userSession = userSession;
         }
 
-        [ObservableProperty]
-        private ObservableCollection<StudentSubjectSummary> subjectSummaries = new();
-
-        [ObservableProperty]
-        private string studentName;
-
-        [ObservableProperty]
-        private string message;
-
-        [ObservableProperty]
-        private bool isBusy;
-
         [RelayCommand]
-        public async Task LoadGradesAsync()
+        public async Task LoadClassSubjectsAsync()
         {
             if (!_userSession.IsLoggedIn)
             {
@@ -59,28 +61,23 @@ namespace SchoolManagementMAUI.ViewModels
 
                 var summaries = await _gradesService.GetStudentSubjectsSummaryAsync(studentId, token);
 
-                if (summaries != null)
+                ClassSubjects.Clear();
+                if (summaries != null && summaries.Count > 0)
                 {
-                    for (int i = 0; i < summaries.Count; i++)
+                    foreach (var summary in summaries)
                     {
-                        var summary = summaries[i];
-
+                        ClassSubjects.Add(summary);
                     }
+                    Message = string.Empty;
                 }
-                if (summaries == null || summaries.Count == 0)
+                else
                 {
-                    Message = "No subjects found. Please check if you have grades registered or contact support.";
-                    SubjectSummaries = new ObservableCollection<StudentSubjectSummary>();
-                    return;
+                    Message = "No subjects found for this class.";
                 }
-
-                SubjectSummaries = new ObservableCollection<StudentSubjectSummary>(summaries);
-                StudentName = _userSession.CurrentUser.FullName;
-                Message = string.Empty;
             }
             catch (Exception ex)
             {
-                Message = "\"Error loading grades.";
+                Message = "Error loading class subjects.";
             }
             finally
             {
@@ -94,10 +91,10 @@ namespace SchoolManagementMAUI.ViewModels
             if (subject == null) return;
 
             var services = IPlatformApplication.Current?.Services;
-            var detailPage = services?.GetService<SubjectDetailPage>();
+            var detailPage = services?.GetService<EnhancedSubjectDetailPage>();
             if (detailPage != null)
             {
-                detailPage.Initialize(subject.SubjectId, subject.SubjectName ?? "Subject");
+                detailPage.Initialize(subject.SubjectId, subject.SubjectName);
                 await Shell.Current.Navigation.PushAsync(detailPage);
             }
         }

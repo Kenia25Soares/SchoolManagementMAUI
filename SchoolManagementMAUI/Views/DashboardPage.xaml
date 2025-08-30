@@ -38,25 +38,10 @@
                 </VerticalStackLayout>
             </VerticalStackLayout>
 
-            <!-- Menu de opções -->
             <VerticalStackLayout Spacing="15">
                 <Button Text="My Grades" Command="{Binding OpenGradesCommand}" 
                         BackgroundColor="#007AFF" TextColor="White" CornerRadius="8" HeightRequest="50" />
 
-                <Button Text="My Subjects" Command="{Binding OpenSubjectsCommand}" 
-                        BackgroundColor="#28A745" TextColor="White" CornerRadius="8" HeightRequest="50" />
-
-                <!--<Button Text="Alterar Password" Command="{Binding OpenChangePasswordCommand}" 
-                        BackgroundColor="#28A745" TextColor="White" CornerRadius="8" HeightRequest="50" />-->
-
-                <!--<Button Text="Meus Cursos" Command="{Binding OpenCoursesCommand}" 
-                        BackgroundColor="#FFC107" TextColor="Black" CornerRadius="8" HeightRequest="50" />
-                
-                <Button Text="Meu Perfil" Command="{Binding OpenProfileCommand}" 
-                        BackgroundColor="#17A2B8" TextColor="White" CornerRadius="8" HeightRequest="50" />
-                
-                <Button Text="Sobre" Command="{Binding OpenAboutCommand}" 
-                        BackgroundColor="#6C757D" TextColor="White" CornerRadius="8" HeightRequest="50" />-->
             </VerticalStackLayout>
 
         </VerticalStackLayout>

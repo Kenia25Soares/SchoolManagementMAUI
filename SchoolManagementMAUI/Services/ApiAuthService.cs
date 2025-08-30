@@ -13,7 +13,17 @@ namespace SchoolManagementMAUI.Services
     public class ApiAuthService : IAuthService
     {
         private readonly HttpClient _client;
-        private const string ApiBaseUrl = "https://10.0.2.2:7176/api";
+
+        // Try different URLs - localhost won't work on physical device
+        private static readonly string[] PossibleApiUrls = {
+            "https://10.0.2.2:7176/api",         // HTTPS emulador Android (original que funcionava)
+            "https://localhost:7176/api",         // HTTPS local
+            "http://localhost:5100/api",          // HTTP local
+            "http://10.0.2.2:5100/api"           // HTTP emulador
+        };
+
+        private const string ApiBaseUrl = "https://10.0.2.2:7176/api"; // Default que funcionava
+
         private static readonly JsonSerializerOptions JsonOptions = new()
         {
             PropertyNameCaseInsensitive = true
@@ -31,26 +41,37 @@ namespace SchoolManagementMAUI.Services
 
         public async Task<User?> LoginAsync(string email, string password)
         {
-            try
+            var request = new { email, password, rememberMe = false };
+
+            // Try each possible URL until one works
+            foreach (var baseUrl in PossibleApiUrls)
             {
-                var url = $"{ApiBaseUrl}/account/mobile-login";
-                var request = new { email, password };
-                var response = await _client.PostAsJsonAsync(url, request);
-                if (!response.IsSuccessStatusCode)
-                    return null;
-                var jsonResponse = await response.Content.ReadAsStringAsync();
-                var loginResponse = JsonSerializer.Deserialize<LoginResponse>(jsonResponse, JsonOptions);
-                if (loginResponse?.Success == true && loginResponse.User != null)
+               try
                 {
-                    loginResponse.User.Token = loginResponse.Token;
-                    return loginResponse.User;
+                    var url = $"{baseUrl}/account/mobile-login";
+
+                    var requestJson = JsonSerializer.Serialize(request);
+
+                    var response = await _client.PostAsJsonAsync(url, request);
+     
+                    var jsonResponse = await response.Content.ReadAsStringAsync();
+
+                    if (response.IsSuccessStatusCode)
+                    {
+                        var loginResponse = JsonSerializer.Deserialize<LoginResponse>(jsonResponse, JsonOptions);
+                        if (loginResponse?.Success == true && loginResponse.User != null)
+                        {
+                            loginResponse.User.Token = loginResponse.Token;
+                            return loginResponse.User;
+                        }
+                    }
                 }
-                return null;
+                catch (Exception )
+                {
+                    // Continue to next URL
+                }
             }
-            catch (Exception)
-            {
-                return null;
-            }
+            return null;
         }
 
         public async Task<bool> ChangePasswordAsync(string currentPassword, string newPassword, string confirmPassword, string? token = null)

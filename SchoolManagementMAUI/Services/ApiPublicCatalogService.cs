@@ -7,7 +7,7 @@ namespace SchoolManagementMAUI.Services
     public class ApiPublicCatalogService : IPublicCatalogService
     {
         private readonly HttpClient _client;
-        private const string ApiBaseUrl = "https://10.0.2.2:7176/api";
+                 private const string ApiBaseUrl = "https://10.0.2.2:7176/api";
         private static readonly JsonSerializerOptions JsonOptions = new()
         {
             PropertyNameCaseInsensitive = true

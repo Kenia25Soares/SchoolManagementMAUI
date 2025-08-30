@@ -2,6 +2,7 @@
 <Application xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:local="clr-namespace:SchoolManagementMAUI"
+             xmlns:conv="clr-namespace:SchoolManagementMAUI.Converters"
              x:Class="SchoolManagementMAUI.App">
     
     <Application.Resources>
@@ -10,6 +11,10 @@
                 <ResourceDictionary Source="Resources/Styles/Colors.xaml" />
                 <ResourceDictionary Source="Resources/Styles/Styles.xaml" />
             </ResourceDictionary.MergedDictionaries>
+
+            <!-- Global Converters -->
+            <conv:StringNotEmptyConverter x:Key="StringNotEmptyConverter" />
+            <conv:IsNotNullConverter x:Key="IsNotNullConverter" />
 
         </ResourceDictionary>
     </Application.Resources>

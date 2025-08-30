@@ -14,5 +14,9 @@ namespace SchoolManagementMAUI.Services.Interface
         Task<List<SubjectInfo>> GetStudentSubjectsAsync(string studentId, string token);
 
         Task<SubjectGrade> GetSubjectGradeAsync(string studentId, string subjectCode, string token);
+
+        Task<List<StudentSubjectSummary>> GetStudentSubjectsSummaryAsync(string studentId, string token);
+
+        Task<StudentSubjectDetail?> GetStudentSubjectDetailAsync(string studentId, string subjectId, string token);
     }
 }

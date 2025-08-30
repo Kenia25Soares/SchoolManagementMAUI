@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="SchoolManagementMAUI.Views.SubjectDetailPage"
+             Title="Subject Detail">
+
+    <ScrollView>
+        <VerticalStackLayout Padding="20" Spacing="15">
+
+            <!-- Subject Header -->
+            <VerticalStackLayout Spacing="5">
+                <Label Text="{Binding SubjectName}" FontSize="22" FontAttributes="Bold" HorizontalOptions="Center" />
+                <Label Text="{Binding SubjectDetail.TeacherName}" FontSize="16" TextColor="Gray" HorizontalOptions="Center" />
+            </VerticalStackLayout>
+
+            <!-- Loading indicator -->
+            <ActivityIndicator IsRunning="{Binding IsBusy}" IsVisible="{Binding IsBusy}" />
+
+            <!-- Error message -->
+            <Label Text="{Binding Message}" TextColor="Red" IsVisible="{Binding Message, Converter={StaticResource StringNotEmptyConverter}}" />
+
+            <!-- Summary Card -->
+            <Frame BackgroundColor="#F0F8FF" CornerRadius="10" Padding="15" HasShadow="True" IsVisible="{Binding SubjectDetail, Converter={StaticResource IsNotNullConverter}}">
+                <VerticalStackLayout>
+                    <Label Text="Summary" FontSize="18" FontAttributes="Bold" />
+                    <Label Text="{Binding SubjectDetail.WeightedAverage, StringFormat='Average: {0:F2}', FallbackValue='Average: N/A'}" FontSize="16" />
+                    <Label FontSize="16">
+                        <Label.FormattedText>
+                            <FormattedString>
+                                <Span Text="Absences: " />
+                                <Span Text="{Binding SubjectDetail.TotalAbsences}" />
+                                <Span Text="/" />
+                                <Span Text="{Binding SubjectDetail.AllowedAbsences}" />
+                            </FormattedString>
+                        </Label.FormattedText>
+                    </Label>
+                    <Label Text="{Binding SubjectDetail.StatusDescription}" FontSize="16" FontAttributes="Bold">
+                        <Label.Style>
+                            <Style TargetType="Label">
+                                <Style.Triggers>
+                                    <DataTrigger TargetType="Label" Binding="{Binding SubjectDetail.Status}" Value="Approved">
+                                        <Setter Property="TextColor" Value="Green" />
+                                    </DataTrigger>
+                                    <DataTrigger TargetType="Label" Binding="{Binding SubjectDetail.Status}" Value="Failed">
+                                        <Setter Property="TextColor" Value="Orange" />
+                                    </DataTrigger>
+                                    <DataTrigger TargetType="Label" Binding="{Binding SubjectDetail.Status}" Value="ExcludedByAbsences">
+                                        <Setter Property="TextColor" Value="Red" />
+                                    </DataTrigger>
+                                    <DataTrigger TargetType="Label" Binding="{Binding SubjectDetail.Status}" Value="InProgress">
+                                        <Setter Property="TextColor" Value="Blue" />
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Label.Style>
+                    </Label>
+                </VerticalStackLayout>
+            </Frame>
+
+            <!-- Grades Section -->
+            <VerticalStackLayout Spacing="10">
+                <Label Text="Grades" FontSize="18" FontAttributes="Bold" />
+                <CollectionView ItemsSource="{Binding Grades}">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <Frame BackgroundColor="White" CornerRadius="8" Padding="12" Margin="0,0,0,8" HasShadow="True">
+                                <VerticalStackLayout>
+                                    <Label Text="{Binding EvaluationType}" FontSize="16" FontAttributes="Bold" />
+                                    <Label Text="{Binding Value, StringFormat='Grade: {0:F2}'}" FontSize="14" />
+                                    <Label Text="{Binding Weight, StringFormat='Weight: {0:F2}'}" FontSize="14" TextColor="Gray" />
+                                    <Label Text="{Binding Date, StringFormat='Date: {0:dd/MM/yyyy}'}" FontSize="12" TextColor="Gray" />
+                                    <Label Text="{Binding Observations}" FontSize="12" TextColor="DarkBlue" IsVisible="{Binding Observations, Converter={StaticResource StringNotEmptyConverter}}" />
+                                </VerticalStackLayout>
+                            </Frame>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </VerticalStackLayout>
+
+            <!-- Absences Section -->
+            <VerticalStackLayout Spacing="10">
+                <Label Text="Absences" FontSize="18" FontAttributes="Bold" />
+                <CollectionView ItemsSource="{Binding Absences}">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <Frame BackgroundColor="White" CornerRadius="8" Padding="12" Margin="0,0,0,8" HasShadow="True">
+                                <VerticalStackLayout>
+                                    <Label Text="{Binding Date, StringFormat='Date: {0:dd/MM/yyyy}'}" FontSize="14" FontAttributes="Bold" />
+                                    <Label Text="{Binding IsJustified, StringFormat='Status: {0}'}" FontSize="14">
+                                        <Label.Style>
+                                            <Style TargetType="Label">
+                                                <Style.Triggers>
+                                                    <DataTrigger TargetType="Label" Binding="{Binding IsJustified}" Value="True">
+                                                        <Setter Property="TextColor" Value="Green" />
+                                                        <Setter Property="Text" Value="Justified" />
+                                                    </DataTrigger>
+                                                    <DataTrigger TargetType="Label" Binding="{Binding IsJustified}" Value="False">
+                                                        <Setter Property="TextColor" Value="Red" />
+                                                        <Setter Property="Text" Value="Unjustified" />
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </Label.Style>
+                                    </Label>
+                                    <Label Text="{Binding Justification}" FontSize="12" TextColor="DarkBlue" IsVisible="{Binding Justification, Converter={StaticResource StringNotEmptyConverter}}" />
+                                </VerticalStackLayout>
+                            </Frame>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </VerticalStackLayout>
+
+        </VerticalStackLayout>
+    </ScrollView>
+
+</ContentPage>

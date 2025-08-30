@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:SchoolManagementMAUI.ViewModels"
+             xmlns:models="clr-namespace:SchoolManagementMAUI.Models"
+             x:Class="SchoolManagementMAUI.Views.ClassGradesPage"
+             Title="Class Subects">
+
+    <ScrollView x:Name="classGradesPage">
+        <VerticalStackLayout Padding="20" Spacing="15">
+
+            <!-- Class Header -->
+            <Frame BackgroundColor="#1E3A8A" CornerRadius="12" Padding="20" HasShadow="True">
+                <VerticalStackLayout Spacing="8">
+                    <Label Text="My Class Subjects" 
+                           FontSize="20" 
+                           FontAttributes="Bold" 
+                           TextColor="White" 
+                           HorizontalOptions="Center" />
+                    <Label Text="{Binding ClassName}" 
+                           FontSize="16" 
+                           TextColor="LightGray" 
+                           HorizontalOptions="Center" />
+                    <Label Text="{Binding CourseName}" 
+                           FontSize="14" 
+                           TextColor="LightGray" 
+                           HorizontalOptions="Center" />
+                </VerticalStackLayout>
+            </Frame>
+
+            <!-- Error Message -->
+            <Label Text="{Binding Message}" 
+                   TextColor="Red" 
+                   IsVisible="{Binding Message, Converter={StaticResource StringNotEmptyConverter}}" />
+
+            <!-- Loading indicator -->
+            <ActivityIndicator IsRunning="{Binding IsBusy}" IsVisible="{Binding IsBusy}" />
+
+            <!-- Subjects Grid -->
+            <CollectionView ItemsSource="{Binding ClassSubjects}">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="models:StudentSubjectSummary">
+                        <Frame BackgroundColor="White" 
+                               CornerRadius="12" 
+                               Padding="0" 
+                               Margin="0,0,0,12" 
+                               HasShadow="True">
+                            <Frame.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type vm:ClassGradesViewModel}}, Path=OpenSubjectDetailCommand}" 
+                                                      CommandParameter="{Binding}" />
+                            </Frame.GestureRecognizers>
+
+                            <!-- Horizontal Card Layout -->
+                            <Grid ColumnDefinitions="*,Auto,Auto" Padding="15" ColumnSpacing="15">
+
+                                <!-- Subject Info -->
+                                <VerticalStackLayout Grid.Column="0" Spacing="6" VerticalOptions="Center">
+                                    <Label Text="{Binding SubjectName}" 
+                                           FontSize="16" 
+                                           FontAttributes="Bold" 
+                                           TextColor="#1F2937" />
+                                    <Label Text="{Binding WeightedAverage, StringFormat='Average: {0:F1}', FallbackValue='Average: N/A'}" 
+                                           FontSize="13" 
+                                           TextColor="#4B5563" />
+                                    <Label FontSize="12" TextColor="#6B7280">
+                                        <Label.FormattedText>
+                                            <FormattedString>
+                                                <Span Text="Absences: " />
+                                                <Span Text="{Binding TotalAbsences}" />
+                                                <Span Text="/" />
+                                                <Span Text="{Binding AllowedAbsences}" />
+                                            </FormattedString>
+                                        </Label.FormattedText>
+                                    </Label>
+                                </VerticalStackLayout>
+
+                                <!-- Status Badge - Simplified with fixed colors for testing -->
+                                <Frame Grid.Column="1" 
+                                       CornerRadius="12" 
+                                       Padding="8,4" 
+                                       HasShadow="False"
+                                       VerticalOptions="Center">
+                                    <Frame.Style>
+                                        <Style TargetType="Frame">
+                                            <Style.Triggers>
+                                                <DataTrigger TargetType="Frame" Binding="{Binding Status}" Value="Approved">
+                                                    <Setter Property="BackgroundColor" Value="#10B981" />
+                                                </DataTrigger>
+                                                <DataTrigger TargetType="Frame" Binding="{Binding Status}" Value="Failed">
+                                                    <Setter Property="BackgroundColor" Value="#F59E0B" />
+                                                </DataTrigger>
+                                                <DataTrigger TargetType="Frame" Binding="{Binding Status}" Value="ExcludedByAbsences">
+                                                    <Setter Property="BackgroundColor" Value="#EF4444" />
+                                                </DataTrigger>
+                                                <DataTrigger TargetType="Frame" Binding="{Binding Status}" Value="InProgress">
+                                                    <Setter Property="BackgroundColor" Value="#3B82F6" />
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                            <Setter Property="BackgroundColor" Value="#6B7280" />
+                                        </Style>
+                                    </Frame.Style>
+                                    <Label FontSize="10" FontAttributes="Bold" TextColor="White">
+                                        <Label.Style>
+                                            <Style TargetType="Label">
+                                                <Style.Triggers>
+                                                    <DataTrigger TargetType="Label" Binding="{Binding Status}" Value="Approved">
+                                                        <Setter Property="Text" Value="PASS" />
+                                                    </DataTrigger>
+                                                    <DataTrigger TargetType="Label" Binding="{Binding Status}" Value="Failed">
+                                                        <Setter Property="Text" Value="FAIL" />
+                                                    </DataTrigger>
+                                                    <DataTrigger TargetType="Label" Binding="{Binding Status}" Value="ExcludedByAbsences">
+                                                        <Setter Property="Text" Value="EXCL" />
+                                                    </DataTrigger>
+                                                    <DataTrigger TargetType="Label" Binding="{Binding Status}" Value="InProgress">
+                                                        <Setter Property="Text" Value="PROG" />
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                                <Setter Property="Text" Value="?" />
+                                            </Style>
+                                        </Label.Style>
+                                    </Label>
+                                </Frame>
+
+                                <!-- Arrow indicator -->
+                                <Label Grid.Column="2" 
+                                       Text="›" 
+                                       FontSize="20" 
+                                       TextColor="#9CA3AF" 
+                                       VerticalOptions="Center" />
+
+                            </Grid>
+                        </Frame>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+
+        </VerticalStackLayout>
+    </ScrollView>
+
+</ContentPage>

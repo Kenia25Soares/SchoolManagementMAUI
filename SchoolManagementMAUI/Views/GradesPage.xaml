@@ -3,35 +3,64 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
               xmlns:vm="clr-namespace:SchoolManagementMAUI.ViewModels"
              xmlns:models="clr-namespace:SchoolManagementMAUI.Models"
-             xmlns:converters="clr-namespace:SchoolManagementMAUI.Converters"
              x:Class="SchoolManagementMAUI.Views.GradesPage"
              x:DataType="vm:GradesViewModel"
-             Title="Grades and Absences">
+             Title="My Grades">
 
     <ScrollView>
         <VerticalStackLayout Padding="20" Spacing="15">
 
             <Label Text="{Binding StudentName}" FontSize="20" FontAttributes="Bold" HorizontalOptions="Center" />
 
-            <Label Text="{Binding TotalAverage, StringFormat='Overall Average: {0:F2}'}"
-                   FontSize="16"
-                   TextColor="DarkGreen"
-                   HorizontalOptions="Center" />
-
             <Label Text="{Binding Message}"
                    TextColor="Red"
                    IsVisible="{Binding Message, Converter={StaticResource StringNotEmptyConverter}}" />
 
-            <CollectionView ItemsSource="{Binding Grades}">
+            <!-- Loading indicator -->
+            <ActivityIndicator IsRunning="{Binding IsBusy}" IsVisible="{Binding IsBusy}" />
+
+            <CollectionView ItemsSource="{Binding SubjectSummaries}">
                 <CollectionView.ItemTemplate>
-                    <DataTemplate x:DataType="models:Grade">
-                        <Frame BorderColor="Gray" CornerRadius="10" Padding="10" Margin="5">
+                    <DataTemplate x:DataType="models:StudentSubjectSummary">
+                        <Frame BorderColor="Gray" CornerRadius="10" Padding="15" Margin="5" BackgroundColor="White" HasShadow="True">
+                            <Frame.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type vm:GradesViewModel}}, Path=OpenSubjectDetailCommand}" 
+                                                      CommandParameter="{Binding}" />
+                            </Frame.GestureRecognizers>
                             <VerticalStackLayout>
                                 <Label Text="{Binding SubjectName}" FontSize="18" FontAttributes="Bold" />
-                                <Label Text="{Binding WeightedAverage, StringFormat='Average: {0:F2}'}" />
-                                <Label Text="{Binding TotalAbsences, StringFormat='Absences: {0}'}" />
-                                <Label Text="{Binding AllowedAbsences, StringFormat='Allowed Absences: {0}'}" />
-                                <Label Text="{Binding FailedDueToAbsences, Converter={StaticResource BoolToStatusConverter}}" TextColor="DarkRed" />
+                                <Label Text="{Binding TeacherName}" FontSize="14" TextColor="Gray" />
+                                <Label Text="{Binding WeightedAverage, StringFormat='Average: {0:F2}', FallbackValue='Average: N/A'}" FontSize="14" />
+                                <Label FontSize="14">
+                                    <Label.FormattedText>
+                                        <FormattedString>
+                                            <Span Text="Absences: " />
+                                            <Span Text="{Binding TotalAbsences}" />
+                                            <Span Text="/" />
+                                            <Span Text="{Binding AllowedAbsences}" />
+                                        </FormattedString>
+                                    </Label.FormattedText>
+                                </Label>
+                                <Label Text="{Binding StatusDescription}" FontSize="14" FontAttributes="Bold">
+                                    <Label.Style>
+                                        <Style TargetType="Label">
+                                            <Style.Triggers>
+                                                <DataTrigger TargetType="Label" Binding="{Binding Status}" Value="Approved">
+                                                    <Setter Property="TextColor" Value="Green" />
+                                                </DataTrigger>
+                                                <DataTrigger TargetType="Label" Binding="{Binding Status}" Value="Failed">
+                                                    <Setter Property="TextColor" Value="Orange" />
+                                                </DataTrigger>
+                                                <DataTrigger TargetType="Label" Binding="{Binding Status}" Value="ExcludedByAbsences">
+                                                    <Setter Property="TextColor" Value="Red" />
+                                                </DataTrigger>
+                                                <DataTrigger TargetType="Label" Binding="{Binding Status}" Value="InProgress">
+                                                    <Setter Property="TextColor" Value="Blue" />
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </Label.Style>
+                                </Label>
                             </VerticalStackLayout>
                         </Frame>
                     </DataTemplate>

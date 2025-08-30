@@ -48,6 +48,10 @@ namespace SchoolManagementMAUI
             builder.Services.AddSingleton<SubjectsListViewModel>();
             builder.Services.AddSingleton<CourseDetailViewModel>();
             builder.Services.AddSingleton<ClassDetailViewModel>();
+            builder.Services.AddSingleton<SubjectDetailViewModel>();
+            builder.Services.AddTransient<StudentOverviewViewModel>();
+            builder.Services.AddTransient<ClassGradesViewModel>();
+            builder.Services.AddTransient<EnhancedSubjectDetailViewModel>();
 
 
 
@@ -67,6 +71,10 @@ namespace SchoolManagementMAUI
             builder.Services.AddSingleton<SubjectsListPage>();
             builder.Services.AddSingleton<CourseDetailPage>();
             builder.Services.AddSingleton<ClassDetailPage>();
+            builder.Services.AddSingleton<SubjectDetailPage>();
+            builder.Services.AddTransient<StudentOverviewPage>();
+            builder.Services.AddTransient<ClassGradesPage>();
+            builder.Services.AddTransient<EnhancedSubjectDetailPage>();
 
 
             // Shell
