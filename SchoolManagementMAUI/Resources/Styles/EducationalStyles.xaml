@@ -1,0 +1,309 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<?xaml-comp compile="true" ?>
+<ResourceDictionary 
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
+
+    <!-- Educational Colors -->
+    <Color x:Key="EducationalBlue">#1E3A8A</Color>
+    <Color x:Key="EducationalLightBlue">#3B82F6</Color>
+    <Color x:Key="EducationalGreen">#10B981</Color>
+    <Color x:Key="EducationalOrange">#F59E0B</Color>
+    <Color x:Key="EducationalRed">#EF4444</Color>
+    <Color x:Key="EducationalGray">#6B7280</Color>
+    <Color x:Key="EducationalDarkGray">#1F2937</Color>
+    <Color x:Key="EducationalMediumGray">#4B5563</Color>
+    <Color x:Key="EducationalLightGray">#9CA3AF</Color>
+    <Color x:Key="EducationalBackground">#F8F9FA</Color>
+    <Color x:Key="EducationalCardBackground">#F9FAFB</Color>
+
+    <!-- Header Frame Style -->
+    <Style x:Key="EducationalHeaderFrame" TargetType="Frame">
+        <Setter Property="BackgroundColor" Value="#1E3A8A" />
+        <Setter Property="CornerRadius" Value="15" />
+        <Setter Property="Padding" Value="20" />
+        <Setter Property="HasShadow" Value="True" />
+    </Style>
+
+    <!-- Card Frame  -->
+    <Style x:Key="EducationalCardFrame" TargetType="Frame">
+        <Setter Property="BackgroundColor" Value="White" />
+        <Setter Property="CornerRadius" Value="12" />
+        <Setter Property="Padding" Value="15" />
+        <Setter Property="Margin" Value="0,0,0,12" />
+        <Setter Property="HasShadow" Value="True" />
+    </Style>
+
+    <!-- Small Card Frame  -->
+    <Style x:Key="EducationalSmallCardFrame" TargetType="Frame">
+        <Setter Property="BackgroundColor" Value="#F9FAFB" />
+        <Setter Property="CornerRadius" Value="8" />
+        <Setter Property="Padding" Value="12" />
+        <Setter Property="Margin" Value="0,0,0,8" />
+        <Setter Property="HasShadow" Value="False" />
+    </Style>
+
+    <!-- Summary Card Frame -->
+    <Style x:Key="EducationalSummaryFrame" TargetType="Frame">
+        <Setter Property="BackgroundColor" Value="#F8F9FA" />
+        <Setter Property="CornerRadius" Value="12" />
+        <Setter Property="Padding" Value="20" />
+        <Setter Property="HasShadow" Value="True" />
+    </Style>
+
+    <!-- Header Label Style -->
+    <Style x:Key="EducationalHeaderLabel" TargetType="Label">
+        <Setter Property="FontSize" Value="22" />
+        <Setter Property="FontAttributes" Value="Bold" />
+        <Setter Property="TextColor" Value="White" />
+        <Setter Property="HorizontalOptions" Value="Center" />
+    </Style>
+
+    <!-- Sub Header Label Style -->
+    <Style x:Key="EducationalSubHeaderLabel" TargetType="Label">
+        <Setter Property="FontSize" Value="16" />
+        <Setter Property="TextColor" Value="LightGray" />
+        <Setter Property="HorizontalOptions" Value="Center" />
+    </Style>
+
+    <!-- Section Title Label Style -->
+    <Style x:Key="EducationalSectionTitle" TargetType="Label">
+        <Setter Property="FontSize" Value="20" />
+        <Setter Property="FontAttributes" Value="Bold" />
+        <Setter Property="TextColor" Value="#1E3A8A" />
+    </Style>
+
+    <!-- Subject Name Label Style -->
+    <Style x:Key="EducationalSubjectName" TargetType="Label">
+        <Setter Property="FontSize" Value="16" />
+        <Setter Property="FontAttributes" Value="Bold" />
+        <Setter Property="TextColor" Value="#1F2937" />
+    </Style>
+
+    <!-- Average Label Style -->
+    <Style x:Key="EducationalAverageLabel" TargetType="Label">
+        <Setter Property="FontSize" Value="13" />
+        <Setter Property="TextColor" Value="#4B5563" />
+    </Style>
+
+    <!-- Absences Label Style -->
+    <Style x:Key="EducationalAbsencesLabel" TargetType="Label">
+        <Setter Property="FontSize" Value="12" />
+        <Setter Property="TextColor" Value="#6B7280" />
+    </Style>
+
+    <!-- Grade Value Label Style -->
+    <Style x:Key="EducationalGradeValue" TargetType="Label">
+        <Setter Property="FontSize" Value="16" />
+        <Setter Property="FontAttributes" Value="Bold" />
+        <Setter Property="TextColor" Value="#1F2937" />
+    </Style>
+
+    <!-- Date Label Style -->
+    <Style x:Key="EducationalDateLabel" TargetType="Label">
+        <Setter Property="FontSize" Value="12" />
+        <Setter Property="TextColor" Value="#6B7280" />
+    </Style>
+
+    <!-- Observations Label Style -->
+    <Style x:Key="EducationalObservationsLabel" TargetType="Label">
+        <Setter Property="FontSize" Value="11" />
+        <Setter Property="TextColor" Value="#9CA3AF" />
+    </Style>
+
+    <!-- Weight Label Style -->
+    <Style x:Key="EducationalWeightLabel" TargetType="Label">
+        <Setter Property="FontSize" Value="10" />
+        <Setter Property="TextColor" Value="#6B7280" />
+    </Style>
+
+    <!-- Arrow Label Style -->
+    <Style x:Key="EducationalArrowLabel" TargetType="Label">
+        <Setter Property="FontSize" Value="20" />
+        <Setter Property="TextColor" Value="#9CA3AF" />
+        <Setter Property="VerticalOptions" Value="Center" />
+    </Style>
+
+    <!-- Error Message Label Style -->
+    <Style x:Key="EducationalErrorMessage" TargetType="Label">
+        <Setter Property="TextColor" Value="Red" />
+    </Style>
+
+    <!-- Teacher Name Label Style -->
+    <Style x:Key="EducationalTeacherName" TargetType="Label">
+        <Setter Property="FontSize" Value="14" />
+        <Setter Property="TextColor" Value="Gray" />
+    </Style>
+
+    <!-- Summary Label Style -->
+    <Style x:Key="EducationalSummaryLabel" TargetType="Label">
+        <Setter Property="FontSize" Value="18" />
+        <Setter Property="FontAttributes" Value="Bold" />
+    </Style>
+
+    <!-- Summary Value Label Style -->
+    <Style x:Key="EducationalSummaryValue" TargetType="Label">
+        <Setter Property="FontSize" Value="16" />
+        <Setter Property="FontAttributes" Value="Bold" />
+        <Setter Property="TextColor" Value="#1E3A8A" />
+    </Style>
+
+    <!-- Summary Regular Label Style -->
+    <Style x:Key="EducationalSummaryRegular" TargetType="Label">
+        <Setter Property="FontSize" Value="16" />
+    </Style>
+
+    <!-- Grades Title Label Style -->
+    <Style x:Key="EducationalGradesTitle" TargetType="Label">
+        <Setter Property="FontSize" Value="18" />
+        <Setter Property="FontAttributes" Value="Bold" />
+    </Style>
+
+    <!-- Grade Type Label Style -->
+    <Style x:Key="EducationalGradeType" TargetType="Label">
+        <Setter Property="FontSize" Value="16" />
+        <Setter Property="FontAttributes" Value="Bold" />
+    </Style>
+
+    <!-- Grade Info Label Style -->
+    <Style x:Key="EducationalGradeInfo" TargetType="Label">
+        <Setter Property="FontSize" Value="14" />
+    </Style>
+
+    <!-- Grade Detail Label Style -->
+    <Style x:Key="EducationalGradeDetail" TargetType="Label">
+        <Setter Property="FontSize" Value="12" />
+        <Setter Property="TextColor" Value="Gray" />
+    </Style>
+
+    <!-- Grade Observations Label Style -->
+    <Style x:Key="EducationalGradeObservations" TargetType="Label">
+        <Setter Property="FontSize" Value="12" />
+        <Setter Property="TextColor" Value="DarkBlue" />
+    </Style>
+
+    <!-- Absences Title Label Style -->
+    <Style x:Key="EducationalAbsencesTitle" TargetType="Label">
+        <Setter Property="FontSize" Value="18" />
+        <Setter Property="FontAttributes" Value="Bold" />
+    </Style>
+
+    <!-- Absence Date Label Style -->
+    <Style x:Key="EducationalAbsenceDate" TargetType="Label">
+        <Setter Property="FontSize" Value="14" />
+        <Setter Property="FontAttributes" Value="Bold" />
+    </Style>
+
+    <!-- Absence Status Label Style -->
+    <Style x:Key="EducationalAbsenceStatus" TargetType="Label">
+        <Setter Property="FontSize" Value="14" />
+    </Style>
+
+    <!-- Absence Justification Label Style -->
+    <Style x:Key="EducationalAbsenceJustification" TargetType="Label">
+        <Setter Property="FontSize" Value="12" />
+        <Setter Property="TextColor" Value="DarkBlue" />
+    </Style>
+
+    <!-- Day Number Label Style -->
+    <Style x:Key="EducationalDayNumber" TargetType="Label">
+        <Setter Property="FontSize" Value="18" />
+        <Setter Property="FontAttributes" Value="Bold" />
+        <Setter Property="TextColor" Value="#1F2937" />
+        <Setter Property="HorizontalOptions" Value="Center" />
+    </Style>
+
+    <!-- Month Label Style -->
+    <Style x:Key="EducationalMonthLabel" TargetType="Label">
+        <Setter Property="FontSize" Value="12" />
+        <Setter Property="TextColor" Value="#6B7280" />
+        <Setter Property="HorizontalOptions" Value="Center" />
+    </Style>
+
+    <!-- Absence Type Label Style -->
+    <Style x:Key="EducationalAbsenceType" TargetType="Label">
+        <Setter Property="FontSize" Value="14" />
+        <Setter Property="FontAttributes" Value="Bold" />
+        <Setter Property="TextColor" Value="#1F2937" />
+    </Style>
+
+    <!-- Type Display Name Label Style -->
+    <Style x:Key="EducationalTypeDisplayName" TargetType="Label">
+        <Setter Property="FontSize" Value="16" />
+        <Setter Property="FontAttributes" Value="Bold" />
+        <Setter Property="TextColor" Value="#1F2937" />
+    </Style>
+
+    <!-- Type Average Label Style -->
+    <Style x:Key="EducationalTypeAverage" TargetType="Label">
+        <Setter Property="FontSize" Value="14" />
+        <Setter Property="FontAttributes" Value="Bold" />
+        <Setter Property="TextColor" Value="#1E3A8A" />
+    </Style>
+
+    <!-- Primary Button Style -->
+    <Style x:Key="EducationalPrimaryButton" TargetType="Button">
+        <Setter Property="BackgroundColor" Value="#1E3A8A" />
+        <Setter Property="TextColor" Value="White" />
+        <Setter Property="CornerRadius" Value="8" />
+        <Setter Property="HeightRequest" Value="50" />
+        <Setter Property="FontAttributes" Value="Bold" />
+    </Style>
+
+    <!-- Secondary Button Style -->
+    <Style x:Key="EducationalSecondaryButton" TargetType="Button">
+        <Setter Property="BackgroundColor" Value="Transparent" />
+        <Setter Property="TextColor" Value="#1E3A8A" />
+        <Setter Property="BorderColor" Value="#1E3A8A" />
+        <Setter Property="BorderWidth" Value="1" />
+        <Setter Property="CornerRadius" Value="8" />
+        <Setter Property="HeightRequest" Value="40" />
+    </Style>
+
+    <!-- Welcome Header Label Style -->
+    <Style x:Key="EducationalWelcomeHeader" TargetType="Label">
+        <Setter Property="FontSize" Value="24" />
+        <Setter Property="FontAttributes" Value="Bold" />
+        <Setter Property="HorizontalOptions" Value="Center" />
+    </Style>
+
+    <!-- Welcome Subtitle Label Style -->
+    <Style x:Key="EducationalWelcomeSubtitle" TargetType="Label">
+        <Setter Property="FontSize" Value="16" />
+        <Setter Property="TextColor" Value="Gray" />
+        <Setter Property="HorizontalOptions" Value="Center" />
+    </Style>
+
+    <!-- Login Title Label Style -->
+    <Style x:Key="EducationalLoginTitle" TargetType="Label">
+        <Setter Property="FontSize" Value="28" />
+        <Setter Property="FontAttributes" Value="Bold" />
+        <Setter Property="HorizontalOptions" Value="Center" />
+    </Style>
+
+    <!-- Login Subtitle Label Style -->
+    <Style x:Key="EducationalLoginSubtitle" TargetType="Label">
+        <Setter Property="FontSize" Value="16" />
+        <Setter Property="TextColor" Value="Gray" />
+        <Setter Property="HorizontalOptions" Value="Center" />
+    </Style>
+
+    <!-- Profile Name Label Style -->
+    <Style x:Key="EducationalProfileName" TargetType="Label">
+        <Setter Property="FontSize" Value="22" />
+        <Setter Property="FontAttributes" Value="Bold" />
+        <Setter Property="TextColor" Value="#1E3A8A" />
+    </Style>
+
+    <!-- Profile Email Label Style -->
+    <Style x:Key="EducationalProfileEmail" TargetType="Label">
+        <Setter Property="FontSize" Value="14" />
+        <Setter Property="TextColor" Value="Gray" />
+    </Style>
+
+    <!-- Status Text Color Style -->
+    <Style x:Key="StatusTextColor" TargetType="Label">
+        <Setter Property="TextColor" Value="Blue" />
+    </Style>
+
+</ResourceDictionary>

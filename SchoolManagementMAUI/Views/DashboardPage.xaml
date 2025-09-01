@@ -10,7 +10,7 @@
 
             <!-- Header com informações do utilizador -->
             <VerticalStackLayout Spacing="10" HorizontalOptions="Center">
-                <Label Text="Welcome!" FontSize="24" FontAttributes="Bold" HorizontalOptions="Center" />
+                <Label Text="Welcome!" Style="{StaticResource EducationalWelcomeHeader}" />
 
                 <!-- Imagem de perfil -->
                 <Frame IsVisible="{Binding UserProfileImageUrl, Converter={StaticResource StringNotEmptyConverter}}"
@@ -26,22 +26,18 @@
                 <!-- Informações do utilizador -->
                 <VerticalStackLayout Spacing="5" HorizontalOptions="Center">
                     <Label Text="{Binding UserName}" 
-                           FontSize="20" 
-                           FontAttributes="Bold" 
-                           TextColor="#007AFF"
+                           Style="{StaticResource EducationalProfileName}"
                            HorizontalOptions="Center" />
 
                     <Label Text="{Binding UserEmail}" 
-                           FontSize="14" 
-                           TextColor="Gray"
+                           Style="{StaticResource EducationalProfileEmail}"
                            HorizontalOptions="Center" />
                 </VerticalStackLayout>
             </VerticalStackLayout>
 
             <VerticalStackLayout Spacing="15">
                 <Button Text="My Grades" Command="{Binding OpenGradesCommand}" 
-                        BackgroundColor="#007AFF" TextColor="White" CornerRadius="8" HeightRequest="50" />
-
+                        Style="{StaticResource EducationalPrimaryButton}" />
             </VerticalStackLayout>
 
         </VerticalStackLayout>

@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<?xaml-comp compile="true" ?>
+<ResourceDictionary 
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
+
+    <!-- Status Badge Frame Style -->
+    <Style x:Key="StatusBadgeFrame" TargetType="Frame">
+        <Setter Property="CornerRadius" Value="12" />
+        <Setter Property="Padding" Value="8,4" />
+        <Setter Property="HasShadow" Value="False" />
+        <Setter Property="VerticalOptions" Value="Center" />
+        <Setter Property="BackgroundColor" Value="#6B7280" />
+    </Style>
+
+    <!-- Status Badge Label Style -->
+    <Style x:Key="StatusBadgeLabel" TargetType="Label">
+        <Setter Property="FontSize" Value="10" />
+        <Setter Property="FontAttributes" Value="Bold" />
+        <Setter Property="TextColor" Value="White" />
+        <Setter Property="Text" Value="?" />
+    </Style>
+
+    <!-- Full Status Badge Label Style -->
+    <Style x:Key="FullStatusBadgeLabel" TargetType="Label">
+        <Setter Property="FontSize" Value="12" />
+        <Setter Property="FontAttributes" Value="Bold" />
+        <Setter Property="TextColor" Value="White" />
+        <Setter Property="Text" Value="?" />
+    </Style>
+
+    <!-- Status Text Color Style -->
+    <Style x:Key="StatusTextColor" TargetType="Label">
+        <Setter Property="TextColor" Value="Blue" />
+    </Style>
+
+    <!-- Absence Status Badge Frame Style -->
+    <Style x:Key="AbsenceStatusBadgeFrame" TargetType="Frame">
+        <Setter Property="CornerRadius" Value="12" />
+        <Setter Property="Padding" Value="8,4" />
+        <Setter Property="HasShadow" Value="False" />
+        <Setter Property="VerticalOptions" Value="Center" />
+        <Setter Property="BackgroundColor" Value="#EF4444" />
+    </Style>
+
+    <!-- Absence Status Badge Label Style -->
+    <Style x:Key="AbsenceStatusBadgeLabel" TargetType="Label">
+        <Setter Property="FontSize" Value="10" />
+        <Setter Property="FontAttributes" Value="Bold" />
+        <Setter Property="TextColor" Value="White" />
+        <Setter Property="Text" Value="MISS" />
+    </Style>
+
+    <!-- Absence Status Text Style -->
+    <Style x:Key="AbsenceStatusText" TargetType="Label">
+        <Setter Property="FontSize" Value="14" />
+        <Setter Property="Text" Value="Unjustified" />
+        <Setter Property="TextColor" Value="Red" />
+    </Style>
+
+    <!-- Absence Justification Text Style with Triggers -->
+    <Style x:Key="AbsenceJustificationText" TargetType="Label">
+        <Setter Property="FontSize" Value="12" />
+        <Setter Property="TextColor" Value="#6B7280" />
+        <Setter Property="Text" Value="Unjustified absence" />
+    </Style>
+
+</ResourceDictionary>
+

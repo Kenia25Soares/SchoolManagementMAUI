@@ -11,17 +11,12 @@
         <VerticalStackLayout Padding="20" Spacing="20">
 
 
-            <Frame BackgroundColor="#1E3A8A" CornerRadius="15" Padding="20" HasShadow="True">
+            <Frame Style="{StaticResource EducationalHeaderFrame}">
                 <VerticalStackLayout Spacing="10">
                     <Label Text="{Binding SubjectName}" 
-                           FontSize="22" 
-                           FontAttributes="Bold" 
-                           TextColor="White" 
-                           HorizontalOptions="Center" />
+                           Style="{StaticResource EducationalHeaderLabel}" />
                     <Label Text="{Binding SubjectDetail.TeacherName}" 
-                           FontSize="16" 
-                           TextColor="LightGray" 
-                           HorizontalOptions="Center"
+                           Style="{StaticResource EducationalSubHeaderLabel}"
                            IsVisible="{Binding SubjectDetail.TeacherName, Converter={StaticResource StringNotEmptyConverter}}" />
                 </VerticalStackLayout>
             </Frame>
@@ -31,18 +26,18 @@
 
 
             <Label Text="{Binding Message}" 
-                   TextColor="Red" 
+                   Style="{StaticResource EducationalErrorMessage}"
                    IsVisible="{Binding Message, Converter={StaticResource StringNotEmptyConverter}}" />
 
 
-            <Frame BackgroundColor="#F8F9FA" CornerRadius="12" Padding="20" HasShadow="True" 
+            <Frame Style="{StaticResource EducationalSummaryFrame}" 
                    IsVisible="{Binding SubjectDetail, Converter={StaticResource IsNotNullConverter}}">
                 <Grid ColumnDefinitions="*,*" RowDefinitions="Auto,Auto,Auto,Auto" RowSpacing="10">
 
                     <Label Grid.Row="0" Grid.Column="0" Text="Overall Average:" FontAttributes="Bold" />
                     <Label Grid.Row="0" Grid.Column="1" 
                            Text="{Binding SubjectDetail.WeightedAverage, StringFormat='{0:F1}', FallbackValue='N/A'}" 
-                           FontSize="16" FontAttributes="Bold" TextColor="#1E3A8A" />
+                           Style="{StaticResource EducationalSummaryValue}" />
 
                     <Label Grid.Row="1" Grid.Column="0" Text="Absences:" FontAttributes="Bold" />
                     <Label Grid.Row="1" Grid.Column="1" FontSize="14">
@@ -57,106 +52,51 @@
 
                     <Label Grid.Row="2" Grid.Column="0" Text="Status:" FontAttributes="Bold" />
                     <Frame Grid.Row="2" Grid.Column="1" 
-                           CornerRadius="8" Padding="8,4" 
-                           HasShadow="False">
-                        <Frame.Style>
-                            <Style TargetType="Frame">
-                                <Style.Triggers>
-                                    <DataTrigger TargetType="Frame" Binding="{Binding SubjectDetail.Status}" Value="Approved">
-                                        <Setter Property="BackgroundColor" Value="#10B981" />
-                                    </DataTrigger>
-                                    <DataTrigger TargetType="Frame" Binding="{Binding SubjectDetail.Status}" Value="Failed">
-                                        <Setter Property="BackgroundColor" Value="#F59E0B" />
-                                    </DataTrigger>
-                                    <DataTrigger TargetType="Frame" Binding="{Binding SubjectDetail.Status}" Value="ExcludedByAbsences">
-                                        <Setter Property="BackgroundColor" Value="#EF4444" />
-                                    </DataTrigger>
-                                    <DataTrigger TargetType="Frame" Binding="{Binding SubjectDetail.Status}" Value="InProgress">
-                                        <Setter Property="BackgroundColor" Value="#3B82F6" />
-                                    </DataTrigger>
-                                </Style.Triggers>
-                                <Setter Property="BackgroundColor" Value="#6B7280" />
-                            </Style>
-                        </Frame.Style>
-                        <Label TextColor="White" FontSize="12" FontAttributes="Bold">
-                            <Label.Style>
-                                <Style TargetType="Label">
-                                    <Style.Triggers>
-                                        <DataTrigger TargetType="Label" Binding="{Binding SubjectDetail.Status}" Value="Approved">
-                                            <Setter Property="Text" Value="APPROVED" />
-                                        </DataTrigger>
-                                        <DataTrigger TargetType="Label" Binding="{Binding SubjectDetail.Status}" Value="Failed">
-                                            <Setter Property="Text" Value="FAILED" />
-                                        </DataTrigger>
-                                        <DataTrigger TargetType="Label" Binding="{Binding SubjectDetail.Status}" Value="ExcludedByAbsences">
-                                            <Setter Property="Text" Value="EXCLUDED" />
-                                        </DataTrigger>
-                                        <DataTrigger TargetType="Label" Binding="{Binding SubjectDetail.Status}" Value="InProgress">
-                                            <Setter Property="Text" Value="IN PROGRESS" />
-                                        </DataTrigger>
-                                    </Style.Triggers>
-                                    <Setter Property="Text" Value="?" />
-                                </Style>
-                            </Label.Style>
-                        </Label>
+                           Style="{StaticResource StatusBadgeFrame}">
+                        <Label Style="{StaticResource FullStatusBadgeLabel}" />
                     </Frame>
 
                 </Grid>
             </Frame>
 
 
-            <Label Text="Grades by Type" FontSize="20" FontAttributes="Bold" TextColor="#1E3A8A" />
+            <Label Text="Grades by Type" Style="{StaticResource EducationalSectionTitle}" />
 
             <CollectionView ItemsSource="{Binding GradesByType}">
                 <CollectionView.ItemTemplate>
                     <DataTemplate x:DataType="models:GradeTypeGroup">
-                        <Frame BackgroundColor="White" CornerRadius="12" Padding="15" Margin="0,0,0,15" HasShadow="True">
+                        <Frame Style="{StaticResource EducationalCardFrame}">
                             <VerticalStackLayout Spacing="12">
 
                                 <!-- Type Header -->
                                 <Grid ColumnDefinitions="*,Auto">
                                     <Label Grid.Column="0" 
                                            Text="{Binding TypeDisplayName}" 
-                                           FontSize="16" 
-                                           FontAttributes="Bold" 
-                                           TextColor="#374151" />
+                                           Style="{StaticResource EducationalTypeDisplayName}" />
                                     <Label Grid.Column="1" 
                                            Text="{Binding Average, StringFormat='Avg: {0:F1}'}" 
-                                           FontSize="14" 
-                                           FontAttributes="Bold" 
-                                           TextColor="#1E3A8A" />
+                                           Style="{StaticResource EducationalTypeAverage}" />
                                 </Grid>
 
                                 <!-- Individual Grades -->
                                 <CollectionView ItemsSource="{Binding Grades}">
                                     <CollectionView.ItemTemplate>
                                         <DataTemplate x:DataType="models:StudentGradeDetail">
-                                            <Frame BackgroundColor="#F9FAFB" 
-                                                   CornerRadius="8" 
-                                                   Padding="12" 
-                                                   Margin="0,0,0,8" 
-                                                   HasShadow="False">
+                                            <Frame Style="{StaticResource EducationalSmallCardFrame}">
                                                 <Grid ColumnDefinitions="Auto,*,Auto" ColumnSpacing="10">
                                                     <Label Grid.Column="0" 
                                                            Text="{Binding Value, StringFormat='{0:F1}'}" 
-                                                           FontSize="16" 
-                                                           FontAttributes="Bold" 
-                                                           TextColor="#1F2937" 
-                                                           VerticalOptions="Center" />
-                                                    <VerticalStackLayout Grid.Column="1" Spacing="2">
-                                                        <Label Text="{Binding Date, StringFormat='{0:dd/MM/yyyy}'}" 
-                                                               FontSize="12" 
-                                                               TextColor="#6B7280" />
-                                                        <Label Text="{Binding Observations}" 
-                                                               FontSize="11" 
-                                                               TextColor="#9CA3AF"
-                                                               IsVisible="{Binding Observations, Converter={StaticResource StringNotEmptyConverter}}" />
-                                                    </VerticalStackLayout>
-                                                    <Label Grid.Column="2" 
-                                                           Text="{Binding Weight, StringFormat='Weight: {0:F1}'}" 
-                                                           FontSize="10" 
-                                                           TextColor="#6B7280" 
-                                                           VerticalOptions="Center" />
+                                                           Style="{StaticResource EducationalGradeValue}" />
+                                                                                                          <VerticalStackLayout Grid.Column="1" Spacing="2">
+                                                          <Label Text="{Binding Date, StringFormat='{0:dd/MM/yyyy}'}" 
+                                                                 Style="{StaticResource EducationalDateLabel}" />
+                                                          <Label Text="{Binding Observations}" 
+                                                                 Style="{StaticResource EducationalObservationsLabel}"
+                                                                 IsVisible="{Binding Observations, Converter={StaticResource StringNotEmptyConverter}}" />
+                                                      </VerticalStackLayout>
+                                                                                                          <Label Grid.Column="2" 
+                                                             Text="{Binding Weight, StringFormat='Weight: {0:F1}'}" 
+                                                             Style="{StaticResource EducationalWeightLabel}" />
                                                 </Grid>
                                             </Frame>
                                         </DataTemplate>
@@ -170,81 +110,32 @@
             </CollectionView>
 
 
-            <Label Text="Absences History" FontSize="20" FontAttributes="Bold" TextColor="#1E3A8A" />
+            <Label Text="Absences History" Style="{StaticResource EducationalSectionTitle}" />
 
             <CollectionView ItemsSource="{Binding Absences}">
                 <CollectionView.ItemTemplate>
                     <DataTemplate x:DataType="models:StudentAbsenceDetail">
-                        <Frame BackgroundColor="White" 
-                               CornerRadius="8" 
-                               Padding="15" 
-                               Margin="0,0,0,10" 
-                               HasShadow="True">
+                        <Frame Style="{StaticResource EducationalCardFrame}">
                             <Grid ColumnDefinitions="Auto,*,Auto" ColumnSpacing="15">
                                 <!-- Date -->
                                 <VerticalStackLayout Grid.Column="0" Spacing="2" VerticalOptions="Center">
                                     <Label Text="{Binding Date, StringFormat='{0:dd}'}" 
-                                           FontSize="18" 
-                                           FontAttributes="Bold" 
-                                           TextColor="#1F2937" 
-                                           HorizontalOptions="Center" />
+                                           Style="{StaticResource EducationalDayNumber}" />
                                     <Label Text="{Binding Date, StringFormat='{0:MMM}'}" 
-                                           FontSize="12" 
-                                           TextColor="#6B7280" 
-                                           HorizontalOptions="Center" />
+                                           Style="{StaticResource EducationalMonthLabel}" />
                                 </VerticalStackLayout>
 
                                 <!-- Justification or default text -->
                                 <VerticalStackLayout Grid.Column="1" Spacing="2" VerticalOptions="Center">
                                     <Label Text="Absence" 
-                                           FontSize="14" 
-                                           FontAttributes="Bold"
-                                           TextColor="#1F2937" />
-                                    <Label FontSize="12" TextColor="#6B7280">
-                                        <Label.Style>
-                                            <Style TargetType="Label">
-                                                <Style.Triggers>
-                                                    <DataTrigger TargetType="Label" Binding="{Binding Justification, Converter={StaticResource StringNotEmptyConverter}}" Value="True">
-                                                        <Setter Property="Text" Value="{Binding Justification}" />
-                                                    </DataTrigger>
-                                                    <DataTrigger TargetType="Label" Binding="{Binding IsJustified}" Value="True">
-                                                        <Setter Property="Text" Value="Justified absence" />
-                                                    </DataTrigger>
-                                                </Style.Triggers>
-                                                <Setter Property="Text" Value="Unjustified absence" />
-                                            </Style>
-                                        </Label.Style>
-                                    </Label>
+                                           Style="{StaticResource EducationalAbsenceType}" />
+                                    <Label Style="{StaticResource AbsenceJustificationText}" />
                                 </VerticalStackLayout>
 
                                 <!-- Status Badge -->
                                 <Frame Grid.Column="2" 
-                                       CornerRadius="12" 
-                                       Padding="8,4" 
-                                       HasShadow="False"
-                                       VerticalOptions="Center">
-                                    <Frame.Style>
-                                        <Style TargetType="Frame">
-                                            <Style.Triggers>
-                                                <DataTrigger TargetType="Frame" Binding="{Binding IsJustified}" Value="True">
-                                                    <Setter Property="BackgroundColor" Value="#10B981" />
-                                                </DataTrigger>
-                                            </Style.Triggers>
-                                            <Setter Property="BackgroundColor" Value="#EF4444" />
-                                        </Style>
-                                    </Frame.Style>
-                                    <Label TextColor="White" FontSize="10" FontAttributes="Bold">
-                                        <Label.Style>
-                                            <Style TargetType="Label">
-                                                <Style.Triggers>
-                                                    <DataTrigger TargetType="Label" Binding="{Binding IsJustified}" Value="True">
-                                                        <Setter Property="Text" Value="OK" />
-                                                    </DataTrigger>
-                                                </Style.Triggers>
-                                                <Setter Property="Text" Value="MISS" />
-                                            </Style>
-                                        </Label.Style>
-                                    </Label>
+                                       Style="{StaticResource AbsenceStatusBadgeFrame}">
+                                    <Label Style="{StaticResource AbsenceStatusBadgeLabel}" />
                                 </Frame>
                             </Grid>
                         </Frame>

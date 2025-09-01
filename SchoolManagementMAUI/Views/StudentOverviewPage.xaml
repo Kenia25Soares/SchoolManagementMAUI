@@ -10,12 +10,12 @@
         <VerticalStackLayout Padding="20" Spacing="20">
 
             <!-- Student Header -->
-            <Frame BackgroundColor="#F8F9FA" CornerRadius="15" Padding="20" HasShadow="True">
+            <Frame Style="{StaticResource EducationalProfileHeaderFrame}">
                 <VerticalStackLayout Spacing="15">
                     <!-- Profile Picture and Name -->
                     <HorizontalStackLayout Spacing="15">
-                        <Frame WidthRequest="80" HeightRequest="80" CornerRadius="40" 
-                               BackgroundColor="LightGray" Padding="0" HasShadow="True">
+                        <Frame WidthRequest="80" HeightRequest="80" 
+                               Style="{StaticResource EducationalProfilePictureFrame}">
                             <Image Source="{Binding ProfilePictureUrl}" 
                                    Aspect="AspectFill" 
                                    WidthRequest="80" 
@@ -23,43 +23,36 @@
                         </Frame>
                         <VerticalStackLayout Spacing="5" VerticalOptions="Center">
                             <Label Text="{Binding StudentName}" 
-                                   FontSize="22" 
-                                   FontAttributes="Bold" 
-                                   TextColor="#1E3A8A" />
+                                   Style="{StaticResource EducationalProfileName}" />
                             <Label Text="{Binding StudentEmail}" 
-                                   FontSize="14" 
-                                   TextColor="Gray" />
+                                   Style="{StaticResource EducationalProfileEmail}" />
                         </VerticalStackLayout>
                     </HorizontalStackLayout>
                 </VerticalStackLayout>
             </Frame>
 
             <!-- Class Information -->
-            <Frame BackgroundColor="White" CornerRadius="12" Padding="20" HasShadow="True">
+            <Frame Style="{StaticResource EducationalCardFrame}">
                 <VerticalStackLayout Spacing="12">
                     <Label Text="Class Information" 
-                           FontSize="18" 
-                           FontAttributes="Bold" 
-                           TextColor="#1E3A8A" />
+                           Style="{StaticResource EducationalSectionHeader}" />
 
                     <Grid ColumnDefinitions="Auto,*" RowDefinitions="Auto,Auto,Auto" RowSpacing="8">
-                        <Label Grid.Row="0" Grid.Column="0" Text="Class:" FontAttributes="Bold" />
-                        <Label Grid.Row="0" Grid.Column="1" Text="{Binding StudentClass}" Margin="10,0,0,0" />
+                        <Label Grid.Row="0" Grid.Column="0" Text="Class:" Style="{StaticResource EducationalInfoGridLabel}" />
+                        <Label Grid.Row="0" Grid.Column="1" Text="{Binding StudentClass}" Style="{StaticResource EducationalInfoGridValue}" />
 
-                        <Label Grid.Row="1" Grid.Column="0" Text="Course:" FontAttributes="Bold" />
-                        <Label Grid.Row="1" Grid.Column="1" Text="{Binding CourseName}" Margin="10,0,0,0" />
+                        <Label Grid.Row="1" Grid.Column="0" Text="Course:" Style="{StaticResource EducationalInfoGridLabel}" />
+                        <Label Grid.Row="1" Grid.Column="1" Text="{Binding CourseName}" Style="{StaticResource EducationalInfoGridValue}" />
 
-                        <Label Grid.Row="2" Grid.Column="0" Text="Academic Year:" FontAttributes="Bold" />
-                        <Label Grid.Row="2" Grid.Column="1" Text="{Binding AcademicYear}" Margin="10,0,0,0" />
+                        <Label Grid.Row="2" Grid.Column="0" Text="Academic Year:" Style="{StaticResource EducationalInfoGridLabel}" />
+                        <Label Grid.Row="2" Grid.Column="1" Text="{Binding AcademicYear}" Style="{StaticResource EducationalInfoGridValue}" />
                     </Grid>
 
                     <!-- Class Status -->
-                    <Frame CornerRadius="8" Padding="12,6" Margin="0,10,0,0" HasShadow="False"
-                           BackgroundColor="#10B981">
+                    <Frame Style="{StaticResource EducationalStatusActiveFrame}">
                         <HorizontalStackLayout Spacing="5" HorizontalOptions="Center">
-
-                            <Label Text="Class Status:" FontSize="12" FontAttributes="Bold" TextColor="White" />
-                            <Label Text="ACTIVE" FontSize="12" FontAttributes="Bold" TextColor="White" />
+                            <Label Text="Class Status:" Style="{StaticResource EducationalStatusActiveLabel}" />
+                            <Label Text="ACTIVE" Style="{StaticResource EducationalStatusActiveLabel}" />
                         </HorizontalStackLayout>
                     </Frame>
                 </VerticalStackLayout>
@@ -67,7 +60,7 @@
 
             <!-- Error Message -->
             <Label Text="{Binding Message}" 
-                   TextColor="Red" 
+                   Style="{StaticResource EducationalErrorMessage}"
                    IsVisible="{Binding Message, Converter={StaticResource StringNotEmptyConverter}}" />
 
             <!-- Loading indicator -->
@@ -77,13 +70,7 @@
             <VerticalStackLayout Spacing="12">
                 <Button Text="View Class Subjects" 
                         Command="{Binding ViewClassDetailsCommand}"
-                        BackgroundColor="#1E3A8A" 
-                        TextColor="White" 
-                        CornerRadius="8" 
-                        HeightRequest="50" 
-                        FontAttributes="Bold" />
-
-
+                        Style="{StaticResource EducationalPrimaryButton}" />
             </VerticalStackLayout>
 
         </VerticalStackLayout>

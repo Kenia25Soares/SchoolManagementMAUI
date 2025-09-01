@@ -13,8 +13,8 @@
         <VerticalStackLayout Padding="20" Spacing="20">
             <!-- Logo or Title -->
             <VerticalStackLayout Spacing="10" HorizontalOptions="Center">
-                <Label Text="Welcome" FontSize="28" FontAttributes="Bold" HorizontalOptions="Center" />
-                <Label Text="Login to continue" FontSize="16" TextColor="Gray" HorizontalOptions="Center" />
+                <Label Text="Welcome" Style="{StaticResource EducationalLoginTitle}" />
+                <Label Text="Login to continue" Style="{StaticResource EducationalLoginSubtitle}" />
             </VerticalStackLayout>
 
             <!-- Login Fields -->
@@ -31,20 +31,12 @@
                 <!-- Login Button -->
                 <Button Text="Login" 
                         Command="{Binding LoginCommand}" 
-                        BackgroundColor="#007AFF"
-                        TextColor="White"
-                        CornerRadius="8"
-                        HeightRequest="50"
+                        Style="{StaticResource EducationalPrimaryButton}"
                         Margin="0,10,0,0" />
 
                 <!-- Back to Home -->
                 <Button Text="Back" 
-                        BackgroundColor="Transparent"
-                        TextColor="#007AFF"
-                        BorderColor="#007AFF"
-                        BorderWidth="1"
-                        CornerRadius="8"
-                        HeightRequest="40"
+                        Style="{StaticResource EducationalSecondaryButton}"
                         Clicked="OnBackToHomeClicked" />
             </VerticalStackLayout>
 
@@ -57,12 +49,7 @@
 
                 <Button Text="Recover Password" 
                         Command="{Binding GoToRecoverPasswordCommand}" 
-                        BackgroundColor="Transparent"
-                        TextColor="#007AFF"
-                        BorderColor="#007AFF"
-                        BorderWidth="1"
-                        CornerRadius="8"
-                        HeightRequest="40" />
+                        Style="{StaticResource EducationalSecondaryButton}" />
 
 
 
@@ -71,18 +58,9 @@
 
             <!-- Status Message -->
             <Border IsVisible="{Binding HasMessage}"
-                    BackgroundColor="#E8F5E8"
-                    Stroke="Green"
-                    StrokeThickness="2"
-                    StrokeShape="RoundRectangle 8"
-                    Padding="15"
-                    Margin="0,10,0,0">
+                    Style="{StaticResource EducationalSuccessMessageBorder}">
                 <Label Text="{Binding Message}" 
-                       TextColor="Green"
-                       FontSize="16"
-                       FontAttributes="Bold"
-                       HorizontalOptions="Center"
-                       HorizontalTextAlignment="Center" />
+                       Style="{StaticResource EducationalSuccessMessageLabel}" />
             </Border>
         </VerticalStackLayout>
     </ScrollView>

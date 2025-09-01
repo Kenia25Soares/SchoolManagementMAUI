@@ -10,11 +10,13 @@
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="Resources/Styles/Colors.xaml" />
                 <ResourceDictionary Source="Resources/Styles/Styles.xaml" />
+                <ResourceDictionary Source="Resources/Styles/EducationalStyles.xaml" />
             </ResourceDictionary.MergedDictionaries>
 
             <!-- Global Converters -->
             <conv:StringNotEmptyConverter x:Key="StringNotEmptyConverter" />
             <conv:IsNotNullConverter x:Key="IsNotNullConverter" />
+            <conv:InverseBoolConverter x:Key="InverseBoolConverter" />
 
         </ResourceDictionary>
     </Application.Resources>

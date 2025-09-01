@@ -15,16 +15,16 @@
                     <DataTemplate>
                         <VerticalStackLayout Spacing="4">
                             <!-- Course Header -->
-                            <Frame CornerRadius="10" Padding="12" BackgroundColor="#007AFF" HasShadow="True" Margin="0,0,0,4">
-                                <Label Text="{Binding Course.Name}" FontSize="18" FontAttributes="Bold" TextColor="White"/>
+                            <Frame Style="{StaticResource EducationalCourseHeaderFrame}" BackgroundColor="{StaticResource EducationalBlue}">
+                                <Label Text="{Binding Course.Name}" Style="{StaticResource EducationalCourseHeaderLabel}"/>
                             </Frame>
 
                             <!-- Subjects List -->
                             <CollectionView ItemsSource="{Binding Subjects}" Margin="16,0,0,8">
                                 <CollectionView.ItemTemplate>
                                     <DataTemplate>
-                                        <Frame CornerRadius="8" Padding="8" BackgroundColor="#F0F0F0" HasShadow="False" Margin="0,0,0,4">
-                                            <Label Text="{Binding Name}" FontSize="14" TextColor="#333"/>
+                                        <Frame Style="{StaticResource EducationalSubjectItemFrame}" BackgroundColor="#F0F0F0">
+                                            <Label Text="{Binding Name}" Style="{StaticResource EducationalSubjectItemLabel}"/>
                                         </Frame>
                                     </DataTemplate>
                                 </CollectionView.ItemTemplate>
