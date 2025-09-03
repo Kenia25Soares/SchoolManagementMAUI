@@ -85,7 +85,6 @@ namespace SchoolManagementMAUI.ViewModels
             catch (Exception ex)
             {
                 Message = "Error loading subject grade.";
-                Console.WriteLine(ex.Message);
                 HasData = false;
             }
             finally

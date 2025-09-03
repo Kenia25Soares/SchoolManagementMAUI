@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:SchoolManagementMAUI.ViewModels"
+             x:Class="SchoolManagementMAUI.Views.CreateEnrollmentRequestPage"
+             Title="Request Enrollment">
+
+    <ScrollView>
+        
+        <VerticalStackLayout Padding="20" Spacing="20">
+
+            <Label Text="Request Subject Enrollment" 
+                   Style="{StaticResource EducationalWelcomeHeader}" />
+
+            <Frame Style="{StaticResource EducationalInfoFrame}">
+                <VerticalStackLayout Spacing="8">
+                    <Label Text="Selected Subject" 
+                           Style="{StaticResource EducationalSectionTitle}" />
+                    <Label Text="{Binding SelectedSubject.SubjectName}" 
+                           Style="{StaticResource EducationalSubjectName}" />
+                    <Label Text="{Binding SelectedSubject.SubjectCode}" 
+                           Style="{StaticResource EducationalSubjectCode}" />
+                    <Grid ColumnDefinitions="*,*" ColumnSpacing="20">
+                        <Label Grid.Column="0" 
+                               Text="{Binding SelectedSubject.Workload, StringFormat='Workload: {0}h'}" 
+                               Style="{StaticResource EducationalInfoLabel}" />
+                        <Label Grid.Column="1" 
+                               Text="{Binding SelectedSubject.AllowedAbsences, StringFormat='Max Absences: {0}'}" 
+                               Style="{StaticResource EducationalInfoLabel}" />
+                    </Grid>
+                </VerticalStackLayout>
+            </Frame>
+
+            <VerticalStackLayout Spacing="10">
+                <Label Text="Justification" 
+                       Style="{StaticResource EducationalSectionTitle}" />
+                <Label Text="Explain why you want to enroll in this subject (10-500 characters)" 
+                       Style="{StaticResource EducationalInfoLabel}" />
+
+                <Editor Text="{Binding Description}"
+                        Placeholder="I would like to enroll in this subject because..."
+                        HeightRequest="120"
+                        Style="{StaticResource EducationalEditor}" />
+
+                <Label Text="{Binding CharacterCount, StringFormat='{0}/500 characters'}" 
+                       Style="{StaticResource EducationalInfoLabel}"
+                       HorizontalOptions="End" />
+            </VerticalStackLayout>
+
+            <ActivityIndicator IsRunning="{Binding IsBusy}" IsVisible="{Binding IsBusy}" />
+
+            <Label Text="{Binding Message}"
+                   Style="{StaticResource EducationalErrorMessage}"
+                   IsVisible="{Binding Message, Converter={StaticResource StringNotEmptyConverter}}" />
+
+            <VerticalStackLayout Spacing="10" Margin="0,20,0,0">
+                <Button Text="Submit Request"
+                        Command="{Binding SubmitRequestCommand}"
+                        Style="{StaticResource EducationalPrimaryButton}" />
+
+                <Button Text="Cancel"
+                        Command="{Binding CancelCommand}"
+                        Style="{StaticResource EducationalSecondaryButton}"
+                        IsEnabled="{Binding IsBusy, Converter={StaticResource InverseBoolConverter}}" />
+            </VerticalStackLayout>
+
+        </VerticalStackLayout>
+    </ScrollView>
+    
+</ContentPage>

@@ -73,7 +73,6 @@ namespace SchoolManagementMAUI.ViewModels
             catch (Exception ex)
             {
                 Message = "Error loading subjects.";
-                Console.WriteLine(ex.Message);
             }
             finally
             {

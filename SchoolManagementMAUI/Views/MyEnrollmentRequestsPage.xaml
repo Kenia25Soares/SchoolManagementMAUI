@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:SchoolManagementMAUI.ViewModels"
+             xmlns:models="clr-namespace:SchoolManagementMAUI.Models"
+             x:Class="SchoolManagementMAUI.Views.MyEnrollmentRequestsPage"
+             Title="My Requests">
+    
+    <ScrollView>
+        <VerticalStackLayout Padding="20" Spacing="15">
+
+            <Label Text="My Enrollment Requests" 
+                   Style="{StaticResource EducationalWelcomeHeader}" />
+
+            <Label Text="Track the status of your subject enrollment requests" 
+                   Style="{StaticResource EducationalWelcomeSubtitle}" />
+
+            <ActivityIndicator IsRunning="{Binding IsBusy}" IsVisible="{Binding IsBusy}" />
+
+            <Label Text="{Binding Message}"
+                   Style="{StaticResource EducationalErrorMessage}"
+                   IsVisible="{Binding Message, Converter={StaticResource StringNotEmptyConverter}}" />
+
+            <CollectionView ItemsSource="{Binding EnrollmentRequests}">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Frame Style="{StaticResource EducationalCardFrame}">
+                            <Frame.GestureRecognizers>
+                                <TapGestureRecognizer />
+                            </Frame.GestureRecognizers>
+
+                            <Grid ColumnDefinitions="*,Auto" ColumnSpacing="15">
+                                <VerticalStackLayout Grid.Column="0" Spacing="6">
+                                    <Label Text="{Binding SubjectName}" 
+                                           Style="{StaticResource EducationalSubjectName}" />
+                                    <Label Text="{Binding SubjectCode}" 
+                                           Style="{StaticResource EducationalSubjectCode}" />
+                                    <Label Text="{Binding RequestDate, StringFormat='Requested: {0:dd/MM/yyyy}'}" 
+                                           Style="{StaticResource EducationalInfoLabel}" />
+                                    <Label Text="{Binding Description}" 
+                                           Style="{StaticResource EducationalInfoLabel}"
+                                           MaxLines="2"
+                                           LineBreakMode="TailTruncation" />
+                                </VerticalStackLayout>
+
+                                <VerticalStackLayout Grid.Column="1" VerticalOptions="Center" Spacing="8">
+                                    <Frame Style="{StaticResource EducationalSmallCardFrame}">
+                                        <Label Text="{Binding Status}"
+                                               Style="{StaticResource EducationalInfoLabel}"
+                                               HorizontalOptions="Center" />
+                                    </Frame>
+                                    <Label Text="›" 
+                                           Style="{StaticResource EducationalArrowLabel}" />
+                                </VerticalStackLayout>
+                            </Grid>
+                        </Frame>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+
+        </VerticalStackLayout>
+    </ScrollView>
+    
+</ContentPage>

@@ -306,4 +306,20 @@
         <Setter Property="TextColor" Value="Blue" />
     </Style>
 
+    <!-- Educational Editor Style -->
+    <Style x:Key="EducationalEditor" TargetType="Editor">
+        <Setter Property="BackgroundColor" Value="White" />
+        <Setter Property="TextColor" Value="#1F2937" />
+        <Setter Property="FontSize" Value="14" />
+    </Style>
+
+    <!-- Educational Info Frame Style -->
+    <Style x:Key="EducationalInfoFrame" TargetType="Frame">
+        <Setter Property="BackgroundColor" Value="#F0F8FF" />
+        <Setter Property="CornerRadius" Value="12" />
+        <Setter Property="Padding" Value="15" />
+        <Setter Property="HasShadow" Value="False" />
+        <Setter Property="BorderColor" Value="#2196F3" />
+    </Style>
+
 </ResourceDictionary>

@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:SchoolManagementMAUI.ViewModels"
+             x:Class="SchoolManagementMAUI.Views.EnrollmentRequestsPage"
+             Title="Subject Enrollment">
+
+    <ScrollView>
+        <VerticalStackLayout Padding="20" Spacing="25">
+
+            <Label Text="Subject Enrollment Requests" 
+                   FontSize="24" 
+                   FontAttributes="Bold" 
+                   HorizontalOptions="Center"
+                   TextColor="#1F2937" />
+
+            <Label Text="Request enrollment in additional subjects beyond your mandatory course subjects" 
+                   FontSize="16" 
+                   TextColor="#6B7280"
+                   HorizontalOptions="Center"
+                   HorizontalTextAlignment="Center" />
+
+            <VerticalStackLayout Spacing="15" Margin="0,20,0,0">
+
+                <Frame BackgroundColor="#E3F2FD" 
+                       CornerRadius="12" 
+                       Padding="20" 
+                       HasShadow="False"
+                       BorderColor="#2196F3">
+                    <VerticalStackLayout Spacing="15">
+                        <Label Text="Browse Available Subjects" 
+                               FontSize="18" 
+                               FontAttributes="Bold"
+                               TextColor="#1565C0" />
+                        <Label Text="Explore subjects you can request to join. These are optional subjects not part of your mandatory course." 
+                               FontSize="14"
+                               TextColor="#424242" />
+                        <Button Text="View Available Subjects"
+                                Command="{Binding OpenAvailableSubjectsCommand}"
+                                BackgroundColor="#2196F3"
+                                TextColor="White"
+                                CornerRadius="8"
+                                HeightRequest="45" />
+                    </VerticalStackLayout>
+                </Frame>
+
+                <Frame BackgroundColor="#F3E5F5" 
+                       CornerRadius="12" 
+                       Padding="20" 
+                       HasShadow="False"
+                       BorderColor="#9C27B0">
+                    <VerticalStackLayout Spacing="15">
+                        <Label Text="My Enrollment Requests" 
+                               FontSize="18" 
+                               FontAttributes="Bold"
+                               TextColor="#7B1FA2" />
+                        <Label Text="Track the status of your enrollment requests. See which ones are pending, approved, or rejected." 
+                               FontSize="14"
+                               TextColor="#424242" />
+                        <Button Text="View My Requests"
+                                Command="{Binding OpenMyRequestsCommand}"
+                                BackgroundColor="#9C27B0"
+                                TextColor="White"
+                                CornerRadius="8"
+                                HeightRequest="45" />
+                    </VerticalStackLayout>
+                </Frame>
+
+            </VerticalStackLayout>
+
+            <Label Text="{Binding Message}"
+                   TextColor="Red"
+                   IsVisible="{Binding Message, Converter={StaticResource StringNotEmptyConverter}}"
+                   HorizontalOptions="Center"
+                   Margin="0,20,0,0" />
+
+        </VerticalStackLayout>
+    </ScrollView>
+
+</ContentPage>

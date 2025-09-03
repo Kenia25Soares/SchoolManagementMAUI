@@ -38,6 +38,9 @@
             <VerticalStackLayout Spacing="15">
                 <Button Text="My Grades" Command="{Binding OpenGradesCommand}" 
                         Style="{StaticResource EducationalPrimaryButton}" />
+
+                <Button Text="Request Additional Subjects" Command="{Binding OpenEnrollmentRequestsCommand}" 
+                        BackgroundColor="#28A745" TextColor="White" CornerRadius="8" HeightRequest="50" />
             </VerticalStackLayout>
 
         </VerticalStackLayout>

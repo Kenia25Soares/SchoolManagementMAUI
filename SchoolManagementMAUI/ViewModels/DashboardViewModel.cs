@@ -1,6 +1,7 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using SchoolManagementMAUI.Services.Interface;
+using SchoolManagementMAUI.Views;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -67,6 +68,17 @@ namespace SchoolManagementMAUI.ViewModels
             if (overviewPage != null)
             {
                 await Shell.Current.Navigation.PushAsync(overviewPage);
+            }
+        }
+
+        [RelayCommand]
+        private async Task OpenEnrollmentRequestsAsync()
+        {
+            var services = IPlatformApplication.Current?.Services;
+            var enrollmentPage = services?.GetService<EnrollmentRequestsPage>();
+            if (enrollmentPage != null)
+            {
+                await Shell.Current.Navigation.PushAsync(enrollmentPage);
             }
         }
 

@@ -11,12 +11,6 @@ using System.Threading.Tasks;
 
 namespace SchoolManagementMAUI.ViewModels
 {
-    public partial class CourseWithClasses
-    {
-        public Course Course { get; set; }
-        public ObservableCollection<StudentClass> Classes { get; set; } = new();
-    }
-
     public partial class ClassesListViewModel : ObservableObject
     {
         private readonly IPublicCatalogService _service;

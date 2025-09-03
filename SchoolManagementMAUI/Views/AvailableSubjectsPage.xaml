@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:SchoolManagementMAUI.ViewModels"
+             xmlns:models="clr-namespace:SchoolManagementMAUI.Models"
+             x:Class="SchoolManagementMAUI.Views.AvailableSubjectsPage"
+             Title="Available Subjects">
+
+    <ScrollView>
+        <VerticalStackLayout Padding="20" Spacing="15">
+
+            <Label Text="Available Subjects" 
+                   Style="{StaticResource EducationalWelcomeHeader}" />
+
+            <Label Text="Select a subject to request enrollment" 
+                   Style="{StaticResource EducationalWelcomeSubtitle}" />
+
+            <ActivityIndicator IsRunning="{Binding IsBusy}" IsVisible="{Binding IsBusy}" />
+
+            <Label Text="{Binding Message}"
+                   Style="{StaticResource EducationalErrorMessage}"
+                   IsVisible="{Binding Message, Converter={StaticResource StringNotEmptyConverter}}" />
+
+            <CollectionView ItemsSource="{Binding AvailableSubjects}">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Frame Style="{StaticResource EducationalCardFrame}">
+                            <Frame.GestureRecognizers>
+                                <TapGestureRecognizer />
+                            </Frame.GestureRecognizers>
+
+                            <Grid ColumnDefinitions="*,Auto" ColumnSpacing="15">
+                                <VerticalStackLayout Grid.Column="0" Spacing="8">
+                                    <Label Text="{Binding SubjectName}" 
+                                           Style="{StaticResource EducationalSubjectName}" />
+                                    <Label Text="{Binding SubjectCode}" 
+                                           Style="{StaticResource EducationalSubjectCode}" />
+                                    <Label Text="{Binding Workload, StringFormat='Workload: {0}h'}" 
+                                           Style="{StaticResource EducationalInfoLabel}" />
+                                    <Label Text="{Binding AllowedAbsences, StringFormat='Max Absences: {0}'}" 
+                                           Style="{StaticResource EducationalInfoLabel}" />
+                                </VerticalStackLayout>
+
+                                <VerticalStackLayout Grid.Column="1" VerticalOptions="Center">
+                                    <Frame Style="{StaticResource EducationalSmallCardFrame}">
+                                        <Label Text="AVAILABLE"
+                                               Style="{StaticResource EducationalInfoLabel}"
+                                               HorizontalOptions="Center" />
+                                    </Frame>
+                                    <Label Text="›" 
+                                           Style="{StaticResource EducationalArrowLabel}" />
+                                </VerticalStackLayout>
+                            </Grid>
+                        </Frame>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+
+        </VerticalStackLayout>
+    </ScrollView>
+
+</ContentPage>
