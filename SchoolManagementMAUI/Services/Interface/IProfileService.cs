@@ -10,6 +10,6 @@ namespace SchoolManagementMAUI.Services.Interface
     public interface IProfileService
     {
         Task<StudentProfileFull?> GetStudentProfileFullAsync(string token);
-        Task<UpdateFullProfileResult> UpdateFullProfileAsync(ProfileUpdateData updateData, string token);
+        Task<UpdateFullProfileResponse> UpdateFullProfileAsync(ProfileUpdateData updateData, string token);
     }
 }

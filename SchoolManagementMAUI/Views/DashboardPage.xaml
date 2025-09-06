@@ -4,52 +4,81 @@
              xmlns:vm="clr-namespace:SchoolManagementMAUI.ViewModels"
              x:Class="SchoolManagementMAUI.Views.DashboardPage"
              Title="Dashboard">
+    
+    <Grid>
+        <ScrollView>
+            <VerticalStackLayout Padding="20" Spacing="20">
+                <!-- Header com informações do utilizador -->
+                <Frame Style="{StaticResource EducationalHeaderFrame}">
+                    <VerticalStackLayout Spacing="15" HorizontalOptions="Center">
+                        <Label Text="Welcome!" Style="{StaticResource EducationalWelcomeHeader}" />
 
-    <ScrollView>
-        <VerticalStackLayout Padding="20" Spacing="20">
+                        <!-- Image profile -->
+                        <Frame IsVisible="{Binding UserProfileImageUrl, Converter={StaticResource StringNotEmptyConverter}}"
+                               CornerRadius="50" 
+                               WidthRequest="100" 
+                               HeightRequest="100" 
+                               HorizontalOptions="Center"
+                               Padding="0"
+                               BackgroundColor="White">
+                            <Image Source="{Binding UserProfileImageUrl}" 
+                                   Aspect="AspectFill" />
+                        </Frame>
 
-            <!-- Header com informações do utilizador -->
-            <VerticalStackLayout Spacing="10" HorizontalOptions="Center">
-                <Label Text="Welcome!" Style="{StaticResource EducationalWelcomeHeader}" />
+                        <!-- Info User -->
+                        <VerticalStackLayout Spacing="5" HorizontalOptions="Center">
+                            <Label Text="{Binding UserName}" 
+                                   Style="{StaticResource EducationalProfileName}"
+                                   HorizontalOptions="Center" />
 
-                <!-- Imagem de perfil -->
-                <Frame IsVisible="{Binding UserProfileImageUrl, Converter={StaticResource StringNotEmptyConverter}}"
-                       CornerRadius="50" 
-                       WidthRequest="100" 
-                       HeightRequest="100" 
-                       HorizontalOptions="Center"
-                       Padding="0">
-                    <Image Source="{Binding UserProfileImageUrl}" 
-                           Aspect="AspectFill" />
+                            <Label Text="{Binding UserEmail}" 
+                                   Style="{StaticResource EducationalProfileEmail}"
+                                   HorizontalOptions="Center" />
+                        </VerticalStackLayout>
+                    </VerticalStackLayout>
                 </Frame>
 
-                <!-- Informações do utilizador -->
-                <VerticalStackLayout Spacing="5" HorizontalOptions="Center">
-                    <Label Text="{Binding UserName}" 
-                           Style="{StaticResource EducationalProfileName}"
-                           HorizontalOptions="Center" />
+                <!-- Action Buttons -->
+                <VerticalStackLayout Spacing="15">
+                    <Button Text="My Grades" Command="{Binding OpenGradesCommand}" 
+                            Style="{StaticResource EducationalPrimaryButton}" />
 
-                    <Label Text="{Binding UserEmail}" 
-                           Style="{StaticResource EducationalProfileEmail}"
-                           HorizontalOptions="Center" />
+                    <Button Text="Request Additional Subjects" Command="{Binding OpenEnrollmentRequestsCommand}" 
+                            Style="{StaticResource EducationalPrimaryButton}"
+                            BackgroundColor="{StaticResource EducationalGreen}" />
                 </VerticalStackLayout>
             </VerticalStackLayout>
+        </ScrollView>
 
-            <VerticalStackLayout Spacing="15">
-                <Button Text="My Grades" Command="{Binding OpenGradesCommand}" 
-                        Style="{StaticResource EducationalPrimaryButton}" />
+        <!-- Floating Notification Badge -->
+        <Frame IsVisible="{Binding HasUnreadAlerts}"
+               BackgroundColor="{StaticResource EducationalRed}"
+               CornerRadius="8"
+               Padding="0"
+               HasShadow="False"
+               HorizontalOptions="End"
+               VerticalOptions="Start"
+               Margin="0,10,10,0">
+            <Label Text="{Binding UnreadAlertsCount}"
+                   TextColor="White"
+                   FontSize="10"
+                   FontAttributes="Bold"
+                   HorizontalOptions="Center"
+                   VerticalOptions="Center" />
+        </Frame>
+    </Grid>
 
-                <Button Text="Request Additional Subjects" Command="{Binding OpenEnrollmentRequestsCommand}" 
-                        BackgroundColor="#28A745" TextColor="White" CornerRadius="8" HeightRequest="50" />
-            </VerticalStackLayout>
-
-        </VerticalStackLayout>
-    </ScrollView>
-
-    <!-- Toolbar items são filhos diretos de ContentPage -->
     <ContentPage.ToolbarItems>
-        <ToolbarItem Priority="0" Order="Primary" Command="{Binding OpenProfileCommand}">
-            <ToolbarItem.IconImageSource>
+            <!-- Notifications Bell -->
+            <ToolbarItem Priority="0" Order="Primary" Command="{Binding OpenAlertsCommand}">
+                <ToolbarItem.IconImageSource>
+                    <FileImageSource File="icon_bell.svg" />
+                </ToolbarItem.IconImageSource>
+            </ToolbarItem>
+
+            <!-- User Profile -->
+            <ToolbarItem Priority="1" Order="Primary" Command="{Binding OpenProfileCommand}">
+                <ToolbarItem.IconImageSource>
                 <FileImageSource File="icon_user.svg" />
             </ToolbarItem.IconImageSource>
         </ToolbarItem>

@@ -86,15 +86,15 @@ namespace SchoolManagementMAUI.ViewModels
                             SubjectName = matchingSummary.SubjectName,
                             SubjectCode = matchingSummary.SubjectCode,
                             TeacherName = string.IsNullOrWhiteSpace(matchingSummary.TeacherName) || matchingSummary.TeacherName == "Professor"
-                                ? null : matchingSummary.TeacherName, // Hide generic teacher name
+                                ? null : matchingSummary.TeacherName, 
                             WeightedAverage = matchingSummary.WeightedAverage,
                             TotalAbsences = matchingSummary.TotalAbsences,
                             AllowedAbsences = matchingSummary.AllowedAbsences,
                             FailedDueToAbsences = matchingSummary.FailedDueToAbsences,
                             Status = matchingSummary.Status,
                             StatusDescription = matchingSummary.StatusDescription,
-                            GradeDetails = new List<StudentGradeDetail>(), // Will be empty until API provides details
-                            AbsenceDetails = new List<StudentAbsenceDetail>() // Will be empty until API provides details
+                            GradeDetails = new List<StudentGradeDetail>(), 
+                            AbsenceDetails = new List<StudentAbsenceDetail>() 
                         };
 
                         SubjectName = matchingSummary.SubjectName;

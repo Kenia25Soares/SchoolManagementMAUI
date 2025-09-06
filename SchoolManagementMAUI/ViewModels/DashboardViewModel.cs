@@ -13,6 +13,7 @@ namespace SchoolManagementMAUI.ViewModels
     public partial class DashboardViewModel : ObservableObject
     {
         private readonly IUserSession _userSession;
+        private readonly IAlertsService _alertsService;
 
         [ObservableProperty]
         private string userName = "User";
@@ -26,15 +27,23 @@ namespace SchoolManagementMAUI.ViewModels
         [ObservableProperty]
         private string? userProfileImageUrl;
 
-        public DashboardViewModel(IUserSession userSession)
+        [ObservableProperty]
+        private int unreadAlertsCount = 0;
+
+        [ObservableProperty]
+        private bool hasUnreadAlerts = false;
+
+        public DashboardViewModel(IUserSession userSession, IAlertsService alertsService)
         {
             _userSession = userSession;
+            _alertsService = alertsService;
             LoadUserInfo();
         }
 
-        public void RefreshUserInfo()
+        public async void RefreshUserInfo()
         {
             LoadUserInfo();
+            await LoadUnreadAlertsCountAsync();
         }
 
         private void LoadUserInfo()
@@ -107,26 +116,34 @@ namespace SchoolManagementMAUI.ViewModels
         }
 
 
+        [RelayCommand]
+        private async Task OpenAlertsAsync()
+        {
+            await Shell.Current.GoToAsync("//alerts");
+        }
 
+        private async Task LoadUnreadAlertsCountAsync()
+        {
+            if (_userSession.CurrentUser == null || string.IsNullOrEmpty(_userSession.CurrentUser.Token))
+                return;
 
+            try
+            {
+                var response = await _alertsService.GetUnreadCountAsync(
+                    _userSession.CurrentUser.Id,
+                    _userSession.CurrentUser.Token);
 
-        //[RelayCommand]
-        //private async Task OpenCoursesAsync()
-        //{
-        //    await Shell.Current.GoToAsync("//courses");
-        //}
-
-        //[RelayCommand]
-        //private async Task OpenProfileAsync()
-        //{
-        //    await Shell.Current.GoToAsync("//profile");
-        //}
-
-        //[RelayCommand]
-        //private async Task OpenAboutAsync()
-        //{
-        //    await Shell.Current.GoToAsync("//about");
-        //}
+                if (response?.Success == true)
+                {
+                    UnreadAlertsCount = response.UnreadCount;
+                    HasUnreadAlerts = UnreadAlertsCount > 0;
+                }
+            }
+            catch
+            {
+                // Silently handle errors for unread count
+            }
+        }
     }
 }
 

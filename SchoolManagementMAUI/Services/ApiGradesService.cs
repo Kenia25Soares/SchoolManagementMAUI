@@ -40,20 +40,13 @@ namespace SchoolManagementMAUI.Services
 
                 if (!response.IsSuccessStatusCode)
                 {
-                    //var errorContent = await response.Content.ReadAsStringAsync();
                     return new List<Grade>();
                 }
 
                 var result = await response.Content
                     .ReadFromJsonAsync<GradesApiResponse>(JsonOptions);
 
-                //var json = await response.Content.ReadFromJsonAsync<GradesApiResponse>();
-                //var jsonString = await response.Content.ReadAsStringAsync();
-
-                //var json = JsonSerializer.Deserialize<GradesApiResponse>(jsonString, JsonOptions);
-                //return json?.Results?.SubjectGrades ?? new List<Grade>();
-
-                return result?.Results?.SubjectGrades ?? new List<Grade>();
+                return result?.SubjectGrades ?? new List<Grade>();
             }
             catch (Exception )
             {

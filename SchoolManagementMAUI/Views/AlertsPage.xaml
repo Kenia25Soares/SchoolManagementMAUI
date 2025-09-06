@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="SchoolManagementMAUI.Views.AlertsPage"
+             xmlns:viewmodels="clr-namespace:SchoolManagementMAUI.ViewModels"
+             xmlns:converters="clr-namespace:SchoolManagementMAUI.Converters"
+             xmlns:models="clr-namespace:SchoolManagementMAUI.Models"
+             Title="Notifications"
+             x:DataType="viewmodels:AlertsViewModel">
+    
+    <Grid RowDefinitions="Auto,*">
+        <!-- Header with Mark All as Read button -->
+        <Frame Grid.Row="0" 
+               Style="{StaticResource EducationalHeaderFrame}"
+               Margin="0,0,0,10">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+
+                <Label Grid.Column="0" 
+                       Text="Notifications" 
+                       Style="{StaticResource EducationalHeaderLabel}" />
+
+                <Button Grid.Column="1" 
+                        Text="Mark All Read" 
+                        Command="{Binding MarkAllAsReadCommand}"
+                        Style="{StaticResource EducationalSecondaryButton}"
+                        TextColor="White"
+                        BackgroundColor="{StaticResource EducationalGreen}" />
+            </Grid>
+        </Frame>
+
+        <!-- Content -->
+        <ScrollView Grid.Row="1" Padding="16">
+            <VerticalStackLayout Spacing="15">
+                <!-- Loading -->
+                <ActivityIndicator IsVisible="{Binding IsBusy}" 
+                                  IsRunning="{Binding IsBusy}"
+                                  HorizontalOptions="Center"
+                                  VerticalOptions="Center"
+                                  Color="{StaticResource EducationalBlue}" />
+
+                <!-- Error  -->
+                <Frame IsVisible="{Binding HasError}" 
+                       Style="{StaticResource EducationalCardFrame}"
+                       BackgroundColor="#FEF2F2"
+                       BorderColor="#FECACA">
+                    <VerticalStackLayout Spacing="16" HorizontalOptions="Center">
+                        <Label Text="⚠️" 
+                               FontSize="48" 
+                               HorizontalOptions="Center" />
+                        <Label Text="{Binding ErrorMessage}" 
+                               Style="{StaticResource EducationalErrorMessage}"
+                               HorizontalOptions="Center"
+                               HorizontalTextAlignment="Center" />
+                        <Button Text="Try Again" 
+                                Command="{Binding RefreshCommand}"
+                                Style="{StaticResource EducationalPrimaryButton}" />
+                    </VerticalStackLayout>
+                </Frame>
+
+                <!-- Empty State -->
+                <Frame IsVisible="{Binding HasAlerts, Converter={StaticResource InverseBoolConverter}}" 
+                       Style="{StaticResource EducationalCardFrame}"
+                       BackgroundColor="#F0F9FF"
+                       BorderColor="#BAE6FD">
+                    <VerticalStackLayout Spacing="16" HorizontalOptions="Center">
+                        <Label Text="📢" 
+                               FontSize="48" 
+                               HorizontalOptions="Center" />
+                        <Label Text="No notifications yet" 
+                               Style="{StaticResource EducationalSectionTitle}"
+                               HorizontalOptions="Center" />
+                        <Label Text="You'll see important updates here when they arrive" 
+                               Style="{StaticResource EducationalTeacherName}"
+                               HorizontalOptions="Center"
+                               HorizontalTextAlignment="Center" />
+                    </VerticalStackLayout>
+                </Frame>
+
+                <!-- List Alerts -->
+                <RefreshView IsVisible="{Binding HasAlerts}" 
+                             Command="{Binding RefreshCommand}"
+                             IsRefreshing="{Binding IsBusy}">
+                    <CollectionView ItemsSource="{Binding Alerts}" 
+                                   SelectionMode="None">
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate x:DataType="models:AlertInfo">
+                                <Frame Style="{StaticResource EducationalCardFrame}"
+                                       BackgroundColor="{AppThemeBinding Light=White, Dark=#1F2937}">
+                                    <Frame.GestureRecognizers>
+                                        <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodels:AlertsViewModel}}, Path=MarkAlertAsReadCommand}"
+                                                              CommandParameter="{Binding}" />
+                                    </Frame.GestureRecognizers>
+                                    
+                                    <Grid>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="Auto" />
+                                            <RowDefinition Height="Auto" />
+                                            <RowDefinition Height="Auto" />
+                                        </Grid.RowDefinitions>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto" />
+                                            <ColumnDefinition Width="*" />
+                                            <ColumnDefinition Width="Auto" />
+                                        </Grid.ColumnDefinitions>
+
+                                        <!-- Alert Icon -->
+                                        <Label Grid.Row="0" Grid.Column="0"
+                                               Text="{Binding Type, Converter={StaticResource AlertTypeIconConverter}}"
+                                               FontFamily="{StaticResource FontAwesome}"
+                                               FontSize="20"
+                                               TextColor="{Binding Type, Converter={StaticResource AlertTypeColorConverter}}"
+                                               VerticalOptions="Start"
+                                               Margin="0,0,12,0" />
+
+                                        <!-- Alert Content -->
+                                        <StackLayout Grid.Row="0" Grid.Column="1" 
+                                                     Grid.ColumnSpan="2"
+                                                     Spacing="4">
+                                            <Label Text="{Binding Title}" 
+                                                   Style="{StaticResource EducationalSubjectName}" />
+                                            <Label Text="{Binding Message}" 
+                                                   Style="{StaticResource EducationalTeacherName}"
+                                                   LineBreakMode="WordWrap" />
+                                        </StackLayout>
+
+                                        <!-- Subject/Class Info -->
+                                        <StackLayout Grid.Row="1" Grid.Column="1" 
+                                                     Grid.ColumnSpan="2"
+                                                     Orientation="Horizontal"
+                                                     Spacing="8"
+                                                     Margin="36,4,0,4">
+                                            <Frame IsVisible="{Binding SubjectName, Converter={StaticResource IsNotNullConverter}}"
+                                                   BackgroundColor="{StaticResource EducationalBlue}"
+                                                   CornerRadius="4"
+                                                   Padding="6,2"
+                                                   HasShadow="False">
+                                                <Label Text="{Binding SubjectName}"
+                                                       FontSize="12"
+                                                       TextColor="White"
+                                                       HorizontalOptions="Center"
+                                                       VerticalOptions="Center" />
+                                            </Frame>
+                                            <Frame IsVisible="{Binding ClassName, Converter={StaticResource IsNotNullConverter}}"
+                                                   BackgroundColor="{StaticResource EducationalGreen}"
+                                                   CornerRadius="4"
+                                                   Padding="6,2"
+                                                   HasShadow="False">
+                                                <Label Text="{Binding ClassName}"
+                                                       FontSize="12"
+                                                       TextColor="White"
+                                                       HorizontalOptions="Center"
+                                                       VerticalOptions="Center" />
+                                            </Frame>
+                                        </StackLayout>
+
+                                        <!-- Time and Read Status -->
+                                        <StackLayout Grid.Row="2" Grid.Column="1" 
+                                                     Grid.ColumnSpan="2"
+                                                     Orientation="Horizontal"
+                                                     Margin="36,4,0,0">
+                                            <Label Text="{Binding CreatedAt, StringFormat='{0:MMM dd, yyyy HH:mm}'}" 
+                                                   Style="{StaticResource EducationalDateLabel}" />
+                                            <Label IsVisible="{Binding IsRead, Converter={StaticResource InverseBoolConverter}}"
+                                                   Text=" • NEW" 
+                                                   FontSize="12"
+                                                   TextColor="{StaticResource EducationalBlue}"
+                                                   FontAttributes="Bold" />
+                                        </StackLayout>
+
+                                        <!-- Unread Indicator -->
+                                        <Ellipse Grid.Row="0" Grid.Column="2"
+                                                 IsVisible="{Binding IsRead, Converter={StaticResource InverseBoolConverter}}"
+                                                 Fill="{Binding Type, Converter={StaticResource AlertTypeColorConverter}}"
+                                                 WidthRequest="8"
+                                                 HeightRequest="8"
+                                                 VerticalOptions="Start"
+                                                 Margin="8,8,0,0" />
+                                    </Grid>
+                                </Frame>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
+                </RefreshView>
+            </VerticalStackLayout>
+        </ScrollView>
+    </Grid>
+
+</ContentPage>

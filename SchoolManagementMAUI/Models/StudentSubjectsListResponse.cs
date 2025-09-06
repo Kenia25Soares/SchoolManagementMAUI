@@ -12,7 +12,7 @@ namespace SchoolManagementMAUI.Models
         [JsonPropertyName("success")] public bool Success { get; set; }
         [JsonPropertyName("message")] public string? Message { get; set; }
         [JsonPropertyName("studentId")] public string? StudentId { get; set; }
-        [JsonPropertyName("results")] public List<StudentSubjectSummary>? Results { get; set; } // API returns "results", not "subjects"
+        [JsonPropertyName("results")] public List<StudentSubjectSummary>? Results { get; set; } // Returns "results", not "subjects"
 
         public List<StudentSubjectSummary>? Subjects => Results;
     }

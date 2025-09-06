@@ -13,10 +13,19 @@
                 <ResourceDictionary Source="Resources/Styles/EducationalStyles.xaml" />
             </ResourceDictionary.MergedDictionaries>
 
+            <!-- FontAwesome Font -->
+            <OnPlatform x:TypeArguments="x:String" x:Key="FontAwesome">
+                <On Platform="Android" Value="fa-solid-900.ttf#Font Awesome 6 Free" />
+                <On Platform="iOS" Value="Font Awesome 6 Free" />
+                <On Platform="WinUI" Value="Assets/Fonts/fa-solid-900.ttf#Font Awesome 6 Free" />
+            </OnPlatform>
+
             <!-- Global Converters -->
             <conv:StringNotEmptyConverter x:Key="StringNotEmptyConverter" />
             <conv:IsNotNullConverter x:Key="IsNotNullConverter" />
             <conv:InverseBoolConverter x:Key="InverseBoolConverter" />
+            <conv:AlertTypeColorConverter x:Key="AlertTypeColorConverter" />
+            <conv:AlertTypeIconConverter x:Key="AlertTypeIconConverter" />
 
         </ResourceDictionary>
     </Application.Resources>

@@ -11,12 +11,6 @@ using System.Threading.Tasks;
 
 namespace SchoolManagementMAUI.ViewModels
 {
-    //public partial class CourseWithSubjects
-    //{
-    //    public Course Course { get; set; }
-    //    public ObservableCollection<PublicSubject> Subjects { get; set; } = new();
-    //    public bool IsExpanded { get; set; } = false;
-    //}
 
     public partial class CoursesListViewModel : ObservableObject
     {

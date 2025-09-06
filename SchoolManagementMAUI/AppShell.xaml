@@ -52,6 +52,10 @@
                   ContentTemplate="{DataTemplate views:ProfilePage}"
                   Route="profile" />
 
+    <ShellContent Title="Notifications"
+                  ContentTemplate="{DataTemplate views:AlertsPage}"
+                  Route="alerts" />
+    
     <ShellContent Title="About"
                   ContentTemplate="{DataTemplate views:AboutPage}"
                   Route="about" />
@@ -60,11 +64,4 @@
                   Route="logout"
                   ContentTemplate="{DataTemplate views:DashboardPage}" />
 
-    <!--<ShellContent Title="Cursos"
-                  ContentTemplate="{DataTemplate views:CoursesPage}"
-                  Route="courses" />
-
-    <ShellContent Title="Perfil"
-                  ContentTemplate="{DataTemplate views:ProfilePage}"
-                  Route="profile" />-->
 </Shell>

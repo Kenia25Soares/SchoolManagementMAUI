@@ -10,6 +10,6 @@ namespace SchoolManagementMAUI.Models
     {
         public bool IsSuccess { get; set; }
         public string Message { get; set; }
-        public GradesResult Results { get; set; }
+        public List<Grade> SubjectGrades { get; set; } = new();
     }
 }

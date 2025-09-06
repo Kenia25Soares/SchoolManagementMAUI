@@ -34,6 +34,7 @@ namespace SchoolManagementMAUI
             builder.Services.AddSingleton<IProfileService, ApiProfileService>();
             builder.Services.AddSingleton<IPublicCatalogService, ApiPublicCatalogService>();
             builder.Services.AddSingleton<IEnrollmentService, ApiEnrollmentService>();
+            builder.Services.AddSingleton<IAlertsService, ApiAlertsService>();
 
             // ViewModels
             builder.Services.AddSingleton<LoginViewModel>();
@@ -57,6 +58,7 @@ namespace SchoolManagementMAUI
             builder.Services.AddTransient<AvailableSubjectsViewModel>();
             builder.Services.AddTransient<CreateEnrollmentRequestViewModel>();
             builder.Services.AddTransient<MyEnrollmentRequestsViewModel>();
+            builder.Services.AddSingleton<AlertsViewModel>();
 
 
 
@@ -84,6 +86,7 @@ namespace SchoolManagementMAUI
             builder.Services.AddTransient<AvailableSubjectsPage>();
             builder.Services.AddTransient<CreateEnrollmentRequestPage>();
             builder.Services.AddTransient<MyEnrollmentRequestsPage>();
+            builder.Services.AddTransient<AlertsPage>();
 
 
             // Shell

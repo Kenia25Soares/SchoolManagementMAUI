@@ -40,7 +40,7 @@ namespace SchoolManagementMAUI.Services
             return dto?.Student;
         }
 
-        public async Task<UpdateFullProfileResult> UpdateFullProfileAsync(ProfileUpdateData updateData, string token)
+        public async Task<UpdateFullProfileResponse> UpdateFullProfileAsync(ProfileUpdateData updateData, string token)
         {
             _client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
             var url = $"{ApiBaseUrl}/account/profile/full";
@@ -70,16 +70,10 @@ namespace SchoolManagementMAUI.Services
             var payload = await response.Content.ReadAsStringAsync();
             if (!response.IsSuccessStatusCode)
             {
-                return new UpdateFullProfileResult { Success = false, Raw = payload };
+                return new UpdateFullProfileResponse { Success = false };
             }
             var dto = JsonSerializer.Deserialize<UpdateFullProfileResponse>(payload, JsonOptions);
-            return new UpdateFullProfileResult
-            {
-                Success = dto?.Success == true,
-                User = dto?.User,
-                Student = dto?.Student,
-                Raw = payload
-            };
+            return dto ?? new UpdateFullProfileResponse { Success = false };
         }
     }
 }

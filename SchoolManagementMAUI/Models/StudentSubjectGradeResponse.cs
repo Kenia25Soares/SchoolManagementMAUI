@@ -12,6 +12,6 @@ namespace SchoolManagementMAUI.Models
         [JsonPropertyName("success")] public bool Success { get; set; }
         [JsonPropertyName("message")] public string? Message { get; set; }
         [JsonPropertyName("studentId")] public string? StudentId { get; set; }
-        [JsonPropertyName("result")] public StudentSubjectDetail? Subject { get; set; } // API returns "result", not "subject"
+        [JsonPropertyName("result")] public StudentSubjectDetail? Subject { get; set; } //  Returns "result", nao há "subject"
     }
 }
