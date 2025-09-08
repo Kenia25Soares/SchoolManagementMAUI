@@ -11,6 +11,7 @@
                 <ResourceDictionary Source="Resources/Styles/Colors.xaml" />
                 <ResourceDictionary Source="Resources/Styles/Styles.xaml" />
                 <ResourceDictionary Source="Resources/Styles/EducationalStyles.xaml" />
+                <ResourceDictionary Source="Resources/Styles/StatusBadgeStyles.xaml" />
             </ResourceDictionary.MergedDictionaries>
 
             <!-- FontAwesome Font -->

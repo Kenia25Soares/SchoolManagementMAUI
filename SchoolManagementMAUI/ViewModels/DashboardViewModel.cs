@@ -91,11 +91,6 @@ namespace SchoolManagementMAUI.ViewModels
             }
         }
 
-        [RelayCommand]
-        private async Task OpenSubjectsAsync()
-        {
-            await Shell.Current.GoToAsync("//subject-list");
-        }
 
         [RelayCommand]
         private async Task OpenProfileAsync()

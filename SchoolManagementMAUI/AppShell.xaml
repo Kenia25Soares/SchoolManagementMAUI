@@ -28,13 +28,6 @@
                   ContentTemplate="{DataTemplate views:UpdatePasswordPage}"
                   Route="update-password" />
 
-    <ShellContent Title="My Subjects"
-                  ContentTemplate="{DataTemplate views:SubjectListPage}"
-                  Route="subject-list" />
-
-    <ShellContent Title="Subject Details"
-                  ContentTemplate="{DataTemplate views:SubjectGradePage}"
-                  Route="subject-grade" />
 
     <ShellContent Title="Courses"
                   ContentTemplate="{DataTemplate views:CoursesListPage}"

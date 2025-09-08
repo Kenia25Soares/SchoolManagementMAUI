@@ -4,29 +4,108 @@
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
 
-    <!-- Status Badge Frame Style -->
+    <!-- Status Badge Frame Style for Class Grades Page -->
     <Style x:Key="StatusBadgeFrame" TargetType="Frame">
         <Setter Property="CornerRadius" Value="12" />
         <Setter Property="Padding" Value="8,4" />
         <Setter Property="HasShadow" Value="False" />
         <Setter Property="VerticalOptions" Value="Center" />
-        <Setter Property="BackgroundColor" Value="#6B7280" />
+        <Setter Property="BackgroundColor" Value="#3B82F6" />
+        <Setter Property="MinimumWidthRequest" Value="50" />
+        <Setter Property="MinimumHeightRequest" Value="20" />
+        
+        <Style.Triggers>
+            <DataTrigger TargetType="Frame" Binding="{Binding Status}" Value="Approved">
+                <Setter Property="BackgroundColor" Value="#10B981" />
+            </DataTrigger>
+            <DataTrigger TargetType="Frame" Binding="{Binding Status}" Value="Failed">
+                <Setter Property="BackgroundColor" Value="#F59E0B" />
+            </DataTrigger>
+            <DataTrigger TargetType="Frame" Binding="{Binding Status}" Value="ExcludedByAbsences">
+                <Setter Property="BackgroundColor" Value="#EF4444" />
+            </DataTrigger>
+            <DataTrigger TargetType="Frame" Binding="{Binding Status}" Value="InProgress">
+                <Setter Property="BackgroundColor" Value="#3B82F6" />
+            </DataTrigger>
+        </Style.Triggers>
     </Style>
 
-    <!-- Status Badge Label Style -->
+    <!-- Status Badge Label Style for Class Grades Page -->
     <Style x:Key="StatusBadgeLabel" TargetType="Label">
         <Setter Property="FontSize" Value="10" />
         <Setter Property="FontAttributes" Value="Bold" />
         <Setter Property="TextColor" Value="White" />
-        <Setter Property="Text" Value="?" />
+        <Setter Property="HorizontalOptions" Value="Center" />
+        <Setter Property="VerticalOptions" Value="Center" />
+        <Setter Property="HorizontalTextAlignment" Value="Center" />
+        <Setter Property="VerticalTextAlignment" Value="Center" />
+        
+        <Style.Triggers>
+            <DataTrigger TargetType="Label" Binding="{Binding Status}" Value="Approved">
+                <Setter Property="Text" Value="PASS" />
+            </DataTrigger>
+            <DataTrigger TargetType="Label" Binding="{Binding Status}" Value="Failed">
+                <Setter Property="Text" Value="FAIL" />
+            </DataTrigger>
+            <DataTrigger TargetType="Label" Binding="{Binding Status}" Value="ExcludedByAbsences">
+                <Setter Property="Text" Value="EXCL" />
+            </DataTrigger>
+            <DataTrigger TargetType="Label" Binding="{Binding Status}" Value="InProgress">
+                <Setter Property="Text" Value="PROG" />
+            </DataTrigger>
+        </Style.Triggers>
     </Style>
 
-    <!-- Full Status Badge Label Style -->
+    <!-- Full Status Badge Frame Style for Subject Detail Page -->
+    <Style x:Key="FullStatusBadgeFrame" TargetType="Frame">
+        <Setter Property="CornerRadius" Value="12" />
+        <Setter Property="Padding" Value="12,6" />
+        <Setter Property="HasShadow" Value="False" />
+        <Setter Property="VerticalOptions" Value="Center" />
+        <Setter Property="BackgroundColor" Value="#3B82F6" />
+        <Setter Property="MinimumWidthRequest" Value="80" />
+        <Setter Property="MinimumHeightRequest" Value="24" />
+        
+        <Style.Triggers>
+            <DataTrigger TargetType="Frame" Binding="{Binding SubjectDetail.Status}" Value="Approved">
+                <Setter Property="BackgroundColor" Value="#10B981" />
+            </DataTrigger>
+            <DataTrigger TargetType="Frame" Binding="{Binding SubjectDetail.Status}" Value="Failed">
+                <Setter Property="BackgroundColor" Value="#F59E0B" />
+            </DataTrigger>
+            <DataTrigger TargetType="Frame" Binding="{Binding SubjectDetail.Status}" Value="ExcludedByAbsences">
+                <Setter Property="BackgroundColor" Value="#EF4444" />
+            </DataTrigger>
+            <DataTrigger TargetType="Frame" Binding="{Binding SubjectDetail.Status}" Value="InProgress">
+                <Setter Property="BackgroundColor" Value="#3B82F6" />
+            </DataTrigger>
+        </Style.Triggers>
+    </Style>
+
+    <!-- Full Status Badge Label Style for Subject Detail Page -->
     <Style x:Key="FullStatusBadgeLabel" TargetType="Label">
         <Setter Property="FontSize" Value="12" />
         <Setter Property="FontAttributes" Value="Bold" />
         <Setter Property="TextColor" Value="White" />
-        <Setter Property="Text" Value="?" />
+        <Setter Property="HorizontalOptions" Value="Center" />
+        <Setter Property="VerticalOptions" Value="Center" />
+        <Setter Property="HorizontalTextAlignment" Value="Center" />
+        <Setter Property="VerticalTextAlignment" Value="Center" />
+        
+        <Style.Triggers>
+            <DataTrigger TargetType="Label" Binding="{Binding SubjectDetail.Status}" Value="Approved">
+                <Setter Property="Text" Value="APPROVED" />
+            </DataTrigger>
+            <DataTrigger TargetType="Label" Binding="{Binding SubjectDetail.Status}" Value="Failed">
+                <Setter Property="Text" Value="FAILED" />
+            </DataTrigger>
+            <DataTrigger TargetType="Label" Binding="{Binding SubjectDetail.Status}" Value="ExcludedByAbsences">
+                <Setter Property="Text" Value="EXCLUDED" />
+            </DataTrigger>
+            <DataTrigger TargetType="Label" Binding="{Binding SubjectDetail.Status}" Value="InProgress">
+                <Setter Property="Text" Value="IN PROGRESS" />
+            </DataTrigger>
+        </Style.Triggers>
     </Style>
 
     <!-- Status Text Color Style -->
@@ -66,4 +145,3 @@
     </Style>
 
 </ResourceDictionary>
-
