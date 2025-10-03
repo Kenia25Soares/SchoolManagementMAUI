@@ -7,7 +7,15 @@ namespace SchoolManagementMAUI.Services
     public class ApiPublicCatalogService : IPublicCatalogService
     {
         private readonly HttpClient _client;
-                 private const string ApiBaseUrl = "https://10.0.2.2:7176/api";
+        private const string ApiBaseUrl = "http://keniasoaresapi.somee.com/api";
+        
+        private static readonly string[] PossibleApiUrls = {
+            "http://keniasoaresapi.somee.com/api",         // API online 
+            "https://keniasoaresapi.somee.com/api",        // API online HTTPS
+            "https://localhost:7176/api",         // HTTPS local
+            "http://localhost:5100/api",          // HTTP local
+            "http://10.0.2.2:5100/api"           // HTTP emulador
+        };
         private static readonly JsonSerializerOptions JsonOptions = new()
         {
             PropertyNameCaseInsensitive = true
@@ -17,20 +25,46 @@ namespace SchoolManagementMAUI.Services
         {
             var handler = new HttpClientHandler
             {
-                ServerCertificateCustomValidationCallback = (message, cert, chain, errors) => true
+                ServerCertificateCustomValidationCallback = (message, cert, chain, errors) => true,
+                UseProxy = false, 
+                UseCookies = false 
             };
             _client = new HttpClient(handler);
             _client.DefaultRequestHeaders.Add("Accept", "application/json");
+            _client.DefaultRequestHeaders.Add("User-Agent", "SchoolManagementMAUI/1.0");
+            _client.DefaultRequestHeaders.Add("Connection", "keep-alive");
+            _client.Timeout = TimeSpan.FromSeconds(60); 
+            
+            // Configura para usar HTTP se for preciso
+            _client.DefaultRequestVersion = new Version(1, 1);
         }
 
         public async Task<IReadOnlyList<Course>> GetCoursesAsync()
         {
-            var resp = await _client.GetAsync($"{ApiBaseUrl}/public/courses");
-            if (!resp.IsSuccessStatusCode) return Array.Empty<Course>();
-            var json = await resp.Content.ReadAsStringAsync();
-            // multiplos resposta items, results, courses, data
-            var list = ParseList<Course>(json, "items", "results", "courses", "data");
-            return list;
+            foreach (var baseUrl in PossibleApiUrls)
+            {
+                try
+                {
+                    var url = $"{baseUrl}/public/courses";
+                    var resp = await _client.GetAsync(url);
+                    
+                    if (!resp.IsSuccessStatusCode) 
+                    {
+                        continue; 
+                    }
+                    
+                    var json = await resp.Content.ReadAsStringAsync();
+                    // multiplas resposta items, results, courses, data
+                    var list = ParseList<Course>(json, "items", "results", "courses", "data");
+                    return list;
+                }
+                catch (Exception)
+                {
+                    continue; 
+                }
+            }
+            
+            return Array.Empty<Course>();
         }
 
         public async Task<IReadOnlyList<StudentClass>> GetClassesAsync(int? courseId = null, string? year = null, string? shift = null)
@@ -112,7 +146,7 @@ namespace SchoolManagementMAUI.Services
                 if (direct != null)
                     return direct;
             }
-            catch { /* ignore and try object  */ }
+            catch {}
 
             try
             {

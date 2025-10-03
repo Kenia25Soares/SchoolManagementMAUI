@@ -31,7 +31,7 @@
                 </VerticalStackLayout>
             </Frame>
 
-            <!-- Class Information -->
+            <!-- Class Information --><!--
             <Frame Style="{StaticResource EducationalCardFrame}">
                 <VerticalStackLayout Spacing="12">
                     <Label Text="Class Information" 
@@ -48,7 +48,7 @@
                         <Label Grid.Row="2" Grid.Column="1" Text="{Binding AcademicYear}" Style="{StaticResource EducationalInfoGridValue}" />
                     </Grid>
 
-                    <!-- Class Status -->
+                    --><!-- Class Status --><!--
                     <Frame Style="{StaticResource EducationalStatusActiveFrame}">
                         <HorizontalStackLayout Spacing="5" HorizontalOptions="Center">
                             <Label Text="Class Status:" Style="{StaticResource EducationalStatusActiveLabel}" />
@@ -56,7 +56,7 @@
                         </HorizontalStackLayout>
                     </Frame>
                 </VerticalStackLayout>
-            </Frame>
+            </Frame>-->
 
             <!-- Error Message -->
             <Label Text="{Binding Message}" 

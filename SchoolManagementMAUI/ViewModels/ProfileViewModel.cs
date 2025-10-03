@@ -108,20 +108,32 @@ namespace SchoolManagementMAUI.ViewModels
                     OfficialPhotoContentType = _newOfficialPhotoContentType
                 };
                 var result = await _profileService.UpdateFullProfileAsync(data, _userSession.CurrentUser.Token);
-                if (result.Success && result.User != null)
+                
+                if (result.Success)
                 {
-                    // atualizar sessão 
-                    _userSession.CurrentUser.FullName = result.User.FullName;
-                    _userSession.CurrentUser.Email = result.User.Email;
-                    _userSession.CurrentUser.PhoneNumber = result.User.PhoneNumber;
-                    _userSession.CurrentUser.ProfilePictureUrl = result.User.ProfilePictureUrl;
-                    _userSession.CurrentUser.ProfilePictureFullUrl = result.User.ProfilePictureFullUrl;
+                    // Atualizar sessão 
+                    if (result.User != null)
+                    {
+                        _userSession.CurrentUser.FullName = result.User.FullName;
+                        _userSession.CurrentUser.Email = result.User.Email;
+                        _userSession.CurrentUser.PhoneNumber = result.User.PhoneNumber;
+                        _userSession.CurrentUser.ProfilePictureUrl = result.User.ProfilePictureUrl;
+                        _userSession.CurrentUser.ProfilePictureFullUrl = result.User.ProfilePictureFullUrl;
+                    }
+                    else
+                    {
+                        // Se não temos user no retorno, atualizar com os dados que enviamos
+                        _userSession.CurrentUser.FullName = FullName;
+                        _userSession.CurrentUser.Email = Email;
+                        _userSession.CurrentUser.PhoneNumber = PhoneNumber;
+                    }
+                    
                     await Shell.Current.DisplayAlert("Success", "Profile updated successfully.", "OK");
                     await Shell.Current.GoToAsync("//dashboard");
                 }
                 else
                 {
-                    await Shell.Current.DisplayAlert("Error", "Failed to update profile.", "OK");
+                    await Shell.Current.DisplayAlert("Error", result?.Message ?? "Failed to update profile.", "OK");
                 }
             }
             finally

@@ -14,7 +14,7 @@ namespace SchoolManagementMAUI.ViewModels
         private readonly IAuthService _authService;
         private readonly IUserSession _userSession;
 
-        // Controlar a password que foi recuperada
+        // Controla a password que foi recuperada
         private static bool _passwordRecovered = false;
 
         [ObservableProperty]
@@ -29,13 +29,16 @@ namespace SchoolManagementMAUI.ViewModels
         [ObservableProperty]
         private bool hasMessage = false;
 
+        [ObservableProperty]
+        private bool isBusy;
+
         public LoginViewModel(IAuthService authService, IUserSession userSession)
         {
             _authService = authService;
             _userSession = userSession;
         }
 
-        // Método quando a página é carregada
+        // Método de quando a página é carregada
         public void OnNavigatedTo()
         {
             if (_passwordRecovered)
@@ -51,7 +54,7 @@ namespace SchoolManagementMAUI.ViewModels
             Message = "Password recovered successfully! You can now login with your new password.";
             HasMessage = true;
 
-            // Limpa a mensagem após 5 segundos
+            // Limpa a mensagem após os segundos
             _ = Task.Run(async () =>
             {
                 await Task.Delay(5000);
@@ -97,16 +100,20 @@ namespace SchoolManagementMAUI.ViewModels
         {
             try
             {
+                // Desabilitar botão enquanto processa
+                IsBusy = true;
                 if (string.IsNullOrWhiteSpace(Email) || string.IsNullOrWhiteSpace(Password))
                 {
                     Message = "Please enter email and password.";
+                    HasMessage = true;
                     return;
                 }
 
                 var user = await _authService.LoginAsync(Email, Password);
                 if (user == null)
                 {
-                    Message = "Invalid password.";
+                    Message = "Invalid email or password.";
+                    HasMessage = true;
                     return;
                 }
 
@@ -130,6 +137,12 @@ namespace SchoolManagementMAUI.ViewModels
             catch (Exception)
             {
                 Message = "Error logging in. Please try again.";
+                HasMessage = true;
+            }
+            finally
+            {
+                // Reabilitar botão e permitir nova tentativa
+                IsBusy = false;
             }
         }
 

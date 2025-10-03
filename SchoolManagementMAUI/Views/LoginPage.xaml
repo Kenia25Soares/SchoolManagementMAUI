@@ -11,7 +11,7 @@
 
     <ScrollView>
         <VerticalStackLayout Padding="20" Spacing="20">
-            <!-- Logo or Title -->
+    
             <VerticalStackLayout Spacing="10" HorizontalOptions="Center">
                 <Label Text="Welcome" Style="{StaticResource EducationalLoginTitle}" />
                 <Label Text="Login to continue" Style="{StaticResource EducationalLoginSubtitle}" />
@@ -28,9 +28,9 @@
                        IsPassword="True" 
                        Margin="0,0,0,10" />
 
-                <!-- Login Button -->
                 <Button Text="Login" 
                         Command="{Binding LoginCommand}" 
+                        IsEnabled="{Binding IsBusy, Converter={StaticResource InverseBoolConverter}}"
                         Style="{StaticResource EducationalPrimaryButton}"
                         Margin="0,10,0,0" />
 

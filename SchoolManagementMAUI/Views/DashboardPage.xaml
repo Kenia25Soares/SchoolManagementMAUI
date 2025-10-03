@@ -2,8 +2,55 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:vm="clr-namespace:SchoolManagementMAUI.ViewModels"
+             xmlns:shell="clr-namespace:Microsoft.Maui.Controls;assembly=Microsoft.Maui.Controls"
              x:Class="SchoolManagementMAUI.Views.DashboardPage"
              Title="Dashboard">
+
+    <!-- TitleView com sineta e badge ao lado -->
+    <shell:Shell.TitleView>
+        <Grid ColumnDefinitions="*,Auto" Padding="10,0" HeightRequest="44">
+            <Label Text="Dashboard"
+                   VerticalOptions="Center"
+                   FontAttributes="Bold"
+                   FontSize="20" />
+
+            <Grid Grid.Column="1" VerticalOptions="Center">
+                <Grid ColumnDefinitions="Auto,16,Auto" VerticalOptions="Center">
+                    <!-- Sino com badge -->
+                    <Grid>
+                        <Image Source="icon_bell.svg"
+                               WidthRequest="24" HeightRequest="24">
+                            <Image.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding OpenAlertsCommand}" />
+                            </Image.GestureRecognizers>
+                        </Image>
+                        <Frame IsVisible="{Binding HasUnreadAlerts}"
+                               BackgroundColor="{StaticResource EducationalRed}"
+                               WidthRequest="16" HeightRequest="16"
+                               CornerRadius="8" Padding="0"
+                               HasShadow="False"
+                               HorizontalOptions="End" VerticalOptions="Start"
+                               TranslationX="8" TranslationY="-6">
+                            <Label Text="{Binding UnreadAlertsCount}"
+                                   FontSize="10" FontAttributes="Bold"
+                                   TextColor="White"
+                                   HorizontalOptions="Center" VerticalOptions="Center" />
+                        </Frame>
+                    </Grid>
+
+                    <BoxView Grid.Column="1" WidthRequest="16" Opacity="0" />
+
+                    <!-- Ícone utilizador -->
+                    <Image Grid.Column="2" Source="icon_user.svg"
+                           WidthRequest="24" HeightRequest="24">
+                        <Image.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding OpenProfileCommand}" />
+                        </Image.GestureRecognizers>
+                    </Image>
+                </Grid>
+            </Grid>
+        </Grid>
+    </shell:Shell.TitleView>
     
     <Grid>
         <ScrollView>
@@ -50,38 +97,7 @@
             </VerticalStackLayout>
         </ScrollView>
 
-        <!-- Floating Notification Badge -->
-        <Frame IsVisible="{Binding HasUnreadAlerts}"
-               BackgroundColor="{StaticResource EducationalRed}"
-               CornerRadius="8"
-               Padding="0"
-               HasShadow="False"
-               HorizontalOptions="End"
-               VerticalOptions="Start"
-               Margin="0,10,10,0">
-            <Label Text="{Binding UnreadAlertsCount}"
-                   TextColor="White"
-                   FontSize="10"
-                   FontAttributes="Bold"
-                   HorizontalOptions="Center"
-                   VerticalOptions="Center" />
-        </Frame>
+        
     </Grid>
-
-    <ContentPage.ToolbarItems>
-            <!-- Notifications Bell -->
-            <ToolbarItem Priority="0" Order="Primary" Command="{Binding OpenAlertsCommand}">
-                <ToolbarItem.IconImageSource>
-                    <FileImageSource File="icon_bell.svg" />
-                </ToolbarItem.IconImageSource>
-            </ToolbarItem>
-
-            <!-- User Profile -->
-            <ToolbarItem Priority="1" Order="Primary" Command="{Binding OpenProfileCommand}">
-                <ToolbarItem.IconImageSource>
-                <FileImageSource File="icon_user.svg" />
-            </ToolbarItem.IconImageSource>
-        </ToolbarItem>
-    </ContentPage.ToolbarItems>
 
 </ContentPage>

@@ -46,5 +46,6 @@ namespace SchoolManagementMAUI.ViewModels
                 await Shell.Current.Navigation.PushAsync(page);
             }
         }
+
     }
 }

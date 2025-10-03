@@ -2,6 +2,7 @@
 using CommunityToolkit.Mvvm.Input;
 using SchoolManagementMAUI.Models;
 using SchoolManagementMAUI.Services.Interface;
+using System.Collections.ObjectModel;
 
 namespace SchoolManagementMAUI.ViewModels
 {
@@ -10,9 +11,10 @@ namespace SchoolManagementMAUI.ViewModels
         private readonly IAlertsService _alertsService;
         private readonly IUserSession _userSession;
 
-        [ObservableProperty] private List<AlertInfo> alerts = new();
+        [ObservableProperty] private ObservableCollection<AlertInfo> alerts = new();
         [ObservableProperty] private bool isBusy;
         [ObservableProperty] private bool hasAlerts;
+        [ObservableProperty] private bool hasUnreadAlerts;
         [ObservableProperty] private string errorMessage = string.Empty;
         [ObservableProperty] private bool hasError;
 
@@ -38,15 +40,19 @@ namespace SchoolManagementMAUI.ViewModels
                 HasError = false;
                 ErrorMessage = string.Empty;
 
-                var response = await _alertsService.GetRecentAlertsAsync(
+                var response = await _alertsService.GetAllAlertsAsync(
                     _userSession.CurrentUser.Id,
-                    50,
                     _userSession.CurrentUser.Token);
 
                 if (response?.Success == true)
                 {
-                    Alerts = response.Alerts.OrderByDescending(a => a.CreatedAt).ToList();
+                    Alerts.Clear();
+                    foreach (var alert in response.Alerts.OrderByDescending(a => a.CreatedAt))
+                    {
+                        Alerts.Add(alert);
+                    }
                     HasAlerts = Alerts.Any();
+                    HasUnreadAlerts = Alerts.Any(a => !a.IsRead);
                 }
                 else
                 {
@@ -81,6 +87,8 @@ namespace SchoolManagementMAUI.ViewModels
                     alert.IsRead = true;
                     alert.ReadAt = DateTime.UtcNow;
                     OnPropertyChanged(nameof(Alerts));
+                    HasUnreadAlerts = Alerts.Any(a => !a.IsRead);
+                    await LoadAlertsAsync();
                 }
             }
             catch (Exception ex)
@@ -111,7 +119,9 @@ namespace SchoolManagementMAUI.ViewModels
                         alert.ReadAt = DateTime.UtcNow;
                     }
                     OnPropertyChanged(nameof(Alerts));
+                    HasUnreadAlerts = false;
                     await Shell.Current.DisplayAlert("Success", "All alerts marked as read", "OK");
+                    await LoadAlertsAsync();
                 }
             }
             catch (Exception ex)

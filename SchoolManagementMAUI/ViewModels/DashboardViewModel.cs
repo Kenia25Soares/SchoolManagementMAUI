@@ -120,7 +120,9 @@ namespace SchoolManagementMAUI.ViewModels
         private async Task LoadUnreadAlertsCountAsync()
         {
             if (_userSession.CurrentUser == null || string.IsNullOrEmpty(_userSession.CurrentUser.Token))
+            {
                 return;
+            }
 
             try
             {
@@ -134,9 +136,8 @@ namespace SchoolManagementMAUI.ViewModels
                     HasUnreadAlerts = UnreadAlertsCount > 0;
                 }
             }
-            catch
+            catch (Exception)
             {
-                // Silently handle errors for unread count
             }
         }
     }

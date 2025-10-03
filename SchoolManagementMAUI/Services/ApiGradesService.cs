@@ -14,7 +14,7 @@ namespace SchoolManagementMAUI.Services
     public class ApiGradesService : IGradesService
     {
         private readonly HttpClient _client;
-        private const string ApiBaseUrl = "https://10.0.2.2:7176/api"; 
+        private const string ApiBaseUrl = "http://keniasoaresapi.somee.com/api"; 
         private static readonly JsonSerializerOptions JsonOptions = new()
         {
             PropertyNameCaseInsensitive = true
@@ -34,7 +34,7 @@ namespace SchoolManagementMAUI.Services
             {
                 _client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
 
-                var url = $"{ApiBaseUrl}/GradesAPI/{studentId}";
+                var url = $"{ApiBaseUrl}/grades/{studentId}";
 
                 var response = await _client.GetAsync(url);
 
@@ -76,7 +76,6 @@ namespace SchoolManagementMAUI.Services
                 }
 
 
-                // Fallback to old endpoint
                 var oldGrades = await GetGradesAsync(studentId, token);
                 if (oldGrades != null && oldGrades.Count > 0)
                 {

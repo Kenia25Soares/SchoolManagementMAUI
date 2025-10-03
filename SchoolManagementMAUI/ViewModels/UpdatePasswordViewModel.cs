@@ -118,7 +118,7 @@ namespace SchoolManagementMAUI.ViewModels
                     return;
                 }
 
-                var success = await _authService.ChangePasswordAsync(CurrentPassword, NewPassword, ConfirmPassword, user.Token);
+            var success = await _authService.ChangePasswordAsync(CurrentPassword, NewPassword, ConfirmPassword, user.Token);
                 if (success)
                 {
                     ShowMessage(" Password updated successfully! Your password has been changed.", Colors.Green);

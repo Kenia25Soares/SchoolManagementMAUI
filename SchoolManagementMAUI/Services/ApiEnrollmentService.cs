@@ -13,7 +13,7 @@ namespace SchoolManagementMAUI.Services
     public class ApiEnrollmentService : IEnrollmentService
     {
         private readonly HttpClient _client;
-        private readonly string ApiBaseUrl = "https://10.0.2.2:7176/api";
+        private readonly string ApiBaseUrl = "http://keniasoaresapi.somee.com/api";
 
         private readonly JsonSerializerOptions JsonOptions = new JsonSerializerOptions
         {

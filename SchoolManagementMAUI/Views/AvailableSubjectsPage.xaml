@@ -26,7 +26,8 @@
                     <DataTemplate>
                         <Frame Style="{StaticResource EducationalCardFrame}">
                             <Frame.GestureRecognizers>
-                                <TapGestureRecognizer />
+                                <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type vm:AvailableSubjectsViewModel}}, Path=RequestEnrollmentCommand}" 
+                                                      CommandParameter="{Binding .}" />
                             </Frame.GestureRecognizers>
 
                             <Grid ColumnDefinitions="*,Auto" ColumnSpacing="15">

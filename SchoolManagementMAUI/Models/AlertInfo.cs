@@ -1,13 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Text.Json.Serialization;
-using System.Threading.Tasks;
+using CommunityToolkit.Mvvm.ComponentModel;
 
 namespace SchoolManagementMAUI.Models
-{
-    public class AlertInfo
+{    public class AlertInfo : ObservableObject
     {
         [JsonPropertyName("id")]
         public int Id { get; set; }
@@ -25,16 +21,26 @@ namespace SchoolManagementMAUI.Models
         public string Message { get; set; } = string.Empty;
 
 
+        private bool _isRead;
         [JsonPropertyName("isRead")]
-        public bool IsRead { get; set; }
+        public bool IsRead
+        {
+            get => _isRead;
+            set => SetProperty(ref _isRead, value);
+        }
 
 
         [JsonPropertyName("createdAt")]
         public DateTime CreatedAt { get; set; }
 
 
+        private DateTime? _readAt;
         [JsonPropertyName("readAt")]
-        public DateTime? ReadAt { get; set; }
+        public DateTime? ReadAt
+        {
+            get => _readAt;
+            set => SetProperty(ref _readAt, value);
+        }
 
 
         [JsonPropertyName("subjectName")]
