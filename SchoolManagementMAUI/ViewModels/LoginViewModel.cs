@@ -129,7 +129,7 @@ namespace SchoolManagementMAUI.ViewModels
                 if (Shell.Current is AppShell appShell)
                 {
                     appShell.UpdateFlyoutBehavior();
-                    appShell.UpdateMenuItems(true);
+                    // appShell.UpdateMenuItems(true); 
                 }
 
                 await Shell.Current.GoToAsync("//dashboard");

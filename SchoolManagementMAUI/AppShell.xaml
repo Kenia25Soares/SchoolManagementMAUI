@@ -5,7 +5,30 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:views="clr-namespace:SchoolManagementMAUI.Views"
      xmlns:vm="clr-namespace:SchoolManagementMAUI.Views"
-    Title="SchoolManagementMAUI">
+    Title="SchoolManagementMAUI"
+    FlyoutBackgroundColor="#1E3A8A"
+    FlyoutHeaderBehavior="Fixed">
+
+    <!-- Flyout Header -->
+    <Shell.FlyoutHeader>
+        <Grid BackgroundColor="#1E3A8A" 
+              Padding="20,50,20,20">
+            <VerticalStackLayout Spacing="10" HorizontalOptions="Center">
+                <Label Text="🏫" 
+                       FontSize="40" 
+                       HorizontalOptions="Center" />
+                <Label Text="School Management" 
+                       FontSize="18" 
+                       FontAttributes="Bold" 
+                       TextColor="White" 
+                       HorizontalOptions="Center" />
+                <Label Text="Academic Portal" 
+                       FontSize="14" 
+                       TextColor="#E0E7FF" 
+                       HorizontalOptions="Center" />
+            </VerticalStackLayout>
+        </Grid>
+    </Shell.FlyoutHeader>
 
     <!-- Definição de rotas -->
     <ShellContent ContentTemplate="{DataTemplate views:PublicHomePage}"
@@ -16,45 +39,56 @@
                   Route="login"
                   Shell.FlyoutItemIsVisible="False" />
 
-    <ShellContent Title="Dashboard"
-                  ContentTemplate="{DataTemplate views:DashboardPage}"
-                  Route="dashboard" />
+    <ShellContent ContentTemplate="{DataTemplate views:ClassesListPage}"
+                  Route="public-classes"
+                  Shell.FlyoutItemIsVisible="False" />
 
-    <ShellContent Title="Grades"
-                  ContentTemplate="{DataTemplate views:GradesPage}"
-                  Route="grades" />
+    <!-- Main Dashboard -->
+    <FlyoutItem Title="Dashboard" Icon="hero_school.svg">
+        <ShellContent ContentTemplate="{DataTemplate views:DashboardPage}"
+                      Route="dashboard" />
+    </FlyoutItem>
 
-    <ShellContent Title="Update Password"
-                  ContentTemplate="{DataTemplate views:UpdatePasswordPage}"
-                  Route="update-password" />
+    <!-- Academic Section -->
+    <FlyoutItem Title="Academic" Icon="grade_icon.svg">
+        <ShellContent ContentTemplate="{DataTemplate views:GradesPage}"
+                      Route="grades" />
+    </FlyoutItem>
 
+    <!-- Catalog Section -->
+    <FlyoutItem Title="Catalog" Icon="class_add_icon.svg">
+        <ShellContent ContentTemplate="{DataTemplate views:CoursesListPage}"
+                      Route="public-courses" />
+    </FlyoutItem>
 
-    <ShellContent Title="Courses"
-                  ContentTemplate="{DataTemplate views:CoursesListPage}"
-                  Route="public-courses" />
+    <!-- Profile Section -->
+    <FlyoutItem Title="Profile" Icon="icon_user.svg">
+        <ShellContent ContentTemplate="{DataTemplate views:ProfilePage}"
+                      Route="profile" />
+    </FlyoutItem>
 
-    <ShellContent Title="Classes"
-                  ContentTemplate="{DataTemplate views:ClassesListPage}"
-                  Route="public-classes" />
+    <!-- Notifications -->
+    <FlyoutItem Title="Notifications" Icon="icon_bell.svg">
+        <ShellContent ContentTemplate="{DataTemplate views:AlertsPage}"
+                      Route="alerts" />
+    </FlyoutItem>
 
-    <ShellContent Title="Subjects"
-                  ContentTemplate="{DataTemplate views:SubjectsListPage}"
-                  Route="public-subjects" />
+    <!-- Settings -->
+    <FlyoutItem Title="Settings" Icon="icon_user_pen.svg">
+        <ShellContent ContentTemplate="{DataTemplate views:UpdatePasswordPage}"
+                      Route="update-password" />
+    </FlyoutItem>
 
-    <ShellContent Title="My Profile"
-                  ContentTemplate="{DataTemplate views:ProfilePage}"
-                  Route="profile" />
+    <!-- About -->
+    <FlyoutItem Title="About" Icon="notification_icon.svg">
+        <ShellContent ContentTemplate="{DataTemplate views:AboutPage}"
+                      Route="about" />
+    </FlyoutItem>
 
-    <ShellContent Title="Notifications"
-                  ContentTemplate="{DataTemplate views:AlertsPage}"
-                  Route="alerts" />
-    
-    <ShellContent Title="About"
-                  ContentTemplate="{DataTemplate views:AboutPage}"
-                  Route="about" />
-
-    <ShellContent Title="Logout"
-                  Route="logout"
-                  ContentTemplate="{DataTemplate views:DashboardPage}" />
+    <!-- Logout -->
+    <FlyoutItem Title="Logout" Icon="warning_icon.svg">
+        <ShellContent ContentTemplate="{DataTemplate views:DashboardPage}"
+                      Route="logout" />
+    </FlyoutItem>
 
 </Shell>

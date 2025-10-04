@@ -12,6 +12,9 @@
     <Color x:Key="EducationalRed">#EF4444</Color>
     <Color x:Key="EducationalGray">#6B7280</Color>
     <Color x:Key="EducationalDarkGray">#1F2937</Color>
+
+    <!-- Shape Resources -->
+    <RoundRectangle x:Key="RoundRectangle" CornerRadius="8" />
     <Color x:Key="EducationalMediumGray">#4B5563</Color>
     <Color x:Key="EducationalLightGray">#9CA3AF</Color>
     <Color x:Key="EducationalBackground">#F8F9FA</Color>
@@ -23,6 +26,60 @@
         <Setter Property="CornerRadius" Value="15" />
         <Setter Property="Padding" Value="20" />
         <Setter Property="HasShadow" Value="True" />
+    </Style>
+
+    <!-- Course Header Frame Style -->
+    <Style x:Key="EducationalCourseHeaderFrame" TargetType="Frame">
+        <Setter Property="BackgroundColor" Value="#28A745" />
+        <Setter Property="CornerRadius" Value="8" />
+        <Setter Property="Padding" Value="16" />
+        <Setter Property="HasShadow" Value="False" />
+    </Style>
+
+    <!-- Course Header Label Style -->
+    <Style x:Key="EducationalCourseHeaderLabel" TargetType="Label">
+        <Setter Property="FontSize" Value="16" />
+        <Setter Property="FontAttributes" Value="Bold" />
+        <Setter Property="TextColor" Value="White" />
+        <Setter Property="HorizontalOptions" Value="Center" />
+    </Style>
+
+    <!-- Class Item Frame Style -->
+    <Style x:Key="EducationalClassItemFrame" TargetType="Frame">
+        <Setter Property="BackgroundColor" Value="#F0F0F0" />
+        <Setter Property="CornerRadius" Value="8" />
+        <Setter Property="Padding" Value="12" />
+        <Setter Property="Margin" Value="0,0,0,8" />
+        <Setter Property="HasShadow" Value="False" />
+    </Style>
+
+    <!-- Class Name Label Style -->
+    <Style x:Key="EducationalClassNameLabel" TargetType="Label">
+        <Setter Property="FontSize" Value="16" />
+        <Setter Property="FontAttributes" Value="Bold" />
+        <Setter Property="TextColor" Value="#1F2937" />
+    </Style>
+
+    <!-- Class Detail Label Style -->
+    <Style x:Key="EducationalClassDetailLabel" TargetType="Label">
+        <Setter Property="FontSize" Value="12" />
+        <Setter Property="TextColor" Value="#6B7280" />
+    </Style>
+
+    <!-- Subject Item Frame Style -->
+    <Style x:Key="EducationalSubjectItemFrame" TargetType="Frame">
+        <Setter Property="BackgroundColor" Value="#F0F0F0" />
+        <Setter Property="CornerRadius" Value="8" />
+        <Setter Property="Padding" Value="12" />
+        <Setter Property="Margin" Value="0,0,0,8" />
+        <Setter Property="HasShadow" Value="False" />
+    </Style>
+
+    <!-- Subject Item Label Style -->
+    <Style x:Key="EducationalSubjectItemLabel" TargetType="Label">
+        <Setter Property="FontSize" Value="16" />
+        <Setter Property="FontAttributes" Value="Bold" />
+        <Setter Property="TextColor" Value="#1F2937" />
     </Style>
 
     <!-- Card Frame  -->
@@ -320,6 +377,67 @@
         <Setter Property="Padding" Value="15" />
         <Setter Property="HasShadow" Value="False" />
         <Setter Property="BorderColor" Value="#2196F3" />
+    </Style>
+
+    <!-- Success Message Border Style -->
+    <Style x:Key="EducationalSuccessMessageBorder" TargetType="Border">
+        <Setter Property="BackgroundColor" Value="#D1FAE5" />
+        <Setter Property="Stroke" Value="#10B981" />
+        <Setter Property="StrokeThickness" Value="1" />
+        <Setter Property="StrokeShape" Value="{StaticResource RoundRectangle}" />
+        <Setter Property="Padding" Value="16" />
+        <Setter Property="Margin" Value="0,10,0,0" />
+    </Style>
+
+    <!-- Success Message Label Style -->
+    <Style x:Key="EducationalSuccessMessageLabel" TargetType="Label">
+        <Setter Property="TextColor" Value="#065F46" />
+        <Setter Property="FontSize" Value="14" />
+        <Setter Property="HorizontalOptions" Value="Center" />
+        <Setter Property="HorizontalTextAlignment" Value="Center" />
+    </Style>
+
+    <!-- Error Message Border Style -->
+    <Style x:Key="EducationalErrorMessageBorder" TargetType="Border">
+        <Setter Property="BackgroundColor" Value="#FEE2E2" />
+        <Setter Property="Stroke" Value="#EF4444" />
+        <Setter Property="StrokeThickness" Value="1" />
+        <Setter Property="StrokeShape" Value="{StaticResource RoundRectangle}" />
+        <Setter Property="Padding" Value="16" />
+        <Setter Property="Margin" Value="0,10,0,0" />
+    </Style>
+
+    <!-- Error Message Label Style -->
+    <Style x:Key="EducationalErrorMessageLabel" TargetType="Label">
+        <Setter Property="TextColor" Value="#991B1B" />
+        <Setter Property="FontSize" Value="14" />
+        <Setter Property="HorizontalOptions" Value="Center" />
+        <Setter Property="HorizontalTextAlignment" Value="Center" />
+    </Style>
+
+    <!-- Profile Header Frame Style -->
+    <Style x:Key="EducationalProfileHeaderFrame" TargetType="Frame">
+        <Setter Property="BackgroundColor" Value="#1E3A8A" />
+        <Setter Property="CornerRadius" Value="15" />
+        <Setter Property="Padding" Value="20" />
+        <Setter Property="HasShadow" Value="True" />
+    </Style>
+
+    <!-- Subject Code Label Style -->
+    <Style x:Key="EducationalSubjectCode" TargetType="Label">
+        <Setter Property="FontSize" Value="12" />
+        <Setter Property="FontAttributes" Value="Bold" />
+        <Setter Property="TextColor" Value="#6B7280" />
+        <Setter Property="HorizontalOptions" Value="Start" />
+        <Setter Property="VerticalOptions" Value="Center" />
+    </Style>
+
+    <!-- Info Label Style -->
+    <Style x:Key="EducationalInfoLabel" TargetType="Label">
+        <Setter Property="FontSize" Value="12" />
+        <Setter Property="TextColor" Value="#6B7280" />
+        <Setter Property="HorizontalOptions" Value="Start" />
+        <Setter Property="VerticalOptions" Value="Center" />
     </Style>
 
 </ResourceDictionary>

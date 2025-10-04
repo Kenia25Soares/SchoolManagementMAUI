@@ -16,10 +16,7 @@ namespace SchoolManagementMAUI.Services
         private readonly HttpClient _client;
         private static readonly string[] PossibleApiUrls = {
             "http://keniasoaresapi.somee.com/api",         // API online 
-            "https://keniasoaresapi.somee.com/api",        // API online HTTPS
-            "https://localhost:7176/api",         // HTTPS local
-            "http://localhost:5100/api",          // HTTP local
-            "http://10.0.2.2:5100/api"           // HTTP emulador
+            "https://keniasoaresapi.somee.com/api"         // API online HTTPS
         };
 
         private const string ApiBaseUrl = "http://keniasoaresapi.somee.com/api"; 

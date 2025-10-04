@@ -17,6 +17,7 @@ namespace SchoolManagementMAUI
             Routing.RegisterRoute("update-password", typeof(UpdatePasswordPage));
             Routing.RegisterRoute("password-management", typeof(PasswordManagementPage));
             Routing.RegisterRoute("alerts", typeof(AlertsPage));
+            Routing.RegisterRoute("subject-grade", typeof(EnhancedSubjectDetailPage));
 
             // Desabilita o menu lateral
             FlyoutBehavior = FlyoutBehavior.Disabled;

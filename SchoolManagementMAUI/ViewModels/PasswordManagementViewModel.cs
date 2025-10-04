@@ -260,7 +260,7 @@ namespace SchoolManagementMAUI.ViewModels
                     await Task.Delay(3000);
 
                     // Navega para o login
-                    await Shell.Current.GoToAsync("///login");
+                    await Shell.Current.GoToAsync("//login");
                 }
                 else
                 {
@@ -282,7 +282,7 @@ namespace SchoolManagementMAUI.ViewModels
         [RelayCommand]
         private static async Task GoBackAsync()
         {
-            await Shell.Current.GoToAsync("///login");
+            await Shell.Current.GoToAsync("//login");
         }
 
         // Helper Methods

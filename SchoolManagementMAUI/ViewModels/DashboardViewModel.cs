@@ -71,13 +71,7 @@ namespace SchoolManagementMAUI.ViewModels
         [RelayCommand]
         private async Task OpenGradesAsync()
         {
-            // Navigate to the new Student Overview page instead of direct grades
-            var services = IPlatformApplication.Current?.Services;
-            var overviewPage = services?.GetService<Views.StudentOverviewPage>();
-            if (overviewPage != null)
-            {
-                await Shell.Current.Navigation.PushAsync(overviewPage);
-            }
+            await Shell.Current.GoToAsync("//grades");
         }
 
         [RelayCommand]

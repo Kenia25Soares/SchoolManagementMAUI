@@ -148,7 +148,7 @@ namespace SchoolManagementMAUI.ViewModels
         [RelayCommand]
         private  async Task GoBackAsync()
         {
-            await Shell.Current.GoToAsync("///dashboard");
+            await Shell.Current.GoToAsync("//dashboard");
         }
 
         private void ShowMessage(string text, Color color)
