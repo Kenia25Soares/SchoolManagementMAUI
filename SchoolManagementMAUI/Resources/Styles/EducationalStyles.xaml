@@ -112,7 +112,7 @@
     <Style x:Key="EducationalHeaderLabel" TargetType="Label">
         <Setter Property="FontSize" Value="22" />
         <Setter Property="FontAttributes" Value="Bold" />
-        <Setter Property="TextColor" Value="White" />
+        <Setter Property="TextColor" Value="#1F2937" />
         <Setter Property="HorizontalOptions" Value="Center" />
     </Style>
 
@@ -196,6 +196,7 @@
     <Style x:Key="EducationalSummaryLabel" TargetType="Label">
         <Setter Property="FontSize" Value="18" />
         <Setter Property="FontAttributes" Value="Bold" />
+        <Setter Property="TextColor" Value="#1F2937" />
     </Style>
 
     <!-- Summary Value Label Style -->
@@ -208,23 +209,27 @@
     <!-- Summary Regular Label Style -->
     <Style x:Key="EducationalSummaryRegular" TargetType="Label">
         <Setter Property="FontSize" Value="16" />
+        <Setter Property="TextColor" Value="#4B5563" />
     </Style>
 
     <!-- Grades Title Label Style -->
     <Style x:Key="EducationalGradesTitle" TargetType="Label">
         <Setter Property="FontSize" Value="18" />
         <Setter Property="FontAttributes" Value="Bold" />
+        <Setter Property="TextColor" Value="#1E3A8A" />
     </Style>
 
     <!-- Grade Type Label Style -->
     <Style x:Key="EducationalGradeType" TargetType="Label">
         <Setter Property="FontSize" Value="16" />
         <Setter Property="FontAttributes" Value="Bold" />
+        <Setter Property="TextColor" Value="#1F2937" />
     </Style>
 
     <!-- Grade Info Label Style -->
     <Style x:Key="EducationalGradeInfo" TargetType="Label">
         <Setter Property="FontSize" Value="14" />
+        <Setter Property="TextColor" Value="#4B5563" />
     </Style>
 
     <!-- Grade Detail Label Style -->
@@ -243,17 +248,20 @@
     <Style x:Key="EducationalAbsencesTitle" TargetType="Label">
         <Setter Property="FontSize" Value="18" />
         <Setter Property="FontAttributes" Value="Bold" />
+        <Setter Property="TextColor" Value="#1E3A8A" />
     </Style>
 
     <!-- Absence Date Label Style -->
     <Style x:Key="EducationalAbsenceDate" TargetType="Label">
         <Setter Property="FontSize" Value="14" />
         <Setter Property="FontAttributes" Value="Bold" />
+        <Setter Property="TextColor" Value="#1F2937" />
     </Style>
 
     <!-- Absence Status Label Style -->
     <Style x:Key="EducationalAbsenceStatus" TargetType="Label">
         <Setter Property="FontSize" Value="14" />
+        <Setter Property="TextColor" Value="#4B5563" />
     </Style>
 
     <!-- Absence Justification Label Style -->
@@ -360,7 +368,8 @@
 
     <!-- Status Text Color Style -->
     <Style x:Key="StatusTextColor" TargetType="Label">
-        <Setter Property="TextColor" Value="Blue" />
+        <Setter Property="TextColor" Value="#1E3A8A" />
+        <Setter Property="FontAttributes" Value="Bold" />
     </Style>
 
     <!-- Educational Editor Style -->
@@ -368,6 +377,15 @@
         <Setter Property="BackgroundColor" Value="White" />
         <Setter Property="TextColor" Value="#1F2937" />
         <Setter Property="FontSize" Value="14" />
+    </Style>
+
+    <!-- Login Entry Style -->
+    <Style x:Key="EducationalLoginEntry" TargetType="Entry">
+        <Setter Property="BackgroundColor" Value="White" />
+        <Setter Property="TextColor" Value="#1F2937" />
+        <Setter Property="PlaceholderColor" Value="#6B7280" />
+        <Setter Property="FontSize" Value="16" />
+        <Setter Property="HeightRequest" Value="50" />
     </Style>
 
     <!-- Educational Info Frame Style -->

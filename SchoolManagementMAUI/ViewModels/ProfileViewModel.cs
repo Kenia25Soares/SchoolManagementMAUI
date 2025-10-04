@@ -28,9 +28,6 @@ namespace SchoolManagementMAUI.ViewModels
         private Stream? _newProfilePicture;
         private string? _newProfilePictureFileName;
         private string? _newProfilePictureContentType;
-        private Stream? _newOfficialPhoto;
-        private string? _newOfficialPhotoFileName;
-        private string? _newOfficialPhotoContentType;
 
         public ProfileViewModel(IUserSession userSession, IProfileService profileService)
         {
@@ -103,9 +100,9 @@ namespace SchoolManagementMAUI.ViewModels
                     ProfilePictureStream = _newProfilePicture,
                     ProfilePictureFileName = _newProfilePictureFileName,
                     ProfilePictureContentType = _newProfilePictureContentType,
-                    OfficialPhotoStream = _newOfficialPhoto,
-                    OfficialPhotoFileName = _newOfficialPhotoFileName,
-                    OfficialPhotoContentType = _newOfficialPhotoContentType
+                    OfficialPhotoStream = null,
+                    OfficialPhotoFileName = null,
+                    OfficialPhotoContentType = null
                 };
                 var result = await _profileService.UpdateFullProfileAsync(data, _userSession.CurrentUser.Token);
                 

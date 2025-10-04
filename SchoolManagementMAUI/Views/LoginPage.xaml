@@ -22,12 +22,12 @@
                 <Entry Placeholder="Email" 
                        Text="{Binding Email}" 
                        Keyboard="Email" 
-                       TextColor="Black"
+                       Style="{StaticResource EducationalLoginEntry}"
                        Margin="0,0,0,10" />
                 <Entry Placeholder="Password" 
                        Text="{Binding Password}" 
                        IsPassword="True" 
-                       TextColor="Black"
+                       Style="{StaticResource EducationalLoginEntry}"
                        Margin="0,0,0,10" />
 
                 <Button Text="Login" 

@@ -56,7 +56,7 @@
     </FlyoutItem>
 
     <!-- Catalog Section -->
-    <FlyoutItem Title="Catalog" Icon="class_add_icon.svg">
+    <FlyoutItem Title="Catalog" Icon="catalog_icon.svg">
         <ShellContent ContentTemplate="{DataTemplate views:CoursesListPage}"
                       Route="public-courses" />
     </FlyoutItem>
@@ -74,19 +74,19 @@
     </FlyoutItem>
 
     <!-- Settings -->
-    <FlyoutItem Title="Settings" Icon="icon_user_pen.svg">
+    <FlyoutItem Title="Settings" Icon="password_icon.svg">
         <ShellContent ContentTemplate="{DataTemplate views:UpdatePasswordPage}"
                       Route="update-password" />
     </FlyoutItem>
 
     <!-- About -->
-    <FlyoutItem Title="About" Icon="notification_icon.svg">
+    <FlyoutItem Title="About" Icon="info_icon.svg">
         <ShellContent ContentTemplate="{DataTemplate views:AboutPage}"
                       Route="about" />
     </FlyoutItem>
 
     <!-- Logout -->
-    <FlyoutItem Title="Logout" Icon="warning_icon.svg">
+    <FlyoutItem Title="Logout" Icon="logout_icon.svg">
         <ShellContent ContentTemplate="{DataTemplate views:DashboardPage}"
                       Route="logout" />
     </FlyoutItem>

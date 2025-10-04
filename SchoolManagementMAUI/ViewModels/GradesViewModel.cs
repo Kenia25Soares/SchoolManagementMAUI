@@ -80,7 +80,7 @@ namespace SchoolManagementMAUI.ViewModels
             }
             catch (Exception ex)
             {
-                Message = "\"Error loading grades.";
+                Message = "Error loading grades.";
             }
             finally
             {
